@@ -1,6 +1,6 @@
 // 环境监测计算工作台 Service Worker
-// v41 —— od2 每个嗅辨员 a1/a2 同行横向排列（标签补全"a₁正解最大/a₂误解最小"）；od1/od2 计算中间值 M/α/β/Xi/X̄ 均保留2位小数四舍五入，Y=t₁×10^(α·β)
-const CACHE = 'envcalc-v41-20260819';
+// v43 —— 修复恶臭面板结构 bug：od1、od2 卡片后各多 1 个 </div> 导致 panel-grid 提前闭合、od3/od4/od5 游离出网格；已删除多余闭合，全站 77 卡结构验证 0 异常
+const CACHE = 'envcalc-v43-20260819';
 const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', function (e) {

@@ -2190,7 +2190,7 @@ Y = t₁ · (t₂ / t₁)<sup>α</sup>　（t₂ &gt; t₁）</div>
   </div>
   <div class="calc-body">
     <div class="hint">稀释倍数下拉选择（环境空气 ×10 梯度）。输入正确人数与不明确人数后，错误人数自动计算（合计 = 18）；删除其中任意一项，数据全部清空重新录入。</div>
-    <div class="input-row"><label>低稀释倍数 t₁</label><select id="od1_t1" data-dilution="ambient" data-def="100"></select></div>
+    <div class="input-row"><label>低稀释倍数 t₁</label><select id="od1_t1" data-dilution="ambient" data-def="100" onchange="od1AutoT2()"></select></div>
     <div class="input-row"><label>t₁ 正确人数 a₁</label><input type="number" id="od1_a1" step="1" min="0" max="18" placeholder="0~18" oninput="od1AutoFill(1,this)"></div>
     <div class="input-row"><label>t₁ 不明确人数 b₁</label><input type="number" id="od1_b1" step="1" min="0" max="18" placeholder="0~18" oninput="od1AutoFill(1,this)"></div>
     <div class="input-row"><label>t₁ 错误人数 c₁（自动）</label><input type="number" id="od1_c1" step="1" min="0" max="18" placeholder="自动计算" readonly></div>
@@ -2202,7 +2202,6 @@ Y = t₁ · (t₂ / t₁)<sup>α</sup>　（t₂ &gt; t₁）</div>
     <div class="result-area" id="od1_result"></div>
   </div>
   <div class="std-ref">HJ 1262-2022《环境空气和废气 臭气的测定 三点比较式臭袋法》第 9.1 条；GB/T 14675-93（原标准）同法。</div>
-</div>
 </div>
 
 <!-- OD2: 臭气浓度测定（固定污染源废气 HJ 1262 §9.2 个人阈值法） -->
@@ -2227,7 +2226,7 @@ Y = D × 10<sup>X̄</sup></div>
           <span style="width:46px;flex-shrink:0;font-size:12px;color:var(--text-secondary);padding-bottom:9px;">嗅辨员A</span>
           <div style="flex:1;min-width:0;">
             <div style="font-size:10px;color:var(--accent);margin-bottom:3px;white-space:nowrap;">a₁ 正解最大</div>
-            <select id="od2_a1_A1" data-dilution="source" style="width:100%;min-width:0;"></select>
+            <select id="od2_a1_A1" data-dilution="source" style="width:100%;min-width:0;" onchange="od2AutoA2('od2_a1_A1','od2_a2_A1')"></select>
           </div>
           <div style="flex:1;min-width:0;">
             <div style="font-size:10px;color:var(--accent);margin-bottom:3px;white-space:nowrap;">a₂ 误解最小</div>
@@ -2238,7 +2237,7 @@ Y = D × 10<sup>X̄</sup></div>
           <span style="width:46px;flex-shrink:0;font-size:12px;color:var(--text-secondary);padding-bottom:9px;">嗅辨员B</span>
           <div style="flex:1;min-width:0;">
             <div style="font-size:10px;color:var(--accent);margin-bottom:3px;white-space:nowrap;">a₁ 正解最大</div>
-            <select id="od2_a1_B1" data-dilution="source" style="width:100%;min-width:0;"></select>
+            <select id="od2_a1_B1" data-dilution="source" style="width:100%;min-width:0;" onchange="od2AutoA2('od2_a1_B1','od2_a2_B1')"></select>
           </div>
           <div style="flex:1;min-width:0;">
             <div style="font-size:10px;color:var(--accent);margin-bottom:3px;white-space:nowrap;">a₂ 误解最小</div>
@@ -2249,7 +2248,7 @@ Y = D × 10<sup>X̄</sup></div>
           <span style="width:46px;flex-shrink:0;font-size:12px;color:var(--text-secondary);padding-bottom:9px;">嗅辨员C</span>
           <div style="flex:1;min-width:0;">
             <div style="font-size:10px;color:var(--accent);margin-bottom:3px;white-space:nowrap;">a₁ 正解最大</div>
-            <select id="od2_a1_C1" data-dilution="source" style="width:100%;min-width:0;"></select>
+            <select id="od2_a1_C1" data-dilution="source" style="width:100%;min-width:0;" onchange="od2AutoA2('od2_a1_C1','od2_a2_C1')"></select>
           </div>
           <div style="flex:1;min-width:0;">
             <div style="font-size:10px;color:var(--accent);margin-bottom:3px;white-space:nowrap;">a₂ 误解最小</div>
@@ -2260,7 +2259,7 @@ Y = D × 10<sup>X̄</sup></div>
           <span style="width:46px;flex-shrink:0;font-size:12px;color:var(--text-secondary);padding-bottom:9px;">嗅辨员D</span>
           <div style="flex:1;min-width:0;">
             <div style="font-size:10px;color:var(--accent);margin-bottom:3px;white-space:nowrap;">a₁ 正解最大</div>
-            <select id="od2_a1_D1" data-dilution="source" style="width:100%;min-width:0;"></select>
+            <select id="od2_a1_D1" data-dilution="source" style="width:100%;min-width:0;" onchange="od2AutoA2('od2_a1_D1','od2_a2_D1')"></select>
           </div>
           <div style="flex:1;min-width:0;">
             <div style="font-size:10px;color:var(--accent);margin-bottom:3px;white-space:nowrap;">a₂ 误解最小</div>
@@ -2274,7 +2273,7 @@ Y = D × 10<sup>X̄</sup></div>
           <span style="width:46px;flex-shrink:0;font-size:12px;color:var(--text-secondary);padding-bottom:9px;">嗅辨员A</span>
           <div style="flex:1;min-width:0;">
             <div style="font-size:10px;color:var(--accent);margin-bottom:3px;white-space:nowrap;">a₁ 正解最大</div>
-            <select id="od2_a1_A2" data-dilution="source" style="width:100%;min-width:0;"></select>
+            <select id="od2_a1_A2" data-dilution="source" style="width:100%;min-width:0;" onchange="od2AutoA2('od2_a1_A2','od2_a2_A2')"></select>
           </div>
           <div style="flex:1;min-width:0;">
             <div style="font-size:10px;color:var(--accent);margin-bottom:3px;white-space:nowrap;">a₂ 误解最小</div>
@@ -2285,7 +2284,7 @@ Y = D × 10<sup>X̄</sup></div>
           <span style="width:46px;flex-shrink:0;font-size:12px;color:var(--text-secondary);padding-bottom:9px;">嗅辨员B</span>
           <div style="flex:1;min-width:0;">
             <div style="font-size:10px;color:var(--accent);margin-bottom:3px;white-space:nowrap;">a₁ 正解最大</div>
-            <select id="od2_a1_B2" data-dilution="source" style="width:100%;min-width:0;"></select>
+            <select id="od2_a1_B2" data-dilution="source" style="width:100%;min-width:0;" onchange="od2AutoA2('od2_a1_B2','od2_a2_B2')"></select>
           </div>
           <div style="flex:1;min-width:0;">
             <div style="font-size:10px;color:var(--accent);margin-bottom:3px;white-space:nowrap;">a₂ 误解最小</div>
@@ -2296,7 +2295,7 @@ Y = D × 10<sup>X̄</sup></div>
           <span style="width:46px;flex-shrink:0;font-size:12px;color:var(--text-secondary);padding-bottom:9px;">嗅辨员C</span>
           <div style="flex:1;min-width:0;">
             <div style="font-size:10px;color:var(--accent);margin-bottom:3px;white-space:nowrap;">a₁ 正解最大</div>
-            <select id="od2_a1_C2" data-dilution="source" style="width:100%;min-width:0;"></select>
+            <select id="od2_a1_C2" data-dilution="source" style="width:100%;min-width:0;" onchange="od2AutoA2('od2_a1_C2','od2_a2_C2')"></select>
           </div>
           <div style="flex:1;min-width:0;">
             <div style="font-size:10px;color:var(--accent);margin-bottom:3px;white-space:nowrap;">a₂ 误解最小</div>
@@ -2307,7 +2306,7 @@ Y = D × 10<sup>X̄</sup></div>
           <span style="width:46px;flex-shrink:0;font-size:12px;color:var(--text-secondary);padding-bottom:9px;">嗅辨员D</span>
           <div style="flex:1;min-width:0;">
             <div style="font-size:10px;color:var(--accent);margin-bottom:3px;white-space:nowrap;">a₁ 正解最大</div>
-            <select id="od2_a1_D2" data-dilution="source" style="width:100%;min-width:0;"></select>
+            <select id="od2_a1_D2" data-dilution="source" style="width:100%;min-width:0;" onchange="od2AutoA2('od2_a1_D2','od2_a2_D2')"></select>
           </div>
           <div style="flex:1;min-width:0;">
             <div style="font-size:10px;color:var(--accent);margin-bottom:3px;white-space:nowrap;">a₂ 误解最小</div>
@@ -2321,7 +2320,6 @@ Y = D × 10<sup>X̄</sup></div>
     <div class="result-area" id="od2_result"></div>
   </div>
   <div class="std-ref">HJ 1262-2022 第 9.2 条；GB/T 14675-93 同法。固定污染源嗅辨小组 ≥4 名，每样品 2 次嗅辨。</div>
-</div>
 </div>
 
 <!-- OD3: 稀释倍数梯度与样品注入体积（HJ 1262 表1/表2） -->
@@ -4358,6 +4356,28 @@ function initDilutionSelects(){
       sel.appendChild(o);
     });
   });
+}
+
+// od1: 选择低稀释倍数 t₁ 后，自动生成高稀释倍数 t₂（环境空气梯度相邻下一档 ×10）
+function od1AutoT2(){
+  var t1Sel = document.getElementById('od1_t1');
+  var t2Sel = document.getElementById('od1_t2');
+  if (!t1Sel || !t2Sel) return;
+  var idx = t1Sel.selectedIndex;
+  if (idx >= 0 && idx < t1Sel.options.length - 1){
+    t2Sel.selectedIndex = idx + 1;  // 相邻高档
+  }
+}
+
+// od2: 选择正解最大 a₁ 后，自动生成误解最小 a₂（固定源梯度相邻下一档）
+function od2AutoA2(a1Id, a2Id){
+  var a1Sel = document.getElementById(a1Id);
+  var a2Sel = document.getElementById(a2Id);
+  if (!a1Sel || !a2Sel) return;
+  var idx = a1Sel.selectedIndex;
+  if (idx >= 0 && idx < a1Sel.options.length - 1){
+    a2Sel.selectedIndex = idx + 1;  // 相邻高档
+  }
 }
 
 // OD1: 环境空气/无组织 臭气浓度（M1/M2 法 · 天津小程序模式）
