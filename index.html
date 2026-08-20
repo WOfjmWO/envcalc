@@ -824,14 +824,15 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <div class="calc-card" id="calc-a18">
   <div class="calc-header">
     <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><polyline points="3 3 3 21 21 21"/><polyline points="3 14 8 9 12 12 21 5"/></svg>
-    <h3>流速均方差（HJ1405）</h3>
+    <h3>流速均方差（HJ 1405-2024）</h3>
   </div>
   <div class="formula-box">
-    <div class="flabel">计算公式（断面流速均方差与变异系数 · HJ 1405）</div>
-    <div class="fcontent">V&#772; = (1/n) &sum; V<sub>i</sub><br>
-均方差（样本标准偏差） s = &radic;[ &sum;(V<sub>i</sub> &minus; V&#772;)<sup>2</sup> / (n &minus; 1) ]<br>
-变异系数 CV = s / V&#772; &times; 100%&nbsp;&nbsp;&nbsp;判据：CV &le; 10%</div>
-    <div class="note" tabindex="-1">用于评价烟道测定断面的流速分布均匀性。CV &gt; 10% 表明流场不稳定或存在涡流，应增加测点数、延长直管段或另选监测断面，否则等速采样与流量核算结果代表性不足。</div>
+    <div class="flabel">计算公式（流速相对均方差 σr 与变异系数 · HJ 1405-2024 §4.2.4）</div>
+    <div class="fcontent">平均流速 v&#772; = (1/n) &sum; v<sub>i</sub><br>
+绝对标准差 s = &radic;[ &sum;(v<sub>i</sub> &minus; v&#772;)<sup>2</sup> / (n &minus; 1) ]<br>
+流速相对均方差 σ<sub>r</sub> = s / v&#772; = &radic;[ &sum;(v<sub>i</sub> &minus; v&#772;)<sup>2</sup> / ((n &minus; 1) &times; v&#772;<sup>2</sup>) ]<br>
+变异系数 CV = s / v&#772; &times; 100%&nbsp;&nbsp;&nbsp;判据：σ<sub>r</sub> &le; 0.15（HJ 1405-2024 §4.2.4）</div>
+    <div class="note" tabindex="-1">用于评价烟道测定断面的流速分布均匀性。HJ 1405-2024 §4.2.4 以"流速相对均方差 σr"（无量纲）判定：σr &gt; 0.15 表明流场不稳定或存在涡流，应增加测点数、延长直管段或另选监测断面，否则等速采样与流量核算结果代表性不足。σr = s / v̄ = CV / 100。注：HJ 1405-2024 自 2027-01-01 实施，过渡期内 GB/T 16157、HJ/T 397 关于采样位置与测点的要求仍适用。</div>
   </div>
   <div class="calc-body">
     <div class="hint">输入多次流速测定值，用逗号分隔<br>示例：13.5,14.2,12.8,13.9,14.0</div>
@@ -839,7 +840,7 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
     <button class="btn-calc" onclick="calcVelRMS()">计算</button>
     <div class="result-area" id="a18_result"></div>
   </div>
-  <div class="std-ref">参考 HJ 1405；s 为流速样本标准差(均方差)，CV 为变异系数(均匀度评估)</div>
+  <div class="std-ref">参考 HJ 1405-2024 §4.2.4：σ<sub>r</sub> 为流速相对均方差(无量纲)，s 为绝对标准差，CV 为变异系数(均匀度评估)</div>
 </div>
 
 <!-- A3: 排放速率计算 -->
@@ -3084,16 +3085,17 @@ function calcVelRMS() {
   const variance = vals.reduce((s,v)=>s+(v-mean)*(v-mean),0)/(n-1);
   const s = Math.sqrt(variance);
   const cv = s / mean * 100;
-  var cvOk = cv <= 10;
-  var cvCls = cvOk ? 'pass' : 'fail';
-  var cvJudge = '<span class="r-interpret ' + cvCls + '">' + (cvOk ? '合格' : '不合格') + '</span>';
-  showResult('a18_result', 's = ' + fmtNum(s, 3) + ' m/s',
+  const sigmaR = s / mean;
+  var rmsOk = sigmaR <= 0.15;
+  var rmsCls = rmsOk ? 'pass' : 'fail';
+  var rmsJudge = '<span class="r-interpret ' + rmsCls + '">' + (rmsOk ? '合格' : '不合格') + '</span>';
+  showResult('a18_result', 'σr = ' + fmtNum(sigmaR, 4),
     'n=' + n + ', 平均流速 V̄=' + fmtNum(mean,3) + ' m/s<br>'
-    + '均方差(标准差) s = ' + fmtNum(s,3) + ' m/s<br>'
-    + '变异系数 CV = ' + fmtNum(cv,2) + '% '
-    + '<span style="font-size:12px;color:var(--text-secondary)">（HJ 1405 判定限值：CV ≤ 10%）</span> '
-    + cvJudge, cvOk ? 'pass' : 'fail');
-  window._a18_data = {n, mean, s, cv, cvOk};
+    + '绝对标准差 s = ' + fmtNum(s,3) + ' m/s<br>'
+    + '变异系数 CV = ' + fmtNum(cv,2) + '%<br>'
+    + '<span style="font-size:12px;color:var(--text-secondary)">（HJ 1405-2024 §4.2.4 判据：σr ≤ 0.15）</span> '
+    + rmsJudge, rmsOk ? 'pass' : 'fail');
+  window._a18_data = {n, mean, s, cv, sigmaR, rmsOk};
 }
 
 function calcAirEmissionRate() {

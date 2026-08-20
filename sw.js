@@ -1,6 +1,6 @@
 // 环境监测计算工作台 Service Worker
-// v43 —— 修复恶臭面板结构 bug：od1、od2 卡片后各多 1 个 </div> 导致 panel-grid 提前闭合、od3/od4/od5 游离出网格；已删除多余闭合，全站 77 卡结构验证 0 异常
-const CACHE = 'envcalc-v43-20260819';
+// v44 —— 流速均方差(A10)对齐 HJ 1405-2024 §4.2.4：实现流速相对均方差 σr=√[Σ(vi−v̄)²/((n−1)·v̄²)]，判据 σr≤0.15；保留绝对标准差 s 与 CV% 作参考
+const CACHE = 'envcalc-v44-20260820';
 const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', function (e) {
