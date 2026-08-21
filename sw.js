@@ -1,6 +1,6 @@
 // 环境监测计算工作台 Service Worker
-// v44 —— 流速均方差(A10)对齐 HJ 1405-2024 §4.2.4：实现流速相对均方差 σr=√[Σ(vi−v̄)²/((n−1)·v̄²)]，判据 σr≤0.15；保留绝对标准差 s 与 CV% 作参考
-const CACHE = 'envcalc-v44-20260820';
+// v50 —— g10 一次性卫生用品卡按范工确认口径清理：删除全部 GB 4789.2/4789.3/4789.15 引用（6 处 note/flabel/std-ref），统一以 GB 15979-2024 自带检验方法（第5章）为口径；修复 MPN 错字；QA 回归 0 缺陷
+const CACHE = 'envcalc-v50-20260821';
 const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', function (e) {
