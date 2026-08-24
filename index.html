@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
+<html lang="zh-CN"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>fanjianming</title>
@@ -281,7 +279,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .calc-card.compact .calc-header{ padding:9px 11px 5px; gap:6px; }
 .calc-card.compact .calc-header h3{ font-size:13.5px; line-height:1.2; }
 .calc-card.compact .calc-body{ padding:0 11px 9px; }
-.input-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(0,1fr)); gap:5px 9px; margin-bottom:7px; }
+.input-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr)); gap:5px 9px; margin-bottom:7px; }
 .input-grid .input-row{ margin-bottom:0; gap:4px; }
 .input-grid .input-row label{ min-width:auto; font-size:11.5px; margin-bottom:1px; display:block; }
 .input-grid .input-row input,
@@ -336,22 +334,22 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
   </div>
   <div class="toolbar">
     <button onclick="exportJSON()" title="导出全部计算记录">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
       导出JSON
     </button>
     <button onclick="document.getElementById('importFile').click()" title="从JSON文件恢复数据">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
       导入恢复
     </button>
     <button class="danger" onclick="clearAllData()" title="清空所有数据（需二次确认）">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path></svg>
       清空全部
     </button>
     <button class="dev-only" onclick="clearExamples()" style="font-size:12px;">
       清空示例
     </button>
     <button id="densityToggle" class="desktop-only" onclick="toggleDensity()" title="切换桌面端显示密度（精简/标准）">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
       <span id="densityLabel">标准视图</span>
     </button>
     <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
@@ -367,51 +365,51 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <div class="tabs-scroll">
 <nav class="tabs" id="tabNav">
   <button class="tab active" data-tab="air" data-theme="air">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-2a2 2 0 00-2 2v1a2 2 0 002 2h2a2 2 0 002-2v-1a2 2 0 00-2-2z"/><path d="M6 6h5a2 2 0 012 2v3a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2z"/><path d="M10 18h8a2 2 0 002-2v-1a2 2 0 00-2-2h-2"/><line x1="20" y1="10" x2="20" y2="3"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-2a2 2 0 00-2 2v1a2 2 0 002 2h2a2 2 0 002-2v-1a2 2 0 00-2-2z"></path><path d="M6 6h5a2 2 0 012 2v3a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2z"></path><path d="M10 18h8a2 2 0 002-2v-1a2 2 0 00-2-2h-2"></path><line x1="20" y1="10" x2="20" y2="3"></line></svg>
     大气环境
   </button>
   <button class="tab" data-tab="meteo" data-theme="meteo">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h12a3 3 0 100-6"/><path d="M3 12v6a3 3 0 003 3h12"/><path d="M17 15l3-3-3-3"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h12a3 3 0 100-6"></path><path d="M3 12v6a3 3 0 003 3h12"></path><path d="M17 15l3-3-3-3"></path></svg>
     厂界气象
   </button>
   <button class="tab" data-tab="noise" data-theme="noise">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19"></polygon><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"></path></svg>
     声环境
   </button>
   <button class="tab" data-tab="calib" data-theme="calib">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"></path></svg>
     仪器校准
   </button>
   <button class="tab" data-tab="oil" data-theme="oil">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2c3 4 6 7 6 11a6 6 0 01-12 0c0-4 3-7 6-11z"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2c3 4 6 7 6 11a6 6 0 01-12 0c0-4 3-7 6-11z"></path></svg>
     油气回收
   </button>
   <button class="tab" data-tab="general" data-theme="general">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 14l3-3 3 3 4-5"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M7 14l3-3 3 3 4-5"></path></svg>
     通用工具
   </button>
   <button class="tab" data-tab="water" data-theme="water">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"/><circle cx="10" cy="15" r="2"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"></path><circle cx="10" cy="15" r="2"></circle></svg>
     水环境
   </button>
   <button class="tab" data-tab="soil" data-theme="soil">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20l10-4 10 4"/><path d="M3 16l5-3 2 1 4-3 7 4"/><path d="M4 12l4-2 5 2 7-3"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20l10-4 10 4"></path><path d="M3 16l5-3 2 1 4-3 7 4"></path><path d="M4 12l4-2 5 2 7-3"></path></svg>
     土壤环境
   </button>
   <button class="tab" data-tab="laoying" data-theme="laoying">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18"></path><path d="M9 21V9"></path></svg>
     崂应仪器
   </button>
   <button class="tab" data-tab="method" data-theme="method">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12l3 3 5-6"></path></svg>
     方法验证
   </button>
   <button class="tab" data-tab="odor" data-theme="odor">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9c2-2 4-2 6 0s4 2 6 0"/><path d="M4 14c2-2 4-2 6 0s4 2 6 0"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9c2-2 4-2 6 0s4 2 6 0"></path><path d="M4 14c2-2 4-2 6 0s4 2 6 0"></path></svg>
     恶臭浓度
   </button>
   <button class="tab" data-tab="pollutant" data-theme="pollutant">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
     污染物计算
   </button>
 </nav>
@@ -437,7 +435,7 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <!-- A1: 基准含氧量折算浓度 -->
 <div class="calc-card" id="calc-a1">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M6 8h12"/><path d="M6 12h12"/><path d="M6 16h8"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M6 8h12"></path><path d="M6 12h12"></path><path d="M6 16h8"></path></svg>
     <h3>基准含氧量折算浓度</h3>
   </div>
   <div class="formula-box">
@@ -467,34 +465,34 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <!-- A6: 过量空气系数折算浓度 -->
 <div class="calc-card" id="calc-a2">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14l2-4 2 4 2-4 2 4"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14l2-4 2 4 2-4 2 4"></path></svg>
     <h3>过量空气系数折算浓度</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（崂应式16 / 通用折算）</div>
-    <div class="fcontent">C<sub>折</sub> = C<sub>实测</sub> &times; &alpha;<sub>基准</sub> / &alpha;<sub>实测</sub> &times; K</div>
+    <div class="fcontent">C<sub>折</sub> = C<sub>实测</sub> × α<sub>基准</sub> / α<sub>实测</sub> × K</div>
   </div>
   <div class="calc-body">
     <div class="input-row"><label>C<sub>实测</sub></label><input type="number" id="a2_c" step="any" placeholder="实测浓度 mg/m³"></div>
-    <div class="input-row"><label>&alpha;<sub>实测</sub></label><input type="number" id="a2_a_real" step="any" placeholder="实测过量空气系数"></div>
-    <div class="input-row"><label>&alpha;<sub>基准</sub></label><input type="number" id="a2_a_base" step="any" placeholder="标准规定值(如:1.8)"></div>
+    <div class="input-row"><label>α<sub>实测</sub></label><input type="number" id="a2_a_real" step="any" placeholder="实测过量空气系数"></div>
+    <div class="input-row"><label>α<sub>基准</sub></label><input type="number" id="a2_a_base" step="any" placeholder="标准规定值(如:1.8)"></div>
     <div class="input-row"><label>出力系数 K</label><input type="number" id="a2_k" value="1" step="any" placeholder="锅炉出力系数(常取1)"></div>
     <div class="input-row"><label>污染物</label><input type="text" id="a2_name" value="" placeholder="如: 颗粒物"></div>
     <button class="btn-calc" onclick="calcAirAlphaDilution()">计算</button>
     <div class="result-area" id="a2_result"></div>
   </div>
-  <div class="std-ref">参考标准：GB 13271-2014 附录A；崂应3012H-D式(16)；燃煤&alpha;基准=1.8，燃油=1.2，燃气=1.167</div>
+  <div class="std-ref">参考标准：GB 13271-2014 附录A；崂应3012H-D式(16)；燃煤α基准=1.8，燃油=1.2，燃气=1.167</div>
 </div>
 
 <!-- A2: 过剩空气系数 -->
 <div class="calc-card" id="calc-a3">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14l2-4 2 4 2-4 2 4"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14l2-4 2 4 2-4 2 4"></path></svg>
     <h3>过剩空气系数（实测）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式</div>
-    <div class="fcontent">&alpha; = 21 / (21 &minus; O<sub>2</sub>)</div>
+    <div class="fcontent">α = 21 / (21 − O<sub>2</sub>)</div>
   </div>
   <div class="calc-body">
     <div class="input-row"><label>烟气含氧量 O<sub>2</sub></label><input type="number" id="a3_o2" step="any" placeholder="%"></div>
@@ -507,12 +505,12 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <!-- A14: 非甲烷总烃 干基浓度折算(HJ1332) -->
 <div class="calc-card" id="calc-a4">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2v4"/><path d="M12 18v4"/><circle cx="12" cy="12" r="3"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2v4"></path><path d="M12 18v4"></path><circle cx="12" cy="12" r="3"></circle></svg>
     <h3>非甲烷总烃 干基浓度（HJ1332）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（湿基 → 干基）</div>
-    <div class="fcontent">C<sub>干基</sub> = C<sub>湿基</sub> / (1 &minus; X<sub>sw</sub>)</div>
+    <div class="fcontent">C<sub>干基</sub> = C<sub>湿基</sub> / (1 − X<sub>sw</sub>)</div>
   </div>
   <div class="calc-body">
     <div class="input-row"><label>C<sub>实测</sub>(湿基)</label><input type="number" id="a4_c" step="any" placeholder="mg/m³"></div>
@@ -526,12 +524,12 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <!-- A7: 油烟净化效率(GB18483) -->
 <div class="calc-card" id="calc-a5">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 3v18h18"></path><path d="M7 14l4-4 3 3 5-6"></path></svg>
     <h3>油烟净化效率（GB18483）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（基于排放速率）</div>
-    <div class="fcontent">&eta; = (C<sub>前</sub>Q<sub>前</sub> &minus; C<sub>后</sub>Q<sub>后</sub>) / (C<sub>前</sub>Q<sub>前</sub>) &times; 100%</div>
+    <div class="fcontent">η = (C<sub>前</sub>Q<sub>前</sub> − C<sub>后</sub>Q<sub>后</sub>) / (C<sub>前</sub>Q<sub>前</sub>) × 100%</div>
   </div>
   <div class="calc-body">
     <div class="input-row"><label>净化前浓度 C<sub>前</sub></label><input type="number" id="a5_cf" step="any" placeholder="mg/m³"></div>
@@ -548,7 +546,7 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <!-- A40: 油烟基准风量折算浓度(GB18483) -->
 <div class="calc-card" id="calc-a6">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 3v18h18"></path><path d="M7 14l4-4 3 3 5-6"></path></svg>
     <h3>油烟基准风量折算浓度（GB 18483）</h3>
   </div>
   <div class="formula-box">
@@ -577,16 +575,16 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <!-- A8: 内插法/外推法 -->
 <div class="calc-card" id="calc-a7">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M21 6l-9 6-9-6"/><path d="M3 12l9 6 9-6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M21 6l-9 6-9-6"></path><path d="M3 12l9 6 9-6"></path></svg>
     <h3>排气筒高度 内插/外推法</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（GB 16297-1996 附录B · 排气筒最高允许排放速率内插/外推）</div>
     <div class="fcontent"><b>内插法</b>（表列 h<sub>a</sub> &lt; h &lt; h<sub>a+1</sub>）：<br>
-&nbsp;&nbsp;Q = Q<sub>a</sub> + (Q<sub>a+1</sub> &minus; Q<sub>a</sub>) / (h<sub>a+1</sub> &minus; h<sub>a</sub>) &times; (h &minus; h<sub>a</sub>)<br>
+  Q = Q<sub>a</sub> + (Q<sub>a+1</sub> − Q<sub>a</sub>) / (h<sub>a+1</sub> − h<sub>a</sub>) × (h − h<sub>a</sub>)<br>
 <b>外推法</b>（h &gt; 表列最高值 h<sub>b</sub>）：<br>
-&nbsp;&nbsp;Q = Q<sub>b</sub> &times; ( h / h<sub>b</sub> )<sup>2</sup><br>
-达标判定：实测排放速率 G &le; Q</div>
+  Q = Q<sub>b</sub> × ( h / h<sub>b</sub> )<sup>2</sup><br>
+达标判定：实测排放速率 G ≤ Q</div>
     <div class="note" tabindex="-1">排气筒高度低于 15 m 时，其最高允许排放速率按外推结果再严格 50%（即取 Q/2）执行。两个排气筒之间距离小于该两个排气筒高度之和时，应合并视为一个等效排气筒计算。</div>
   </div>
   <div class="calc-body">
@@ -611,7 +609,7 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <!-- A42: 等效排气筒(GB 16297 附录A) -->
 <div class="calc-card" id="calc-a8">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h18"/><path d="M3 7h12"/><path d="M3 17h12"/><circle cx="18" cy="7" r="2"/><circle cx="18" cy="17" r="2"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h18"></path><path d="M3 7h12"></path><path d="M3 17h12"></path><circle cx="18" cy="7" r="2"></circle><circle cx="18" cy="17" r="2"></circle></svg>
     <h3>等效排气筒(GB 16297 附录A)</h3>
   </div>
   <div class="formula-box">
@@ -642,12 +640,12 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <!-- A4: 标态干烟气流量换算 -->
 <div class="calc-card" id="calc-a9">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M2 22l5-13 4 8 5-12 6 17"/><circle cx="7" cy="9" r="3"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M2 22l5-13 4 8 5-12 6 17"></path><circle cx="7" cy="9" r="3"></circle></svg>
     <h3>标态干烟气流量换算</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（标态干烟气流量 · GB/T 16157-1996）</div>
-    <div class="fcontent">Q<sub>snd</sub> = Q<sub>s</sub> &times; 273/(273 + t<sub>s</sub>) &times; (P<sub>a</sub> + P<sub>s</sub>)/101325 &times; (1 &minus; X<sub>sw</sub>)</div>
+    <div class="fcontent">Q<sub>snd</sub> = Q<sub>s</sub> × 273/(273 + t<sub>s</sub>) × (P<sub>a</sub> + P<sub>s</sub>)/101325 × (1 − X<sub>sw</sub>)</div>
     <div class="note" tabindex="-1">Q<sub>s</sub> 工况湿烟气流量(m³/h)；t<sub>s</sub> 烟气温度(℃)；P<sub>a</sub> 大气压、P<sub>s</sub> 烟道静压，本卡两者<b>均以 Pa 为单位</b>（故分母取 101325 Pa）；X<sub>sw</sub> 为烟气含湿量体积分数，以<b>小数 0~1</b> 输入。标准状态指 273 K、101325 Pa 的干烟气状态。</div>
   </div>
   <div class="calc-body">
@@ -665,14 +663,14 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <!-- A11: 体积换算(废气标况/环境空气参比/无组织) -->
 <div class="calc-card" id="calc-a10">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path d="M3 9h18"></path><path d="M9 21V9"></path></svg>
     <h3>体积换算（标况/参比）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（体积状态换算 · GB/T 16157-1996 / HJ 194-2017 / HJ/T 55-2000）</div>
-    <div class="fcontent"><b>废气标况（干基）</b>：V<sub>nd</sub> = V &times; 273/(273 + t) &times; (B<sub>a</sub> + P<sub>s</sub>)/101.325 &times; (1 &minus; X<sub>sw</sub>)<br>
-<b>环境空气参比状态</b>：V<sub>r</sub> = V &times; 298.15/(273.15 + t) &times; P/101.325<br>
-<b>无组织排放标况</b>：V<sub>s</sub> = V &times; 273/(273 + t) &times; B<sub>a</sub>/101.325 &times; (1 &minus; X<sub>sw</sub>)</div>
+    <div class="fcontent"><b>废气标况（干基）</b>：V<sub>nd</sub> = V × 273/(273 + t) × (B<sub>a</sub> + P<sub>s</sub>)/101.325 × (1 − X<sub>sw</sub>)<br>
+<b>环境空气参比状态</b>：V<sub>r</sub> = V × 298.15/(273.15 + t) × P/101.325<br>
+<b>无组织排放标况</b>：V<sub>s</sub> = V × 273/(273 + t) × B<sub>a</sub>/101.325 × (1 − X<sub>sw</sub>)</div>
     <div class="note" tabindex="-1">压力单位统一为 kPa，X<sub>sw</sub> 以百分数(%)输入。废气标准状态为 273 K、101.325 kPa；环境空气按 HJ 194-2017 采用 298.15 K、101.325 kPa 参比状态。无组织采样点位于敞开大气中，不叠加烟道静压 P<sub>s</sub>。</div>
   </div>
   <div class="calc-body">
@@ -691,12 +689,12 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <!-- A31: 标况采样体积(崂应式4) -->
 <div class="calc-card" id="calc-a11">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 3h18v4H3z"/><path d="M5 7v13h14V7"/><path d="M9 11h6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 3h18v4H3z"></path><path d="M5 7v13h14V7"></path><path d="M9 11h6"></path></svg>
     <h3>标况采样体积（崂应式4）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（崂应 3012H-D 式4 · 标况采样体积，GB/T 16157-1996）</div>
-    <div class="fcontent">V<sub>nd</sub> = V &times; 273/(273 + t<sub>s</sub>) &times; (B<sub>a</sub> + P<sub>s</sub>)/101.325</div>
+    <div class="fcontent">V<sub>nd</sub> = V × 273/(273 + t<sub>s</sub>) × (B<sub>a</sub> + P<sub>s</sub>)/101.325</div>
     <div class="note" tabindex="-1">V 为累积流量计示值给出的实际采样体积(L)；t<sub>s</sub> 为流量计前气体温度(℃)；B<sub>a</sub> 为大气压、P<sub>s</sub> 为流量计前表压，单位均为 kPa。结果为 273 K、101.325 kPa 下的标况体积(L)，用于计算颗粒物与气态污染物浓度。</div>
   </div>
   <div class="calc-body">
@@ -713,13 +711,13 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <!-- A32: 烟气工况流量(崂应式5) -->
 <div class="calc-card" id="calc-a12">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M2 12h20"/><path d="M4 12V8h4v4"/><path d="M12 12V6h4v6"/><path d="M18 12v-2h2v2"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M2 12h20"></path><path d="M4 12V8h4v4"></path><path d="M12 12V6h4v6"></path><path d="M18 12v-2h2v2"></path></svg>
     <h3>烟气工况流量（崂应式5）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（崂应 3012H-D 式5 · 工况烟气流量，GB/T 16157-1996）</div>
-    <div class="fcontent">Q<sub>s</sub> = 3600 &times; V<sub>s</sub> &times; F</div>
-    <div class="note" tabindex="-1">V<sub>s</sub> 为烟道测定断面的平均流速(m/s)，F 为烟道断面积(m²)，系数 3600 为 s&rarr;h 换算，结果为工况湿烟气流量(m³/h)。断面积应按实测内径计算，圆形烟道 F = &pi;D<sup>2</sup>/4。</div>
+    <div class="fcontent">Q<sub>s</sub> = 3600 × V<sub>s</sub> × F</div>
+    <div class="note" tabindex="-1">V<sub>s</sub> 为烟道测定断面的平均流速(m/s)，F 为烟道断面积(m²)，系数 3600 为 s→h 换算，结果为工况湿烟气流量(m³/h)。断面积应按实测内径计算，圆形烟道 F = πD<sup>2</sup>/4。</div>
   </div>
   <div class="calc-body">
     <div class="input-row"><label>烟气流速 V<sub>s</sub></label><input type="number" id="a12_vs" step="any" placeholder="m/s"></div>
@@ -733,13 +731,13 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <!-- A33: 标干烟气流量(崂应式6) -->
 <div class="calc-card" id="calc-a13">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M2 22l5-13 4 8 5-12 6 17"/><circle cx="7" cy="9" r="3"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M2 22l5-13 4 8 5-12 6 17"></path><circle cx="7" cy="9" r="3"></circle></svg>
     <h3>标干烟气流量（崂应式6）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（崂应 3012H-D 式6 · 标干烟气流量，GB/T 16157-1996）</div>
-    <div class="fcontent">Q<sub>snd</sub> = Q<sub>s</sub> &times; 273/(273 + t<sub>s</sub>) &times; (B<sub>a</sub> + P<sub>s</sub>)/101.325 &times; (1 &minus; X<sub>sw</sub>)</div>
-    <div class="note" tabindex="-1">Q<sub>s</sub> 工况湿烟气流量(m³/h)；B<sub>a</sub>、P<sub>s</sub> 单位为 kPa；X<sub>sw</sub> 以<b>百分数(%)</b>输入，程序内部按 (1 &minus; X<sub>sw</sub>/100) 计算。标干流量是核算污染物排放速率与排放量的基准流量。</div>
+    <div class="fcontent">Q<sub>snd</sub> = Q<sub>s</sub> × 273/(273 + t<sub>s</sub>) × (B<sub>a</sub> + P<sub>s</sub>)/101.325 × (1 − X<sub>sw</sub>)</div>
+    <div class="note" tabindex="-1">Q<sub>s</sub> 工况湿烟气流量(m³/h)；B<sub>a</sub>、P<sub>s</sub> 单位为 kPa；X<sub>sw</sub> 以<b>百分数(%)</b>输入，程序内部按 (1 − X<sub>sw</sub>/100) 计算。标干流量是核算污染物排放速率与排放量的基准流量。</div>
   </div>
   <div class="calc-body">
     <div class="input-row"><label>工况流量 Q<sub>s</sub></label><input type="number" id="a13_qs" step="any" placeholder="m³/h"></div>
@@ -762,34 +760,34 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <!-- A34: 烟气流速(崂应式11) -->
 <div class="calc-card" id="calc-a14">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h18"/><path d="M7 8l4 4-4 4"/><path d="M13 8l4 4-4 4"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h18"></path><path d="M7 8l4 4-4 4"></path><path d="M13 8l4 4-4 4"></path></svg>
     <h3>烟气流速（皮托管 崂应式11）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（崂应 3012H-D 式11 · 皮托管法烟气流速，GB/T 16157-1996）</div>
-    <div class="fcontent">V<sub>s</sub> = K<sub>p</sub> &times; &radic;( 2 P<sub>d</sub> / &rho; ) = 1.414 &times; K<sub>p</sub> &times; &radic;( P<sub>d</sub> / &rho; )</div>
-    <div class="note" tabindex="-1">K<sub>p</sub> 为皮托管系数（S 型约 0.84，标准型约 1.00，以校正证书为准）；P<sub>d</sub> 为动压(Pa)；&rho; 为工况烟气密度(kg/m³)。断面平均流速应先对各测点的 &radic;P<sub>d</sub> 求算术平均，再代入本式计算，不可先平均 P<sub>d</sub>。</div>
+    <div class="fcontent">V<sub>s</sub> = K<sub>p</sub> × √( 2 P<sub>d</sub> / ρ ) = 1.414 × K<sub>p</sub> × √( P<sub>d</sub> / ρ )</div>
+    <div class="note" tabindex="-1">K<sub>p</sub> 为皮托管系数（S 型约 0.84，标准型约 1.00，以校正证书为准）；P<sub>d</sub> 为动压(Pa)；ρ 为工况烟气密度(kg/m³)。断面平均流速应先对各测点的 √P<sub>d</sub> 求算术平均，再代入本式计算，不可先平均 P<sub>d</sub>。</div>
   </div>
   <div class="calc-body">
     <div class="input-row"><label>皮托管系数 K<sub>p</sub></label><input type="number" id="a14_kp" value="0.84" step="any" placeholder="常用0.84"></div>
     <div class="input-row"><label>动压 P<sub>d</sub></label><input type="number" id="a14_pd" step="any" placeholder="Pa"></div>
-    <div class="input-row"><label>烟气密度 &rho;</label><input type="number" id="a14_rho" step="any" placeholder="kg/m³ (可由下式计算)"></div>
+    <div class="input-row"><label>烟气密度 ρ</label><input type="number" id="a14_rho" step="any" placeholder="kg/m³ (可由下式计算)"></div>
     <button class="btn-calc" onclick="calcFlueVel()">计算</button>
     <div class="result-area" id="a14_result"></div>
   </div>
-  <div class="std-ref">崂应3012H-D说明书式(11)；&rho;可由"烟气密度"计算器求得</div>
+  <div class="std-ref">崂应3012H-D说明书式(11)；ρ可由"烟气密度"计算器求得</div>
 </div>
 
 <!-- A35: 烟气密度(崂应式12) -->
 <div class="calc-card" id="calc-a15">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18M3 12h18"></path></svg>
     <h3>烟气密度（崂应式12）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（崂应 3012H-D 式12 · 工况烟气密度）</div>
-    <div class="fcontent">&rho; = 1.34 &times; (B<sub>a</sub> + P<sub>s</sub>)/101.325 &times; 273/(273 + t<sub>s</sub>)</div>
-    <div class="note" tabindex="-1">1.34 kg/m³ 为标准状态下一般燃烧烟气的近似密度。当烟气组分与空气差异较大（如高 CO<sub>2</sub>、高湿或含大量惰性气体）时，应先按实测组分计算标况密度 &rho;<sub>n</sub> 再代入。B<sub>a</sub>、P<sub>s</sub> 单位为 kPa。</div>
+    <div class="fcontent">ρ = 1.34 × (B<sub>a</sub> + P<sub>s</sub>)/101.325 × 273/(273 + t<sub>s</sub>)</div>
+    <div class="note" tabindex="-1">1.34 kg/m³ 为标准状态下一般燃烧烟气的近似密度。当烟气组分与空气差异较大（如高 CO<sub>2</sub>、高湿或含大量惰性气体）时，应先按实测组分计算标况密度 ρ<sub>n</sub> 再代入。B<sub>a</sub>、P<sub>s</sub> 单位为 kPa。</div>
   </div>
   <div class="calc-body">
     <div class="input-row"><label>烟气温度 t<sub>s</sub></label><input type="number" id="a15_ts" step="any" placeholder="℃"></div>
@@ -804,12 +802,12 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <!-- A37: 静压(崂应式8) -->
 <div class="calc-card" id="calc-a16">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h18"/><path d="M6 8v8"/><path d="M10 6v12"/><path d="M14 9v6"/><path d="M18 7v10"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h18"></path><path d="M6 8v8"></path><path d="M10 6v12"></path><path d="M14 9v6"></path><path d="M18 7v10"></path></svg>
     <h3>静压计算（崂应式8）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（崂应 3012H-D 式8 · 烟道静压）</div>
-    <div class="fcontent">P<sub>s</sub> = P<sub>t</sub> &minus; K<sub>p</sub> &times; P<sub>d</sub> / 1000</div>
+    <div class="fcontent">P<sub>s</sub> = P<sub>t</sub> − K<sub>p</sub> × P<sub>d</sub> / 1000</div>
     <div class="note" tabindex="-1">P<sub>t</sub> 为全压(kPa)，P<sub>d</sub> 为动压(Pa)，除以 1000 换算为 kPa 后相减。P<sub>s</sub> 为负值表示烟道内处于负压状态（引风机在测点下游），此时标况换算中的 (B<sub>a</sub> + P<sub>s</sub>) 将小于大气压。</div>
   </div>
   <div class="calc-body">
@@ -825,17 +823,17 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <!-- A38: 等速采样流量/采样嘴直径 -->
 <div class="calc-card" id="calc-a17">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="3" x2="12" y2="9"/><line x1="12" y1="15" x2="12" y2="21"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="3"></circle><line x1="12" y1="3" x2="12" y2="9"></line><line x1="12" y1="15" x2="12" y2="21"></line></svg>
     <h3>等速采样流量/采样嘴直径</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（崂应式9/10 · 等速采样流量与采样嘴直径，GB/T 16157-1996）</div>
-    <div class="fcontent">等速采样流量：Q<sub>rs</sub> = 0.047 &times; V<sub>s</sub> &times; d<sup>2</sup> &times; (1 &minus; X<sub>sw</sub>)<br>
-采样嘴直径（由上式反解）：d = &radic;[ Q<sub>rs</sub> / ( 0.047 &times; V<sub>s</sub> &times; (1 &minus; X<sub>sw</sub>) ) ]</div>
-    <div class="note" tabindex="-1">V<sub>s</sub> 烟气流速(m/s)、d 采样嘴内径(mm)、Q<sub>rs</sub> 流量计前干气体流量(L/min)、X<sub>sw</sub> 以百分数(%)输入。等速采样相对偏差应控制在 &plusmn;10% 以内。<b>待确认：</b>本卡“求采样嘴直径”分支当前使用 d = 0.047 &times; &radic;[Q<sub>rs</sub>/(V<sub>s</sub>(1&minus;X<sub>sw</sub>))]，与上式反解相差约 98 倍，请确认应采用哪一形式（涉及 JS 计算逻辑，本次未改动）。</div>
+    <div class="fcontent">等速采样流量：Q<sub>rs</sub> = 0.047 × V<sub>s</sub> × d<sup>2</sup> × (1 − X<sub>sw</sub>)<br>
+采样嘴直径（由上式反解）：d = √[ Q<sub>rs</sub> / ( 0.047 × V<sub>s</sub> × (1 − X<sub>sw</sub>) ) ]</div>
+    <div class="note" tabindex="-1">V<sub>s</sub> 烟气流速(m/s)、d 采样嘴内径(mm)、Q<sub>rs</sub> 流量计前干气体流量(L/min)、X<sub>sw</sub> 以百分数(%)输入。等速采样相对偏差应控制在 ±10% 以内。<b>待确认：</b>本卡“求采样嘴直径”分支当前使用 d = 0.047 × √[Q<sub>rs</sub>/(V<sub>s</sub>(1−X<sub>sw</sub>))]，与上式反解相差约 98 倍，请确认应采用哪一形式（涉及 JS 计算逻辑，本次未改动）。</div>
   </div>
   <div class="calc-body">
-    <div class="input-row"><label>计算目标</label><select id="a17_mode"><option value="qrs">由流速求等速流量 Q<sub>rs</sub></option><option value="d">由流量求采样嘴直径 d</option></select></div>
+    <div class="input-row"><label>计算目标</label><select id="a17_mode"><option value="qrs">由流速求等速流量 Qrs</option><option value="d">由流量求采样嘴直径 d</option></select></div>
     <div class="input-row"><label>烟气流速 V<sub>s</sub></label><input type="number" id="a17_vs" step="any" placeholder="m/s"></div>
     <div class="input-row"><label>采样嘴直径 d</label><input type="number" id="a17_d" step="any" placeholder="mm"></div>
     <div class="input-row"><label>等速流量 Q<sub>rs</sub></label><input type="number" id="a17_qrs" step="any" placeholder="L/min"></div>
@@ -849,15 +847,15 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <!-- A10: 流速均方差(HJ1405) -->
 <div class="calc-card" id="calc-a18">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><polyline points="3 3 3 21 21 21"/><polyline points="3 14 8 9 12 12 21 5"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><polyline points="3 3 3 21 21 21"></polyline><polyline points="3 14 8 9 12 12 21 5"></polyline></svg>
     <h3>流速均方差（HJ 1405-2024）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（流速相对均方差 σr 与变异系数 · HJ 1405-2024 §4.2.4）</div>
-    <div class="fcontent">平均流速 v&#772; = (1/n) &sum; v<sub>i</sub><br>
-绝对标准差 s = &radic;[ &sum;(v<sub>i</sub> &minus; v&#772;)<sup>2</sup> / (n &minus; 1) ]<br>
-流速相对均方差 σ<sub>r</sub> = s / v&#772; = &radic;[ &sum;(v<sub>i</sub> &minus; v&#772;)<sup>2</sup> / ((n &minus; 1) &times; v&#772;<sup>2</sup>) ]<br>
-变异系数 CV = s / v&#772; &times; 100%&nbsp;&nbsp;&nbsp;判据：σ<sub>r</sub> &le; 0.15（HJ 1405-2024 §4.2.4）</div>
+    <div class="fcontent">平均流速 v̄ = (1/n) ∑ v<sub>i</sub><br>
+绝对标准差 s = √[ ∑(v<sub>i</sub> − v̄)<sup>2</sup> / (n − 1) ]<br>
+流速相对均方差 σ<sub>r</sub> = s / v̄ = √[ ∑(v<sub>i</sub> − v̄)<sup>2</sup> / ((n − 1) × v̄<sup>2</sup>) ]<br>
+变异系数 CV = s / v̄ × 100%   判据：σ<sub>r</sub> ≤ 0.15（HJ 1405-2024 §4.2.4）</div>
     <div class="note" tabindex="-1">用于评价烟道测定断面的流速分布均匀性。HJ 1405-2024 §4.2.4 以"流速相对均方差 σr"（无量纲）判定：σr &gt; 0.15 表明流场不稳定或存在涡流，应增加测点数、延长直管段或另选监测断面，否则等速采样与流量核算结果代表性不足。σr = s / v̄ = CV / 100。注：HJ 1405-2024 自 2027-01-01 实施，过渡期内 GB/T 16157、HJ/T 397 关于采样位置与测点的要求仍适用。</div>
   </div>
   <div class="calc-body">
@@ -872,13 +870,13 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <!-- A3: 排放速率计算 -->
 <div class="calc-card" id="calc-a19">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2v4"></path><path d="M12 18v4"></path><path d="M4.93 4.93l2.83 2.83"></path><path d="M16.24 16.24l2.83 2.83"></path><path d="M2 12h4"></path><path d="M18 12h4"></path></svg>
     <h3>排放速率计算</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（污染物排放速率 · GB/T 16157-1996 / GB 16297-1996）</div>
-    <div class="fcontent">G = C &times; Q<sub>snd</sub> &times; 10<sup>&minus;6</sup>&nbsp;&nbsp;<span style="font-size:11px;color:#888">(kg/h)</span></div>
-    <div class="note" tabindex="-1">C 为标态干基排放浓度(mg/m³)，Q<sub>snd</sub> 为标态干烟气流量(m³/h)，10<sup>&minus;6</sup> 为 mg &rarr; kg 的换算系数。所得排放速率须与 GB 16297-1996 表2（或行业排放标准）中按排气筒高度确定的最高允许排放速率比较后判定达标情况。</div>
+    <div class="fcontent">G = C × Q<sub>snd</sub> × 10<sup>−6</sup>  <span style="font-size:11px;color:#888">(kg/h)</span></div>
+    <div class="note" tabindex="-1">C 为标态干基排放浓度(mg/m³)，Q<sub>snd</sub> 为标态干烟气流量(m³/h)，10<sup>−6</sup> 为 mg → kg 的换算系数。所得排放速率须与 GB 16297-1996 表2（或行业排放标准）中按排气筒高度确定的最高允许排放速率比较后判定达标情况。</div>
   </div>
   <div class="calc-body">
     <div class="input-row"><label>排放浓度 C</label><input type="number" id="a19_c" step="any" placeholder="mg/m³ (标态干烟气)"></div>
@@ -893,13 +891,13 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <!-- A20: 实测烟尘浓度（崂应式7，恒重法） -->
 <div class="calc-card" id="calc-a20">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 3h18v4H3z"/><path d="M5 7v13h14V7"/><circle cx="12" cy="14" r="3"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 3h18v4H3z"></path><path d="M5 7v13h14V7"></path><circle cx="12" cy="14" r="3"></circle></svg>
     <h3>实测烟尘浓度（崂应式7，恒重法）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（崂应 3012H-D 式7 · 实测烟尘浓度，GB/T 16157-1996 / HJ 836-2017）</div>
     <div class="fcontent multiline">C = ( m̄<sub>后</sub> − m̄<sub>前</sub> ) × 10<sup>6</sup> / V<sub>nd</sub><br>恒重判定：|m<sub>前1</sub>−m<sub>前2</sub>| ≤ 允差 且 |m<sub>后1</sub>−m<sub>后2</sub>| ≤ 允差</div>
-    <div class="note" tabindex="-1">m<sub>前1</sub>/m<sub>前2</sub>、m<sub>后1</sub>/m<sub>后2</sub> 为采样前后滤筒各 2 次恒重称量质量（单位 <b>g</b>）；V<sub>nd</sub> 为标况采样体积（<b>L</b>）；10<sup>6</sup> 为 g/L &rarr; mg/m³ 换算系数。天平精度：十万分之一 恒重允差 0.0004 g、万分之一 0.0010 g。恒重不合格时不输出浓度，须继续干燥至恒重。</div>
+    <div class="note" tabindex="-1">m<sub>前1</sub>/m<sub>前2</sub>、m<sub>后1</sub>/m<sub>后2</sub> 为采样前后滤筒各 2 次恒重称量质量（单位 <b>g</b>）；V<sub>nd</sub> 为标况采样体积（<b>L</b>）；10<sup>6</sup> 为 g/L → mg/m³ 换算系数。天平精度：十万分之一 恒重允差 0.0004 g、万分之一 0.0010 g。恒重不合格时不输出浓度，须继续干燥至恒重。</div>
   </div>
   <div class="calc-body">
     <div class="input-grid">
@@ -921,13 +919,13 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <!-- A39: 烟尘排放量(崂应式14) -->
 <div class="calc-card" id="calc-a21">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 3h18v4H3z"/><path d="M5 7v13h14V7"/><path d="M9 11h6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 3h18v4H3z"></path><path d="M5 7v13h14V7"></path><path d="M9 11h6"></path></svg>
     <h3>烟尘排放量（崂应式14）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（崂应 3012H-D 式14 · 烟尘排放量）</div>
-    <div class="fcontent">G = C &times; Q<sub>snd</sub> &times; 10<sup>&minus;6</sup>&nbsp;&nbsp;<span style="font-size:11px;color:#888">(kg/h)</span></div>
-    <div class="note" tabindex="-1">C 为实测烟尘浓度(mg/m³)，Q<sub>snd</sub> 为标干烟气流量(m³/h)。核算时段排放总量按 W = G &times; T（T 为该工况实际运行小时数）累加；若有多个工况，应分别核算后求和。</div>
+    <div class="fcontent">G = C × Q<sub>snd</sub> × 10<sup>−6</sup>  <span style="font-size:11px;color:#888">(kg/h)</span></div>
+    <div class="note" tabindex="-1">C 为实测烟尘浓度(mg/m³)，Q<sub>snd</sub> 为标干烟气流量(m³/h)。核算时段排放总量按 W = G × T（T 为该工况实际运行小时数）累加；若有多个工况，应分别核算后求和。</div>
   </div>
   <div class="calc-body">
     <div class="input-row"><label>实测烟尘浓度 C</label><input type="number" id="a21_c" step="any" placeholder="mg/m³"></div>
@@ -947,16 +945,16 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
 <!-- A15: 浓度-体积分数换算 -->
 <div class="calc-card" id="calc-a22">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M7 16V4M7 4L3 8M7 4l4 4"/><path d="M17 8v12M17 20l4-4M17 20l-4-4"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M7 16V4M7 4L3 8M7 4l4 4"></path><path d="M17 8v12M17 20l4-4M17 20l-4-4"></path></svg>
     <h3>浓度 ↔ 体积分数换算</h3>
   </div>
   <div class="formula-box">
-    <div class="flabel">换算公式（质量浓度 &harr; 体积分数 · 理想气体状态方程）</div>
-    <div class="fcontent">ppm = C(mg/m³) &times; Vm &times; (273.15 + t)/Tref &times; 101.325/P &divide; M<br>
-C(mg/m³) = ppm &times; M &divide; [ Vm &times; (273.15 + t)/Tref &times; 101.325/P ]<br>
+    <div class="flabel">换算公式（质量浓度 ↔ 体积分数 · 理想气体状态方程）</div>
+    <div class="fcontent">ppm = C(mg/m³) × Vm × (273.15 + t)/Tref × 101.325/P ÷ M<br>
+C(mg/m³) = ppm × M ÷ [ Vm × (273.15 + t)/Tref × 101.325/P ]<br>
 vol% = ppm / 10000<br>
 <span class="vmhint">Vm：标准状态 = 22.414 L/mol（Tref=273.15 K）；参比状态 = 24.465 L/mol（Tref=298.15 K，常取 24.5）</span></div>
-    <div class="note" tabindex="-1">M 为摩尔质量(g/mol)，t 为温度(℃)，P 为大气压(kPa)。22.414 L/mol 是标准状态(0℃,101.325kPa)下的气体摩尔体积；24.465 L/mol（常取 24.5）是参比状态(25℃,101.325kPa)下的气体摩尔体积，二者均来自理想气体状态方程 RT/P，仅温度基准不同，<b>都不是万能常数</b>：计算时按所选"状态基准"取用对应 Vm 与 Tref，并保留 (273.15+t)/Tref &times; 101.325/P 温压修正因子（t=0、P=101.325 时化简）。注意：污染物排放标准中的 mg/m³ 通常指标准状态干基浓度，换算前应先完成状态与干基折算。</div>
+    <div class="note" tabindex="-1">M 为摩尔质量(g/mol)，t 为温度(℃)，P 为大气压(kPa)。22.414 L/mol 是标准状态(0℃,101.325kPa)下的气体摩尔体积；24.465 L/mol（常取 24.5）是参比状态(25℃,101.325kPa)下的气体摩尔体积，二者均来自理想气体状态方程 RT/P，仅温度基准不同，<b>都不是万能常数</b>：计算时按所选"状态基准"取用对应 Vm 与 Tref，并保留 (273.15+t)/Tref × 101.325/P 温压修正因子（t=0、P=101.325 时化简）。注意：污染物排放标准中的 mg/m³ 通常指标准状态干基浓度，换算前应先完成状态与干基折算。</div>
   </div>
   <div class="calc-body">
     <div class="input-row"><label>污染物</label><select id="a22_pollutant"></select></div>
@@ -981,7 +979,7 @@ vol% = ppm / 10000<br>
 <!-- A21: 气体浓度校准 -->
 <div class="calc-card" id="calc-a23">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 3v18h18"></path><path d="M7 14l4-4 3 3 5-6"></path></svg>
     <h3>气体浓度校准（绝对/示值误差）</h3>
   </div>
   <div class="formula-box">
@@ -990,8 +988,8 @@ vol% = ppm / 10000<br>
 示值误差（相对标准值）= (X<sub>测</sub> − X<sub>标</sub>) / X<sub>标</sub> × 100%<br>
 单位换算：C(μmol/mol) = C(mg/m³) × 22.4 / M<br>
 判定（HJ 57 / HJ 693）：<br>
-&nbsp;&nbsp;C<sub>标</sub> ≥ 100 μmol/mol → 允差 ≤ ±5%（相对标准值）<br>
-&nbsp;&nbsp;C<sub>标</sub> &lt; 100 μmol/mol → 允差 ≤ ±5 μmol/mol（绝对）</div>
+  C<sub>标</sub> ≥ 100 μmol/mol → 允差 ≤ ±5%（相对标准值）<br>
+  C<sub>标</sub> &lt; 100 μmol/mol → 允差 ≤ ±5 μmol/mol（绝对）</div>
     <div class="note" tabindex="-1">M 为污染物气体分子量；22.4 为标准状态（0℃、101.325 kPa）摩尔体积 L/mol。标准气体浓度 ≥ 100 μmol/mol 时按相对标准值 ±5% 判定；&lt; 100 μmol/mol 时按绝对误差 ±5 μmol/mol 判定（依据 HJ 57、HJ 693 示值误差性能要求，不再统一执行 ±5%）。</div>
   </div>
   <div class="calc-body">
@@ -1026,13 +1024,13 @@ vol% = ppm / 10000<br>
 <!-- A22: 压力传感器示值误差 -->
 <div class="calc-card" id="calc-a24">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h18"/><path d="M6 8v8"/><path d="M10 6v12"/><path d="M14 9v6"/><path d="M18 7v10"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h18"></path><path d="M6 8v8"></path><path d="M10 6v12"></path><path d="M14 9v6"></path><path d="M18 7v10"></path></svg>
     <h3>压力传感器示值误差（崂应式1）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（崂应 3012H-D 式1 · 压力示值误差）</div>
-    <div class="fcontent">&Delta;P = (P<sub>1</sub> &minus; P<sub>0</sub>) &minus; P<sub>s</sub></div>
-    <div class="note" tabindex="-1">P<sub>1</sub> 为仪器显示压力，P<sub>0</sub> 为当前实际大气压，二者之差即仪器指示的表压；P<sub>s</sub> 为标准压力源给出的标准表压值。按仪器说明书，压力/大气压传感器标定允差取 &plusmn;0.5 kPa，|&Delta;P| 超出即判不合格，应重新标定。各量单位统一为 kPa。</div>
+    <div class="fcontent">ΔP = (P<sub>1</sub> − P<sub>0</sub>) − P<sub>s</sub></div>
+    <div class="note" tabindex="-1">P<sub>1</sub> 为仪器显示压力，P<sub>0</sub> 为当前实际大气压，二者之差即仪器指示的表压；P<sub>s</sub> 为标准压力源给出的标准表压值。按仪器说明书，压力/大气压传感器标定允差取 ±0.5 kPa，|ΔP| 超出即判不合格，应重新标定。各量单位统一为 kPa。</div>
   </div>
   <div class="calc-body">
     <div class="input-row"><label>仪器显示 P<sub>1</sub></label><input type="number" id="a24_p1" step="any" placeholder="kPa"></div>
@@ -1055,17 +1053,17 @@ vol% = ppm / 10000<br>
   <div class="panel-grid">
 <div class="calc-card" id="calc-m1">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line></svg>
     <h3>十次风向风速（监测前）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（HJ/T 55-2000 · 风向向量平均法）</div>
-    <div class="fcontent">u = &minus;(1/n) &sum; sin&theta;<sub>i</sub>&nbsp;&nbsp;&nbsp;v = &minus;(1/n) &sum; cos&theta;<sub>i</sub><br>
-平均风向 &theta;&#772; = arctan2(u, v)&nbsp;<span style="font-size:11px;color:#888">(换算至 0&deg;~360&deg;)</span><br>
-平均风速 u&#772; = (1/n) &sum; u<sub>i</sub><br>
-合成向量长度 R = &radic;(u<sup>2</sup> + v<sup>2</sup>)<br>
-风向标准差 &sigma;<sub>&theta;</sub> = &radic;(&minus;2 ln R) &times; 180/&pi;</div>
-    <div class="note" tabindex="-1">HJ/T 55-2000 要求无组织排放监测前，在参照点连续观测 10 次风向、风速，据此确定主导风向并在下风向布设监控点。&sigma;<sub>&theta;</sub> 越小说明风向越稳定；因风向为角度量，必须用向量法而非算术平均。</div>
+    <div class="fcontent">u = −(1/n) ∑ sinθ<sub>i</sub>   v = −(1/n) ∑ cosθ<sub>i</sub><br>
+平均风向 θ̄ = arctan2(u, v) <span style="font-size:11px;color:#888">(换算至 0°~360°)</span><br>
+平均风速 ū = (1/n) ∑ u<sub>i</sub><br>
+合成向量长度 R = √(u<sup>2</sup> + v<sup>2</sup>)<br>
+风向标准差 σ<sub>θ</sub> = √(−2 ln R) × 180/π</div>
+    <div class="note" tabindex="-1">HJ/T 55-2000 要求无组织排放监测前，在参照点连续观测 10 次风向、风速，据此确定主导风向并在下风向布设监控点。σ<sub>θ</sub> 越小说明风向越稳定；因风向为角度量，必须用向量法而非算术平均。</div>
   </div>
   <div class="calc-body">
 <div class="input-row"><label>十次风向(°,空格分隔)</label><input type="text" id="m1_dir" placeholder="如: 45 50 48 52 47 49 51 46 53 50"></div>
@@ -1077,15 +1075,15 @@ vol% = ppm / 10000<br>
 </div>
 <div class="calc-card" id="calc-m2">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line></svg>
     <h3>五次风向风速（采样中）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（HJ/T 55-2000 · 采样过程风向向量平均）</div>
-    <div class="fcontent">u = &minus;(1/n) &sum; sin&theta;<sub>i</sub>&nbsp;&nbsp;&nbsp;v = &minus;(1/n) &sum; cos&theta;<sub>i</sub><br>
-平均风向 &theta;&#772; = arctan2(u, v)&nbsp;<span style="font-size:11px;color:#888">(换算至 0&deg;~360&deg;)</span><br>
-平均风速 u&#772; = (1/n) &sum; u<sub>i</sub><br>
-风向标准差 &sigma;<sub>&theta;</sub> = &radic;(&minus;2 ln R)&nbsp;&nbsp;R = &radic;(u<sup>2</sup> + v<sup>2</sup>)</div>
+    <div class="fcontent">u = −(1/n) ∑ sinθ<sub>i</sub>   v = −(1/n) ∑ cosθ<sub>i</sub><br>
+平均风向 θ̄ = arctan2(u, v) <span style="font-size:11px;color:#888">(换算至 0°~360°)</span><br>
+平均风速 ū = (1/n) ∑ u<sub>i</sub><br>
+风向标准差 σ<sub>θ</sub> = √(−2 ln R)  R = √(u<sup>2</sup> + v<sup>2</sup>)</div>
     <div class="note" tabindex="-1">采样过程中每隔一定时间观测 1 次、共 5 次风向风速，用于核实采样期间风向是否发生明显偏转。若采样期间平均风向与监测前主导风向偏差过大，监控点已偏离下风向，该组数据应作废重测。</div>
   </div>
   <div class="calc-body">
@@ -1098,16 +1096,16 @@ vol% = ppm / 10000<br>
 </div>
 <div class="calc-card" id="calc-m3">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line></svg>
     <h3>太阳高度角与日期序数</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（太阳赤纬与太阳高度角 · HJ/T 55-2000 / HJ 2.2-2018 附录A）</div>
-    <div class="fcontent">太阳赤纬 &delta; = arcsin[ 0.39795 &times; cos(0.98563&deg; &times; (n &minus; 173)) ]<br>
-时角 &omega; = 15&deg; &times; (t &minus; 12)<br>
-sin h<sub>0</sub> = sin&phi; &middot; sin&delta; + cos&phi; &middot; cos&delta; &middot; cos&omega;<br>
+    <div class="fcontent">太阳赤纬 δ = arcsin[ 0.39795 × cos(0.98563° × (n − 173)) ]<br>
+时角 ω = 15° × (t − 12)<br>
+sin h<sub>0</sub> = sinφ · sinδ + cosφ · cosδ · cosω<br>
 太阳高度角 h<sub>0</sub> = arcsin(sin h<sub>0</sub>)</div>
-    <div class="note" tabindex="-1">n 为日期序数（1 月 1 日记为 1，闰年至 366）；&phi; 为测点纬度（北纬为正）；t 为真太阳时(h)。若使用北京时间，需先按 HJ 2.2-2018 附录A 作经度修正：t<sub>真</sub> &asymp; t<sub>北京</sub> + (&lambda; &minus; 120&deg;)/15。h<sub>0</sub> 为负值表示太阳位于地平线以下（夜间）。</div>
+    <div class="note" tabindex="-1">n 为日期序数（1 月 1 日记为 1，闰年至 366）；φ 为测点纬度（北纬为正）；t 为真太阳时(h)。若使用北京时间，需先按 HJ 2.2-2018 附录A 作经度修正：t<sub>真</sub> ≈ t<sub>北京</sub> + (λ − 120°)/15。h<sub>0</sub> 为负值表示太阳位于地平线以下（夜间）。</div>
   </div>
   <div class="calc-body">
 <div class="input-row"><label>纬度 φ(°,北正)</label><input type="number" id="m3_phi" step="any" placeholder="如: 43.9 (长春)"></div>
@@ -1120,20 +1118,20 @@ sin h<sub>0</sub> = sin&phi; &middot; sin&delta; + cos&phi; &middot; cos&delta; 
 </div>
 <div class="calc-card" id="calc-m4">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line></svg>
     <h3>大气稳定度判定（Pasquill）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">判定方法（Pasquill 大气稳定度 · HJ/T 55-2000 / GB/T 13201-1991 附录A）</div>
-    <div class="fcontent"><b>第一步 &middot; 太阳辐射等级</b><br>
-&nbsp;&nbsp;昼间：h<sub>0</sub> &ge; 60&deg; 且总云量 N &le; 2 &rarr; 强辐射<br>
-&nbsp;&nbsp;昼间：h<sub>0</sub> &ge; 35&deg; 且总云量 N &le; 4 &rarr; 中辐射<br>
-&nbsp;&nbsp;昼间其余情形 &rarr; 弱辐射<br>
-&nbsp;&nbsp;夜间：低云量 &ge; 4 为“云多”，&lt; 4 为“云少”<br>
-<b>第二步 &middot; 以地面风速 u 交叉查表定级</b><br>
-&nbsp;&nbsp;风速分档：u &lt; 2、2 &le; u &lt; 3、3 &le; u &lt; 5、5 &le; u &lt; 6、u &ge; 6&nbsp;<span style="font-size:11px;color:#888">(m/s)</span><br>
-&nbsp;&nbsp;A 极不稳定 &middot; B 不稳定 &middot; C 弱不稳定 &middot; D 中性 &middot; E 较稳定 &middot; F 稳定</div>
-    <div class="note" tabindex="-1">本卡按 Pasquill 经典分级矩阵实现（含 A-B、B-C、C-D 过渡级）。若需严格执行 GB/T 13201-1991 附录A"太阳辐射等级 &minus;2 ~ +3"六档 + 地面风速查表法，请提供该表完整分档数据，可据此进一步精确化。</div>
+    <div class="fcontent"><b>第一步 · 太阳辐射等级</b><br>
+  昼间：h<sub>0</sub> ≥ 60° 且总云量 N ≤ 2 → 强辐射<br>
+  昼间：h<sub>0</sub> ≥ 35° 且总云量 N ≤ 4 → 中辐射<br>
+  昼间其余情形 → 弱辐射<br>
+  夜间：低云量 ≥ 4 为“云多”，&lt; 4 为“云少”<br>
+<b>第二步 · 以地面风速 u 交叉查表定级</b><br>
+  风速分档：u &lt; 2、2 ≤ u &lt; 3、3 ≤ u &lt; 5、5 ≤ u &lt; 6、u ≥ 6 <span style="font-size:11px;color:#888">(m/s)</span><br>
+  A 极不稳定 · B 不稳定 · C 弱不稳定 · D 中性 · E 较稳定 · F 稳定</div>
+    <div class="note" tabindex="-1">本卡按 Pasquill 经典分级矩阵实现（含 A-B、B-C、C-D 过渡级）。若需严格执行 GB/T 13201-1991 附录A"太阳辐射等级 −2 ~ +3"六档 + 地面风速查表法，请提供该表完整分档数据，可据此进一步精确化。</div>
   </div>
   <div class="calc-body">
 <div class="input-row"><label>风速(m/s)</label><input type="number" id="m4_ws" step="any" placeholder="如: 2.5"></div>
@@ -1148,16 +1146,16 @@ sin h<sub>0</sub> = sin&phi; &middot; sin&delta; + cos&phi; &middot; cos&delta; 
 </div>
 <div class="calc-card" id="calc-m5">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line></svg>
     <h3>无组织监测气象条件综合判定</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">判定依据（HJ/T 55-2000 · 无组织监测气象条件）</div>
-    <div class="fcontent"><b>① 平均风速</b>：1 m/s &le; u&#772; &le; 8 m/s 为适宜<br>
-<b>② 风向变化</b>：监测前 10 次风向标准差 &sigma;<sub>&theta;</sub> &le; 60&deg; 视为风向稳定<br>
+    <div class="fcontent"><b>① 平均风速</b>：1 m/s ≤ ū ≤ 8 m/s 为适宜<br>
+<b>② 风向变化</b>：监测前 10 次风向标准差 σ<sub>θ</sub> ≤ 60° 视为风向稳定<br>
 <b>③ 大气稳定度</b>：A~B 利于污染物抬升扩散，D（中性）为常用参照条件<br>
-三项同时满足 &rarr; 可开展无组织排放监测；任一项不满足 &rarr; 建议改期或加密观测</div>
-    <div class="note" tabindex="-1">静风（u&#772; &lt; 1 m/s）时污染物不能形成稳定下风向输送，风向摆动过大时监控点代表性差，均会导致监测结果失真。若需按 HJ/T 55-2000 表中“不同稳定度对应的最小/最大风速”作严格判定，请提供该表数值以便细化判据。</div>
+三项同时满足 → 可开展无组织排放监测；任一项不满足 → 建议改期或加密观测</div>
+    <div class="note" tabindex="-1">静风（ū &lt; 1 m/s）时污染物不能形成稳定下风向输送，风向摆动过大时监控点代表性差，均会导致监测结果失真。若需按 HJ/T 55-2000 表中“不同稳定度对应的最小/最大风速”作严格判定，请提供该表数值以便细化判据。</div>
   </div>
   <div class="calc-body">
 <div class="input-row"><label>平均风速(m/s)</label><input type="number" id="m5_ws" step="any" placeholder="由M1得到"></div>
@@ -1179,13 +1177,13 @@ sin h<sub>0</sub> = sin&phi; &middot; sin&delta; + cos&phi; &middot; cos&delta; 
 <!-- N1: 噪声叠加 -->
 <div class="calc-card" id="calc-n1">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19"></polygon><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"></path></svg>
     <h3>噪声叠加计算</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（声压级能量叠加 · GB 3096-2008 / GB/T 3222.1-2022 / GB/T 3222.2-2022）</div>
-    <div class="fcontent">L<sub>总</sub> = 10 lg( &sum;<sub>i=1</sub><sup>n</sup> 10<sup>0.1L<sub>i</sub></sup> )</div>
-    <div class="note" tabindex="-1">用于多个独立声源同时作用时的总声压级合成。两个等值声源叠加约增加 3 dB；两声级相差 &ge; 10 dB 时，较小者贡献不足 0.5 dB 可忽略。声级不能直接算术相加。</div>
+    <div class="fcontent">L<sub>总</sub> = 10 lg( ∑<sub>i=1</sub><sup>n</sup> 10<sup>0.1L<sub>i</sub></sup> )</div>
+    <div class="note" tabindex="-1">用于多个独立声源同时作用时的总声压级合成。两个等值声源叠加约增加 3 dB；两声级相差 ≥ 10 dB 时，较小者贡献不足 0.5 dB 可忽略。声级不能直接算术相加。</div>
   </div>
   <div class="calc-body">
     <div class="hint">输入多个声压级，用逗号分隔<br>示例：75,73,68.5</div>
@@ -1199,12 +1197,12 @@ sin h<sub>0</sub> = sin&phi; &middot; sin&delta; + cos&phi; &middot; cos&delta; 
 <!-- N2: 等效连续A声级 -->
 <div class="calc-card" id="calc-n2">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M2 12h2"/><path d="M6 8h2"/><path d="M10 5h2"/><path d="M14 9h2"/><path d="M18 4h2"/><path d="M20 10h2"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M2 12h2"></path><path d="M6 8h2"></path><path d="M10 5h2"></path><path d="M14 9h2"></path><path d="M18 4h2"></path><path d="M20 10h2"></path></svg>
     <h3>等效连续A声级 L<sub>eq</sub></h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（等效连续 A 声级 · GB 3096-2008 附录B / GB 12348-2008）</div>
-    <div class="fcontent">L<sub>eq</sub> = 10 lg[ (1/T) &times; &sum;<sub>i=1</sub><sup>n</sup> t<sub>i</sub> &times; 10<sup>0.1L<sub>i</sub></sup> ]&nbsp;&nbsp;&nbsp;T = &sum; t<sub>i</sub></div>
+    <div class="fcontent">L<sub>eq</sub> = 10 lg[ (1/T) × ∑<sub>i=1</sub><sup>n</sup> t<sub>i</sub> × 10<sup>0.1L<sub>i</sub></sup> ]   T = ∑ t<sub>i</sub></div>
     <div class="note" tabindex="-1">按“声级,持续时间”分段输入（本卡时间单位为 min，各段须一致）。L<sub>eq</sub> 表示在同一时段内与实际起伏噪声具有相同声能量的稳态声级，是厂界与区域噪声评价的基本量。</div>
   </div>
   <div class="calc-body">
@@ -1219,14 +1217,14 @@ sin h<sub>0</sub> = sin&phi; &middot; sin&delta; + cos&phi; &middot; cos&delta; 
 <!-- N3: 距离衰减 -->
 <div class="calc-card" id="calc-n3">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="18" r="5"/><line x1="7.5" y1="7.5" x2="14" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="6" cy="6" r="2"></circle><circle cx="18" cy="18" r="5"></circle><line x1="7.5" y1="7.5" x2="14" y2="14"></line></svg>
     <h3>距离衰减计算（点声源）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（点声源几何发散衰减 · GB/T 17247.2 / HJ 2.4-2021）</div>
-    <div class="fcontent">L(r<sub>2</sub>) = L(r<sub>1</sub>) &minus; 20 lg(r<sub>2</sub> / r<sub>1</sub>)<br>
-几何发散衰减量 &Delta;L<sub>div</sub> = 20 lg(r<sub>2</sub> / r<sub>1</sub>)</div>
-    <div class="note" tabindex="-1">点声源距离每加倍衰减 6 dB；线声源为 &Delta;L = 10 lg(r<sub>2</sub>/r<sub>1</sub>)（加倍衰减 3 dB）；面声源近场基本不衰减。本式仅计几何发散，未含空气吸收 A<sub>atm</sub>、地面效应 A<sub>gr</sub> 与屏障插入损失 A<sub>bar</sub>。</div>
+    <div class="fcontent">L(r<sub>2</sub>) = L(r<sub>1</sub>) − 20 lg(r<sub>2</sub> / r<sub>1</sub>)<br>
+几何发散衰减量 ΔL<sub>div</sub> = 20 lg(r<sub>2</sub> / r<sub>1</sub>)</div>
+    <div class="note" tabindex="-1">点声源距离每加倍衰减 6 dB；线声源为 ΔL = 10 lg(r<sub>2</sub>/r<sub>1</sub>)（加倍衰减 3 dB）；面声源近场基本不衰减。本式仅计几何发散，未含空气吸收 A<sub>atm</sub>、地面效应 A<sub>gr</sub> 与屏障插入损失 A<sub>bar</sub>。</div>
   </div>
   <div class="calc-body">
     <div class="input-row"><label>已知距离 r<sub>1</sub></label><input type="number" id="n3_r1" step="any" placeholder="m"></div>
@@ -1241,13 +1239,13 @@ sin h<sub>0</sub> = sin&phi; &middot; sin&delta; + cos&phi; &middot; cos&delta; 
 <!-- N5: 昼夜等效声级 -->
 <div class="calc-card" id="calc-n4">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
     <h3>昼夜等效声级 L<sub>dn</sub></h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（昼夜等效声级 · GB 3096-2008 附录B）</div>
-    <div class="fcontent">L<sub>dn</sub> = 10 lg{ (1/24) &times; [ 16 &times; 10<sup>0.1L<sub>d</sub></sup> + 8 &times; 10<sup>0.1(L<sub>n</sub>+10)</sup> ] }</div>
-    <div class="note" tabindex="-1">昼间按 16 h（6:00&ndash;22:00）、夜间按 8 h（22:00&ndash;次日 6:00）加权，夜间叠加 10 dB 惩罚量以体现夜间噪声的额外烦恼度。昼夜时段划分可由县级以上人民政府按当地习惯调整。</div>
+    <div class="fcontent">L<sub>dn</sub> = 10 lg{ (1/24) × [ 16 × 10<sup>0.1L<sub>d</sub></sup> + 8 × 10<sup>0.1(L<sub>n</sub>+10)</sup> ] }</div>
+    <div class="note" tabindex="-1">昼间按 16 h（6:00–22:00）、夜间按 8 h（22:00–次日 6:00）加权，夜间叠加 10 dB 惩罚量以体现夜间噪声的额外烦恼度。昼夜时段划分可由县级以上人民政府按当地习惯调整。</div>
   </div>
   <div class="calc-body">
     <div class="input-row"><label>昼间 L<sub>d</sub></label><input type="number" id="n4_ld" step="any" placeholder="dB(A) 6:00-22:00"></div>
@@ -1261,12 +1259,12 @@ sin h<sub>0</sub> = sin&phi; &middot; sin&delta; + cos&phi; &middot; cos&delta; 
 <!-- N6: 噪声能量平均值 -->
 <div class="calc-card" id="calc-n5">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h4l3-9 4 18 3-9h4"></path></svg>
     <h3>噪声能量平均值（Leq 复核）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（能量平均声级 · GB 3096-2008）</div>
-    <div class="fcontent">L&#772; = 10 lg[ (1/n) &times; &sum;<sub>i=1</sub><sup>n</sup> 10<sup>0.1L<sub>i</sub></sup> ]</div>
+    <div class="fcontent">L̄ = 10 lg[ (1/n) × ∑<sub>i=1</sub><sup>n</sup> 10<sup>0.1L<sub>i</sub></sup> ]</div>
     <div class="note" tabindex="-1">多测点或多次测量结果应按能量平均，而非算术平均。各测值离散越大，能量平均值高出算术平均值越多；若原始记录仅给出算术平均值，应按本式重新换算后再作达标判定。</div>
   </div>
   <div class="calc-body">
@@ -1280,15 +1278,15 @@ sin h<sub>0</sub> = sin&phi; &middot; sin&delta; + cos&phi; &middot; cos&delta; 
 
 <div class="calc-card" id="calc-n6">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line></svg>
     <h3>背景(本底)噪声修正</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（背景噪声修正 · HJ 706-2014 / GB 12348-2008 附录A）</div>
-    <div class="fcontent">&Delta;L = L<sub>总</sub> &minus; L<sub>背</sub><br>
-&Delta;L &lt; 3 dB&nbsp;&rarr;&nbsp;测量无效，须降低背景噪声后重测<br>
-3 dB &le; &Delta;L &lt; 10 dB&nbsp;&rarr;&nbsp;L = 10 lg( 10<sup>0.1L<sub>总</sub></sup> &minus; 10<sup>0.1L<sub>背</sub></sup> )<br>
-&Delta;L &ge; 10 dB&nbsp;&rarr;&nbsp;修正量 &lt; 0.5 dB，取 L = L<sub>总</sub></div>
+    <div class="fcontent">ΔL = L<sub>总</sub> − L<sub>背</sub><br>
+ΔL &lt; 3 dB → 测量无效，须降低背景噪声后重测<br>
+3 dB ≤ ΔL &lt; 10 dB → L = 10 lg( 10<sup>0.1L<sub>总</sub></sup> − 10<sup>0.1L<sub>背</sub></sup> )<br>
+ΔL ≥ 10 dB → 修正量 &lt; 0.5 dB，取 L = L<sub>总</sub></div>
     <div class="note" tabindex="-1">L<sub>总</sub> 为声源与背景同时存在时的测量值，L<sub>背</sub> 为声源停止运行后的本底值，两者测点、档位、时长应完全一致。修正结果按标准要求取整到个位。</div>
   </div>
   <div class="calc-body">
@@ -1300,14 +1298,14 @@ sin h<sub>0</sub> = sin&phi; &middot; sin&delta; + cos&phi; &middot; cos&delta; 
   <div class="std-ref">HJ 706-2014 / GB 12348：ΔL=L总−L背。ΔL≥10 dB 时修正量&lt;0.5 dB，不修正；3 dB≤ΔL&lt;10 dB 时按能量相减 L=10lg(10^0.1L总−10^0.1L背)；ΔL&lt;3 dB 时测量无效，应待背景降低后重测或采取措施后再测</div>
 </div><div class="calc-card" id="calc-n7">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line></svg>
     <h3>Leq / SEL 互算</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（暴露声级与等效声级互算 · HJ 706-2014 / GB/T 3785.1-2010）</div>
     <div class="fcontent">SEL = L<sub>eq</sub> + 10 lg(T / T<sub>0</sub>)<br>
-L<sub>eq</sub> = SEL &minus; 10 lg(T / T<sub>0</sub>)&nbsp;&nbsp;&nbsp;T<sub>0</sub> = 1 s</div>
-    <div class="note" tabindex="-1">SEL（声暴露级）把整个噪声事件的总声能量归算到 1 s 时间内，便于比较持续时间不同的单次事件。输入时间单位选 h 时按 T[s] = T[h] &times; 3600 换算；T 必须 &gt; 0。</div>
+L<sub>eq</sub> = SEL − 10 lg(T / T<sub>0</sub>)   T<sub>0</sub> = 1 s</div>
+    <div class="note" tabindex="-1">SEL（声暴露级）把整个噪声事件的总声能量归算到 1 s 时间内，便于比较持续时间不同的单次事件。输入时间单位选 h 时按 T[s] = T[h] × 3600 换算；T 必须 &gt; 0。</div>
   </div>
   <div class="calc-body">
 <div class="input-row"><label>计算方向</label><select id="n7_mode"><option value="leq2sel">Leq → SEL</option><option value="sel2leq">SEL → Leq</option></select></div>
@@ -1323,14 +1321,14 @@ L<sub>eq</sub> = SEL &minus; 10 lg(T / T<sub>0</sub>)&nbsp;&nbsp;&nbsp;T<sub>0</
 <!-- N10: 噪声限值达标判定 -->
 <div class="calc-card" id="calc-n8">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="4"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2v20M2 12h20"></path><circle cx="12" cy="12" r="4"></circle></svg>
     <h3>厂界噪声达标判定（GB 12348）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">判定依据（GB 12348-2008 表1 · 工业企业厂界环境噪声排放限值）</div>
-    <div class="fcontent">判定：L<sub>eq</sub> &le; L<sub>限</sub> 为达标<br>
-0 类 昼 50 / 夜 40&nbsp;&nbsp;&middot;&nbsp;&nbsp;1 类 55 / 45&nbsp;&nbsp;&middot;&nbsp;&nbsp;2 类 60 / 50<br>
-3 类 65 / 55&nbsp;&nbsp;&middot;&nbsp;&nbsp;4 类 70 / 55&nbsp;<span style="font-size:11px;color:#888">dB(A)</span></div>
+    <div class="fcontent">判定：L<sub>eq</sub> ≤ L<sub>限</sub> 为达标<br>
+0 类 昼 50 / 夜 40  ·  1 类 55 / 45  ·  2 类 60 / 50<br>
+3 类 65 / 55  ·  4 类 70 / 55 <span style="font-size:11px;color:#888">dB(A)</span></div>
     <div class="note" tabindex="-1">测量值须先按 HJ 706-2014 作背景噪声修正后再判定。夜间偶发、频发噪声的最大声级 L<sub>max</sub> 超过限值的幅度，按 GB 12348-2008 分别不得高于 15 dB(A) 与 10 dB(A)。厂界无法测量时，可按标准在受影响居民室内测量并执行相应限值减 10 dB(A)。</div>
   </div>
   <div class="calc-body">
@@ -1357,15 +1355,15 @@ L<sub>eq</sub> = SEL &minus; 10 lg(T / T<sub>0</sub>)&nbsp;&nbsp;&nbsp;T<sub>0</
   <div class="panel-grid" id="calibGrid">
 <div class="calc-card" id="calc-c1">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line></svg>
     <h3>通用仪器校准（误差类）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（误差评定通则 · JJF 1059.1-2012 / 各仪器检定规程）</div>
-    <div class="fcontent">绝对误差 &Delta; = x<sub>测</sub> &minus; x<sub>标</sub><br>
-相对误差 &delta; = &Delta; / x<sub>标</sub> &times; 100%<br>
-引用误差 &gamma; = &Delta; / FS &times; 100%&nbsp;&nbsp;<span style="font-size:11px;color:#888">(FS 为仪器满量程)</span><br>
-判定：|&delta;| &le; 允许误差限 为合格</div>
+    <div class="fcontent">绝对误差 Δ = x<sub>测</sub> − x<sub>标</sub><br>
+相对误差 δ = Δ / x<sub>标</sub> × 100%<br>
+引用误差 γ = Δ / FS × 100%  <span style="font-size:11px;color:#888">(FS 为仪器满量程)</span><br>
+判定：|δ| ≤ 允许误差限 为合格</div>
     <div class="note" tabindex="-1">引用误差用于评价按量程分级的仪表（压力表、流量计、电流表等），相对误差用于评价具体示值。允许误差限须取自对应仪器的检定规程、校准规范或方法标准，不可自定。</div>
   </div>
   <div class="calc-body">
@@ -1388,16 +1386,16 @@ L<sub>eq</sub> = SEL &minus; 10 lg(T / T<sub>0</sub>)&nbsp;&nbsp;&nbsp;T<sub>0</
   <div class="panel-grid">
 <div class="calc-card" id="calc-o1">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line></svg>
     <h3>密闭性(气密性)检测</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">判定方法（GB 20952-2020 附录B · 密闭性检测）</div>
-    <div class="fcontent"><b>① 检测条件判定</b>：氮气充压时间 t<sub>充</sub> &le; 2 &times; t<sub>预算</sub><br>
-&nbsp;&nbsp;t<sub>充</sub> &gt; 2 t<sub>预算</sub> 说明系统泄漏严重，判定为不具备密闭性检测条件<br>
-&nbsp;&nbsp;（充压过程到达 500 Pa 所需时间超过公式 B.1 计算值 2 倍即停止检测）<br>
-<b>② 合格判据</b>：加压至初始压力后静置 5 min，剩余压力 P<sub>5min</sub> &ge; P<sub>min</sub>(V)<br>
-&nbsp;&nbsp;P<sub>min</sub> 按储罐油气空间体积 V 查 GB 20952-2020 附录B 最小允许压力表</div>
+    <div class="fcontent"><b>① 检测条件判定</b>：氮气充压时间 t<sub>充</sub> ≤ 2 × t<sub>预算</sub><br>
+  t<sub>充</sub> &gt; 2 t<sub>预算</sub> 说明系统泄漏严重，判定为不具备密闭性检测条件<br>
+  （充压过程到达 500 Pa 所需时间超过公式 B.1 计算值 2 倍即停止检测）<br>
+<b>② 合格判据</b>：加压至初始压力后静置 5 min，剩余压力 P<sub>5min</sub> ≥ P<sub>min</sub>(V)<br>
+  P<sub>min</sub> 按储罐油气空间体积 V 查 GB 20952-2020 附录B 最小允许压力表</div>
     <div class="note" tabindex="-1">程序内置 V = 1893 L ~ 94625 L 的 P<sub>min</sub> 对照表（对应 1~6 支加油枪的常见罐容），按最接近体积取值。若需在表列体积之间线性内插，或采用其他枪数/罐组对应的限值，可在“最小剩余压力限值”栏手动填入标准查得值覆盖。</div>
   </div>
   <div class="calc-body">
@@ -1413,13 +1411,13 @@ L<sub>eq</sub> = SEL &minus; 10 lg(T / T<sub>0</sub>)&nbsp;&nbsp;&nbsp;T<sub>0</
 </div>
 <div class="calc-card" id="calc-o2">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line></svg>
     <h3>气液比(LVR)</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（GB 20952-2020 · 气液比 LVR）</div>
-    <div class="fcontent">LVR = V<sub>气</sub> / V<sub>液</sub>&nbsp;&nbsp;<span style="font-size:11px;color:#888">(回收油气体积 / 同时段加油体积)</span><br>
-合格判据：1.00 &le; LVR &le; 1.20</div>
+    <div class="fcontent">LVR = V<sub>气</sub> / V<sub>液</sub>  <span style="font-size:11px;color:#888">(回收油气体积 / 同时段加油体积)</span><br>
+合格判据：1.00 ≤ LVR ≤ 1.20</div>
     <div class="note" tabindex="-1">V<sub>气</sub> 与 V<sub>液</sub> 须采用同一体积单位（L 或 m³）。检测时按标准规定的加油流量与最小加油量逐枪进行，每支加油枪的结果单独判定，任一枪超出区间即判该枪不合格。LVR &lt; 1.0 说明回收不足，&gt; 1.2 说明过量抽气导致罐内负压。</div>
   </div>
   <div class="calc-body">
@@ -1432,15 +1430,15 @@ L<sub>eq</sub> = SEL &minus; 10 lg(T / T<sub>0</sub>)&nbsp;&nbsp;&nbsp;T<sub>0</
 </div>
 <div class="calc-card" id="calc-o3">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line></svg>
     <h3>液阻检测</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">判定方法（GB 20952-2020 · 液阻检测）</div>
-    <div class="fcontent">以规定氮气流量通入加油枪，测系统压力 P，判据 P &le; P<sub>限</sub>：<br>
-&nbsp;&nbsp;流量 18 L/min&nbsp;&rarr;&nbsp;P<sub>限</sub> = 40 Pa<br>
-&nbsp;&nbsp;流量 28 L/min&nbsp;&rarr;&nbsp;P<sub>限</sub> = 90 Pa<br>
-&nbsp;&nbsp;流量 38 L/min&nbsp;&rarr;&nbsp;P<sub>限</sub> = 155 Pa</div>
+    <div class="fcontent">以规定氮气流量通入加油枪，测系统压力 P，判据 P ≤ P<sub>限</sub>：<br>
+  流量 18 L/min → P<sub>限</sub> = 40 Pa<br>
+  流量 28 L/min → P<sub>限</sub> = 90 Pa<br>
+  流量 38 L/min → P<sub>限</sub> = 155 Pa</div>
     <div class="note" tabindex="-1">液阻反映油气回收管线的通畅程度，超限通常由管路积液、堵塞或坡度不足（&lt; 1%）引起。三档流量应逐档检测，任一档超过限值即判定液阻不合格。</div>
   </div>
   <div class="calc-body">
@@ -1470,16 +1468,16 @@ L<sub>eq</sub> = SEL &minus; 10 lg(T / T<sub>0</sub>)&nbsp;&nbsp;&nbsp;T<sub>0</
 <!-- A27: 数据统计 -->
 <div class="calc-card" id="calc-g1">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 14l3-3 3 3 4-5"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M7 14l3-3 3 3 4-5"></path></svg>
     <h3>精密度与准确度统计</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（精密度与准确度统计）</div>
-    <div class="fcontent">均值 x&#772; = (1/n) &sum; x<sub>i</sub><br>
-标准偏差 s = &radic;[ &sum;(x<sub>i</sub> &minus; x&#772;)<sup>2</sup> / (n &minus; 1) ]<br>
-相对标准偏差 RSD = s / x&#772; &times; 100%&nbsp;&nbsp;&nbsp;极差 R = x<sub>max</sub> &minus; x<sub>min</sub><br>
-绝对误差 = x&#772; &minus; x<sub>ref</sub>&nbsp;&nbsp;&nbsp;相对误差 = (x&#772; &minus; x<sub>ref</sub>) / x<sub>ref</sub> &times; 100%</div>
-    <div class="note" tabindex="-1">RSD 表征精密度，相对误差表征准确度。x<sub>ref</sub> 为标准物质认定值或约定真值，留空时仅输出精密度统计量。s 采用样本标准偏差（分母 n&minus;1），n &ge; 2。</div>
+    <div class="fcontent">均值 x̄ = (1/n) ∑ x<sub>i</sub><br>
+标准偏差 s = √[ ∑(x<sub>i</sub> − x̄)<sup>2</sup> / (n − 1) ]<br>
+相对标准偏差 RSD = s / x̄ × 100%   极差 R = x<sub>max</sub> − x<sub>min</sub><br>
+绝对误差 = x̄ − x<sub>ref</sub>   相对误差 = (x̄ − x<sub>ref</sub>) / x<sub>ref</sub> × 100%</div>
+    <div class="note" tabindex="-1">RSD 表征精密度，相对误差表征准确度。x<sub>ref</sub> 为标准物质认定值或约定真值，留空时仅输出精密度统计量。s 采用样本标准偏差（分母 n−1），n ≥ 2。</div>
   </div>
   <div class="calc-body">
     <div class="hint">输入多次测定值，逗号分隔<br>示例：2.31,2.28,2.35,2.30,2.29</div>
@@ -1497,13 +1495,13 @@ L<sub>eq</sub> = SEL &minus; 10 lg(T / T<sub>0</sub>)&nbsp;&nbsp;&nbsp;T<sub>0</
 <div class="panel-grid">
 <div class="calc-card" id="calc-g2">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line></svg>
     <h3>溶液配制</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（稀释定律 C<sub>1</sub>V<sub>1</sub> = C<sub>2</sub>V<sub>2</sub>）</div>
-    <div class="fcontent">应移取体积 V<sub>取</sub> = C<sub>目标</sub> &times; V<sub>定容</sub> / C<sub>原液</sub><br>
-实际浓度 C<sub>实际</sub> = C<sub>原液</sub> &times; V<sub>实取</sub> / V<sub>定容</sub></div>
+    <div class="fcontent">应移取体积 V<sub>取</sub> = C<sub>目标</sub> × V<sub>定容</sub> / C<sub>原液</sub><br>
+实际浓度 C<sub>实际</sub> = C<sub>原液</sub> × V<sub>实取</sub> / V<sub>定容</sub></div>
     <div class="note" tabindex="-1">C<sub>原液</sub> 与 C<sub>目标</sub> 单位须一致，V<sub>取</sub> 与 V<sub>定容</sub> 单位一致。当计算所得移取体积过小（&lt; 0.5 mL）时，应先配制中间浓度储备液再逐级稀释，以减小移液器带来的相对误差。</div>
   </div>
   <div class="calc-body">
@@ -1517,13 +1515,13 @@ L<sub>eq</sub> = SEL &minus; 10 lg(T / T<sub>0</sub>)&nbsp;&nbsp;&nbsp;T<sub>0</
   <div class="std-ref">标准溶液配制：反算移取体积</div>
 </div><div class="calc-card" id="calc-g3">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line></svg>
     <h3>配气计算</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（静态配气 · 体积稀释法）</div>
-    <div class="fcontent">标气用量 V<sub>标</sub> = V<sub>总</sub> &times; C<sub>目标</sub> / C<sub>标</sub><br>
-稀释气体积 V<sub>稀</sub> = V<sub>总</sub> &minus; V<sub>标</sub><br>
+    <div class="fcontent">标气用量 V<sub>标</sub> = V<sub>总</sub> × C<sub>目标</sub> / C<sub>标</sub><br>
+稀释气体积 V<sub>稀</sub> = V<sub>总</sub> − V<sub>标</sub><br>
 稀释倍数 = C<sub>标</sub> / C<sub>目标</sub></div>
     <div class="note" tabindex="-1">适用于同温同压下的体积配比，浓度以 ppm 或 mg/m³ 表示时均成立。采用动态配气仪时改用流量配比：Q<sub>标</sub> / Q<sub>总</sub> = C<sub>目标</sub> / C<sub>标</sub>。稀释倍数过大（&gt; 100）时宜分两级稀释。</div>
   </div>
@@ -1537,35 +1535,38 @@ L<sub>eq</sub> = SEL &minus; 10 lg(T / T<sub>0</sub>)&nbsp;&nbsp;&nbsp;T<sub>0</
   <div class="std-ref">标准气体稀释配制比例计算</div>
 </div><div class="calc-card" id="calc-g4">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line></svg>
     <h3>线性回归</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（最小二乘一元线性回归 · 校准曲线）</div>
     <div class="fcontent">y = a + b x<br>
-b = (n&sum;xy &minus; &sum;x&sum;y) / (n&sum;x<sup>2</sup> &minus; (&sum;x)<sup>2</sup>)<br>
-a = (&sum;y &minus; b&sum;x) / n<br>
-r = (n&sum;xy &minus; &sum;x&sum;y) / &radic;[ (n&sum;x<sup>2</sup> &minus; (&sum;x)<sup>2</sup>) &times; (n&sum;y<sup>2</sup> &minus; (&sum;y)<sup>2</sup>) ]</div>
-    <div class="note" tabindex="-1">x 为标准系列浓度，y 为仪器响应值；b 为斜率（灵敏度），a 为截距。校准曲线一般要求相关系数 r &ge; 0.999（部分方法为 0.995），浓度点不少于 6 个（含零浓度点），且样品测定结果应落在曲线范围内。</div>
+b = (n∑xy − ∑x∑y) / (n∑x<sup>2</sup> − (∑x)<sup>2</sup>)<br>
+a = (∑y − b∑x) / n<br>
+r = (n∑xy − ∑x∑y) / √[ (n∑x<sup>2</sup> − (∑x)<sup>2</sup>) × (n∑y<sup>2</sup> − (∑y)<sup>2</sup>) ]</div>
+    <div class="note" tabindex="-1">x 为标准系列浓度，y 为仪器响应值；b 为斜率（灵敏度），a 为截距。校准曲线一般要求相关系数 r ≥ 0.999（部分方法为 0.995），浓度点不少于 6 个（含零浓度点），且样品测定结果应落在曲线范围内。</div>
   </div>
   <div class="calc-body">
 <div class="hint">每行一组 x,y（逗号/换行分隔）<br>示例：<br>1,2.1<br>2,4.0<br>3,6.2</div>
-<textarea id="g4_data" placeholder="x,y&#10;1,2.1&#10;2,4.0&#10;3,6.2"></textarea>
+<textarea id="g4_data" placeholder="x,y
+1,2.1
+2,4.0
+3,6.2"></textarea>
     <button class="btn-calc" onclick="calcG3()">计算</button>
     <div class="result-area" id="g4_result"></div>
   </div>
   <div class="std-ref">最小二乘法拟合：截距a、斜率b、相关系数r</div>
 </div><div class="calc-card" id="calc-g5">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line></svg>
     <h3>重复性计算</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（重复性 / 实验室内精密度）</div>
-    <div class="fcontent">x&#772; = (1/n) &sum; x<sub>i</sub><br>
-s = &radic;[ &sum;(x<sub>i</sub> &minus; x&#772;)<sup>2</sup> / (n &minus; 1) ]<br>
-RSD = s / |x&#772;| &times; 100%&nbsp;&nbsp;&nbsp;极差 R = x<sub>max</sub> &minus; x<sub>min</sub></div>
-    <div class="note" tabindex="-1">重复性指同一实验室、同一分析人员、同一仪器、短时间内对同一样品的多次测定结果的一致程度，建议平行测定不少于 6 次。RSD 限值以方法标准规定为准，常规无机项目一般要求 &le; 10%。</div>
+    <div class="fcontent">x̄ = (1/n) ∑ x<sub>i</sub><br>
+s = √[ ∑(x<sub>i</sub> − x̄)<sup>2</sup> / (n − 1) ]<br>
+RSD = s / |x̄| × 100%   极差 R = x<sub>max</sub> − x<sub>min</sub></div>
+    <div class="note" tabindex="-1">重复性指同一实验室、同一分析人员、同一仪器、短时间内对同一样品的多次测定结果的一致程度，建议平行测定不少于 6 次。RSD 限值以方法标准规定为准，常规无机项目一般要求 ≤ 10%。</div>
   </div>
   <div class="calc-body">
 <div class="hint">输入多次测定值，逗号/空格/换行分隔<br>示例：2.31,2.28,2.35,2.30,2.29</div>
@@ -1580,12 +1581,12 @@ RSD = s / |x&#772;| &times; 100%&nbsp;&nbsp;&nbsp;极差 R = x<sub>max</sub> &mi
 <!-- G5: 加标回收率 -->
 <div class="calc-card" id="calc-g6">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="3"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2v20M2 12h20"></path><circle cx="12" cy="12" r="3"></circle></svg>
     <h3>加标回收率</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（加标回收率）</div>
-    <div class="fcontent">P = ( C<sub>加标试样</sub> &minus; C<sub>试样</sub> ) / C<sub>加标量</sub> &times; 100%</div>
+    <div class="fcontent">P = ( C<sub>加标试样</sub> − C<sub>试样</sub> ) / C<sub>加标量</sub> × 100%</div>
     <div class="note" tabindex="-1">加标量宜为样品本底含量的 0.5~2 倍，且加标后总量不超过方法测定上限；加标溶液体积应小于样品体积的 1%，以免改变基体。判定区间默认 80%~120%，实际须按方法标准或质控要求设定。</div>
   </div>
   <div class="calc-body">
@@ -1602,14 +1603,14 @@ RSD = s / |x&#772;| &times; 100%&nbsp;&nbsp;&nbsp;极差 R = x<sub>max</sub> &mi
 <!-- G6: 相对误差/绝对误差 -->
 <div class="calc-card" id="calc-g7">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 9h16"/><path d="M9 9v11"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M4 4h16v16H4z"></path><path d="M4 9h16"></path><path d="M9 9v11"></path></svg>
     <h3>相对误差与相对偏差</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（相对误差与相对偏差）</div>
-    <div class="fcontent">相对误差 RE = ( x<sub>1</sub> &minus; x<sub>2</sub> ) / x<sub>2</sub> &times; 100%&nbsp;&nbsp;<span style="font-size:11px;color:#888">(x<sub>2</sub> 为标准值 / 参考值)</span><br>
-相对偏差 RD = | x<sub>1</sub> &minus; x<sub>2</sub> | / [ ( x<sub>1</sub> + x<sub>2</sub> ) / 2 ] &times; 100%</div>
-    <div class="note" tabindex="-1">RE 评价单次测定结果偏离标准值的准确度；RD 评价两次平行测定之间的精密度。平行双样相对偏差一般要求 &le; 10%（低浓度样品可放宽至 20%~30%），具体以方法标准规定为准。</div>
+    <div class="fcontent">相对误差 RE = ( x<sub>1</sub> − x<sub>2</sub> ) / x<sub>2</sub> × 100%  <span style="font-size:11px;color:#888">(x<sub>2</sub> 为标准值 / 参考值)</span><br>
+相对偏差 RD = | x<sub>1</sub> − x<sub>2</sub> | / [ ( x<sub>1</sub> + x<sub>2</sub> ) / 2 ] × 100%</div>
+    <div class="note" tabindex="-1">RE 评价单次测定结果偏离标准值的准确度；RD 评价两次平行测定之间的精密度。平行双样相对偏差一般要求 ≤ 10%（低浓度样品可放宽至 20%~30%），具体以方法标准规定为准。</div>
   </div>
   <div class="calc-body">
     <div class="input-row"><label>测量值 x<sub>1</sub></label><input type="number" id="g7_x1" step="any"></div>
@@ -1633,13 +1634,13 @@ RSD = s / |x&#772;| &times; 100%&nbsp;&nbsp;&nbsp;极差 R = x<sub>max</sub> &mi
 <!-- W1: 单项水质标准指数 -->
 <div class="calc-card" id="calc-w1">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
     <h3>单项水质标准指数</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（单项水质标准指数 · HJ 2.3-2018 / GB 3838-2002）</div>
     <div class="fcontent">I<sub>i</sub> = C<sub>i</sub> / C<sub>0i</sub><br>
-判定：I<sub>i</sub> &le; 1 达标；I<sub>i</sub> &gt; 1 超标</div>
+判定：I<sub>i</sub> ≤ 1 达标；I<sub>i</sub> &gt; 1 超标</div>
     <div class="note" tabindex="-1">C<sub>i</sub> 为第 i 项污染物实测浓度，C<sub>0i</sub> 为该项在评价水质类别下的标准限值（地表水取 GB 3838-2002，污水排放取 GB 8978-1996 或行业标准）。pH、溶解氧、水温等非“浓度越低越好”的指标不适用本式，应分别使用 pH 标准指数与 DO 标准指数。</div>
   </div>
   <div class="calc-body">
@@ -1656,14 +1657,14 @@ RSD = s / |x&#772;| &times; 100%&nbsp;&nbsp;&nbsp;极差 R = x<sub>max</sub> &mi
 <!-- W2: pH标准指数 -->
 <div class="calc-card" id="calc-w2">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
     <h3>pH 标准指数</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（pH 标准指数 · HJ 2.3-2018）</div>
-    <div class="fcontent">pH &le; 7.0 时：I<sub>pH</sub> = (7.0 &minus; pH) / (7.0 &minus; pH<sub>sd</sub>)<br>
-pH &gt; 7.0 时：I<sub>pH</sub> = (pH &minus; 7.0) / (pH<sub>su</sub> &minus; 7.0)</div>
-    <div class="note" tabindex="-1">pH<sub>sd</sub>、pH<sub>su</sub> 分别为标准规定的 pH 下限与上限（GB 3838-2002 地表水为 6~9）。I<sub>pH</sub> &le; 1 表示达标；因 pH 为对数量且存在双侧限值，不能直接用 C/C<sub>0</sub> 形式计算。</div>
+    <div class="fcontent">pH ≤ 7.0 时：I<sub>pH</sub> = (7.0 − pH) / (7.0 − pH<sub>sd</sub>)<br>
+pH &gt; 7.0 时：I<sub>pH</sub> = (pH − 7.0) / (pH<sub>su</sub> − 7.0)</div>
+    <div class="note" tabindex="-1">pH<sub>sd</sub>、pH<sub>su</sub> 分别为标准规定的 pH 下限与上限（GB 3838-2002 地表水为 6~9）。I<sub>pH</sub> ≤ 1 表示达标；因 pH 为对数量且存在双侧限值，不能直接用 C/C<sub>0</sub> 形式计算。</div>
   </div>
   <div class="calc-body">
     <div class="input-row"><label>实测 pH</label><input type="number" id="w2_ph" step="any" placeholder="如: 8.5"></div>
@@ -1678,15 +1679,15 @@ pH &gt; 7.0 时：I<sub>pH</sub> = (pH &minus; 7.0) / (pH<sub>su</sub> &minus; 7
 <!-- W3: 溶解氧(DO)标准指数 -->
 <div class="calc-card" id="calc-w3">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12c0-2 1.5-4 4-4s4 2 4 4-1.5 4-4 4-4-2-4-4z"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 12c0-2 1.5-4 4-4s4 2 4 4-1.5 4-4 4-4-2-4-4z"></path></svg>
     <h3>溶解氧(DO)标准指数</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（溶解氧标准指数 · HJ 2.3-2018）</div>
-    <div class="fcontent">饱和溶解氧 C<sub>f</sub> = 468 / (31.6 + T)&nbsp;&nbsp;<span style="font-size:11px;color:#888">(T 为水温 ℃)</span><br>
-DO &ge; C<sub>s</sub> 时：S<sub>DO</sub> = (C<sub>f</sub> &minus; DO) / (C<sub>f</sub> &minus; C<sub>s</sub>)<br>
-DO &lt; C<sub>s</sub> 时：S<sub>DO</sub> = 10 &minus; 9 &times; DO / C<sub>s</sub></div>
-    <div class="note" tabindex="-1">C<sub>s</sub> 为溶解氧标准限值(mg/L)。C<sub>f</sub> 为不含盐度与气压修正的饱和溶解氧近似式，高海拔或咸水水体应另行修正。S<sub>DO</sub> &le; 1 为达标；DO 属“越大越好”指标，故指数形式与一般污染物相反。</div>
+    <div class="fcontent">饱和溶解氧 C<sub>f</sub> = 468 / (31.6 + T)  <span style="font-size:11px;color:#888">(T 为水温 ℃)</span><br>
+DO ≥ C<sub>s</sub> 时：S<sub>DO</sub> = (C<sub>f</sub> − DO) / (C<sub>f</sub> − C<sub>s</sub>)<br>
+DO &lt; C<sub>s</sub> 时：S<sub>DO</sub> = 10 − 9 × DO / C<sub>s</sub></div>
+    <div class="note" tabindex="-1">C<sub>s</sub> 为溶解氧标准限值(mg/L)。C<sub>f</sub> 为不含盐度与气压修正的饱和溶解氧近似式，高海拔或咸水水体应另行修正。S<sub>DO</sub> ≤ 1 为达标；DO 属“越大越好”指标，故指数形式与一般污染物相反。</div>
   </div>
   <div class="calc-body">
     <div class="input-row"><label>实测 DO</label><input type="number" id="w3_do" step="any" placeholder="mg/L"></div>
@@ -1701,14 +1702,14 @@ DO &lt; C<sub>s</sub> 时：S<sub>DO</sub> = 10 &minus; 9 &times; DO / C<sub>s</
 <!-- W4: 综合污染指数 -->
 <div class="calc-card" id="calc-w4">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="8" y1="16" x2="16" y2="16"/><line x1="8" y1="12" x2="12" y2="12"/><line x1="8" y1="8" x2="10" y2="8"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"></rect><line x1="8" y1="16" x2="16" y2="16"></line><line x1="8" y1="12" x2="12" y2="12"></line><line x1="8" y1="8" x2="10" y2="8"></line></svg>
     <h3>综合污染指数(多参数)</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（综合污染指数 · 均值型）</div>
     <div class="fcontent">单项指数 I<sub>i</sub> = C<sub>i</sub> / C<sub>0i</sub><br>
-综合污染指数 P = (1/n) &times; &sum;<sub>i=1</sub><sup>n</sup> I<sub>i</sub></div>
-    <div class="note" tabindex="-1">按“参数名称,实测值,标准值”逐行输入。均值型综合指数会削弱个别重污染因子的影响，评价时应同时列出各单项指数并指明超标因子。若需突出最大因子，可改用内梅罗型 P = &radic;[(I<sub>max</sub><sup>2</sup> + I<sub>avg</sub><sup>2</sup>)/2]（见土壤模块内梅罗卡片）。</div>
+综合污染指数 P = (1/n) × ∑<sub>i=1</sub><sup>n</sup> I<sub>i</sub></div>
+    <div class="note" tabindex="-1">按“参数名称,实测值,标准值”逐行输入。均值型综合指数会削弱个别重污染因子的影响，评价时应同时列出各单项指数并指明超标因子。若需突出最大因子，可改用内梅罗型 P = √[(I<sub>max</sub><sup>2</sup> + I<sub>avg</sub><sup>2</sup>)/2]（见土壤模块内梅罗卡片）。</div>
   </div>
   <div class="calc-body">
     <div class="hint">每行输入一个参数：<b>参数名,实测值,标准值</b><br>示例：<br>总磷,0.25,0.2<br>氨氮,1.5,1.0<br>COD,30,30</div>
@@ -1725,14 +1726,14 @@ COD,30,30"></textarea>
 <!-- W5: 排放量计算 -->
 <div class="calc-card" id="calc-w5">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M2 9l3 3-3 3"/><path d="M22 9l-3 3 3 3"/><rect x="6" y="5" width="12" height="14" rx="2"/><line x1="12" y1="5" x2="12" y2="19"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M2 9l3 3-3 3"></path><path d="M22 9l-3 3 3 3"></path><rect x="6" y="5" width="12" height="14" rx="2"></rect><line x1="12" y1="5" x2="12" y2="19"></line></svg>
     <h3>排放量计算</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（水污染物排放量核算）</div>
-    <div class="fcontent">W(g) = Q(m³/h) &times; C(mg/L) &times; t(h)<br>
-W(kg) = Q &times; C &times; t / 1000</div>
-    <div class="note" tabindex="-1">因 1 m³ = 1000 L，故 m³/h &times; mg/L &times; h 的乘积单位恰为 g，无需额外换算系数。排污许可执行报告中的时段排放量应按各时段实际废水量与浓度的加权结果分段累加，不能用瞬时流量简单外推。</div>
+    <div class="fcontent">W(g) = Q(m³/h) × C(mg/L) × t(h)<br>
+W(kg) = Q × C × t / 1000</div>
+    <div class="note" tabindex="-1">因 1 m³ = 1000 L，故 m³/h × mg/L × h 的乘积单位恰为 g，无需额外换算系数。排污许可执行报告中的时段排放量应按各时段实际废水量与浓度的加权结果分段累加，不能用瞬时流量简单外推。</div>
   </div>
   <div class="calc-body">
     <div class="input-row"><label>流量 Q</label><input type="number" id="w5_q" step="any" placeholder="m³/h"></div>
@@ -1747,13 +1748,13 @@ W(kg) = Q &times; C &times; t / 1000</div>
 
 <div class="calc-card" id="calc-w6">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line></svg>
     <h3>阻值换算(电导率)</h3>
   </div>
   <div class="formula-box">
-    <div class="flabel">计算公式（电阻 &rarr; 电导率换算）</div>
-    <div class="fcontent">&kappa; = K / R &times; 10<sup>6</sup>&nbsp;&nbsp;<span style="font-size:11px;color:#888">(&mu;S/cm)</span></div>
-    <div class="note" tabindex="-1">K 为电导池常数(cm<sup>&minus;1</sup>)，R 为实测电阻(&Omega;)。K/R 的单位为 S/cm，乘 10<sup>6</sup> 换算为 &mu;S/cm。电导池常数须用已知电导率的标准 KCl 溶液定期标定，电极污染或老化会使 K 发生漂移。</div>
+    <div class="flabel">计算公式（电阻 → 电导率换算）</div>
+    <div class="fcontent">κ = K / R × 10<sup>6</sup>  <span style="font-size:11px;color:#888">(μS/cm)</span></div>
+    <div class="note" tabindex="-1">K 为电导池常数(cm<sup>−1</sup>)，R 为实测电阻(Ω)。K/R 的单位为 S/cm，乘 10<sup>6</sup> 换算为 μS/cm。电导池常数须用已知电导率的标准 KCl 溶液定期标定，电极污染或老化会使 K 发生漂移。</div>
   </div>
   <div class="calc-body">
 <div class="input-row"><label>电阻 R(Ω)</label><input type="number" id="w6_r" step="any" placeholder="如: 1000"></div>
@@ -1764,13 +1765,13 @@ W(kg) = Q &times; C &times; t / 1000</div>
   <div class="std-ref">电极法水质检测：κ = K/R</div>
 </div><div class="calc-card" id="calc-w7">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line></svg>
     <h3>电导率温度补偿</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（电导率温度补偿至 25 ℃）</div>
-    <div class="fcontent">&kappa;<sub>25</sub> = &kappa;<sub>t</sub> / [ 1 + &alpha; (t &minus; 25) ]</div>
-    <div class="note" tabindex="-1">&alpha; 为温度系数，一般天然水样取 0.02 /℃（即 2%/℃）；强酸、强碱及高盐溶液应实测确定 &alpha;。报出电导率结果时须统一折算到 25 ℃基准，并注明是否已作温度补偿。</div>
+    <div class="fcontent">κ<sub>25</sub> = κ<sub>t</sub> / [ 1 + α (t − 25) ]</div>
+    <div class="note" tabindex="-1">α 为温度系数，一般天然水样取 0.02 /℃（即 2%/℃）；强酸、强碱及高盐溶液应实测确定 α。报出电导率结果时须统一折算到 25 ℃基准，并注明是否已作温度补偿。</div>
   </div>
   <div class="calc-body">
 <div class="input-row"><label>实测电导率 κ_t(μS/cm)</label><input type="number" id="w7_kt" step="any" placeholder="如: 1200"></div>
@@ -1782,13 +1783,13 @@ W(kg) = Q &times; C &times; t / 1000</div>
   <div class="std-ref">电导率基准温度补偿（常用线性补偿）</div>
 </div><div class="calc-card" id="calc-w8">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line></svg>
     <h3>pH电极斜率温度补偿</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（Nernst 方程理论斜率）</div>
-    <div class="fcontent">S<sub>T</sub> = 0.05916 &times; (T + 273.15) / 298.15&nbsp;&nbsp;<span style="font-size:11px;color:#888">(V/pH)</span><br>
-S<sub>T</sub> = 59.16 &times; (T + 273.15) / 298.15&nbsp;&nbsp;<span style="font-size:11px;color:#888">(mV/pH)</span></div>
+    <div class="fcontent">S<sub>T</sub> = 0.05916 × (T + 273.15) / 298.15  <span style="font-size:11px;color:#888">(V/pH)</span><br>
+S<sub>T</sub> = 59.16 × (T + 273.15) / 298.15  <span style="font-size:11px;color:#888">(mV/pH)</span></div>
     <div class="note" tabindex="-1">25 ℃ 时理论斜率为 59.16 mV/pH，温度每升高 10 ℃ 约增大 2 mV/pH。电极实用斜率与理论斜率之比（电极效率）应在 95%~105% 之间，低于 95% 说明电极钝化，需活化或更换。</div>
   </div>
   <div class="calc-body">
@@ -1799,14 +1800,14 @@ S<sub>T</sub> = 59.16 &times; (T + 273.15) / 298.15&nbsp;&nbsp;<span style="font
   <div class="std-ref">玻璃电极理论斜率随温度变化（Nernst方程）</div>
 </div><div class="calc-card" id="calc-w9">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line></svg>
     <h3>电位(mV)→pH换算</h3>
   </div>
   <div class="formula-box">
-    <div class="flabel">计算公式（电位 &rarr; pH 换算 · Nernst 方程）</div>
-    <div class="fcontent">pH = pH<sub>iso</sub> + ( E<sub>iso</sub> &minus; E ) / S<br>
-自动斜率 S = 59.16 &times; (T + 273.15) / 298.15&nbsp;&nbsp;<span style="font-size:11px;color:#888">(mV/pH)</span><br>
-电极效率 = S<sub>实用</sub> / S<sub>理论</sub> &times; 100%，合格区间 95% ~ 105%</div>
+    <div class="flabel">计算公式（电位 → pH 换算 · Nernst 方程）</div>
+    <div class="fcontent">pH = pH<sub>iso</sub> + ( E<sub>iso</sub> − E ) / S<br>
+自动斜率 S = 59.16 × (T + 273.15) / 298.15  <span style="font-size:11px;color:#888">(mV/pH)</span><br>
+电极效率 = S<sub>实用</sub> / S<sub>理论</sub> × 100%，合格区间 95% ~ 105%</div>
     <div class="note" tabindex="-1">pH<sub>iso</sub> 与 E<sub>iso</sub> 为定位（等电位）点的 pH 与电位，通常以 pH 6.86 缓冲液定位，理想电极此点电位接近 0 mV。若计算 pH 超出 0~14 量程，应检查电位符号、定位点取值与电极状态。</div>
   </div>
   <div class="calc-body">
@@ -1822,14 +1823,14 @@ S<sub>T</sub> = 59.16 &times; (T + 273.15) / 298.15&nbsp;&nbsp;<span style="font
   <div class="std-ref">GB/T 6920-1986 玻璃电极法：以pH7缓冲液定位，pH = pH<sub>iso</sub> + (E<sub>iso</sub> − E)/S；斜率S按Nernst方程随温度变化，25℃为59.16 mV/pH。电极斜率应在理论值的95%~105%之间</div>
 </div><div class="calc-card" id="calc-w10">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line></svg>
     <h3>水质浓度换算</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">换算公式（质量浓度 / 摩尔浓度 / 以元素计）</div>
-    <div class="fcontent">摩尔浓度 c(mmol/L) = &rho;(mg/L) / M(g/mol)<br>
-以元素计 &rho;<sub>元素</sub> = &rho;<sub>化合物</sub> &times; f&nbsp;&nbsp;&nbsp;f = M<sub>元素</sub> / M<sub>化合物</sub></div>
-    <div class="note" tabindex="-1">常见换算因子：NO<sub>3</sub><sup>&minus;</sup> 以 N 计 f = 14/62 = 0.2259；NH<sub>4</sub><sup>+</sup> 以 N 计 f = 14/18 = 0.7778；SO<sub>4</sub><sup>2&minus;</sup> 以 S 计 f = 32/96 = 0.3333；PO<sub>4</sub><sup>3&minus;</sup> 以 P 计 f = 31/95 = 0.3263。程序已内置常见指标的 M 与 f，选择指标后自动换算。报出结果时必须注明计量基准（以 N 计 / 以化合物计）。</div>
+    <div class="fcontent">摩尔浓度 c(mmol/L) = ρ(mg/L) / M(g/mol)<br>
+以元素计 ρ<sub>元素</sub> = ρ<sub>化合物</sub> × f   f = M<sub>元素</sub> / M<sub>化合物</sub></div>
+    <div class="note" tabindex="-1">常见换算因子：NO<sub>3</sub><sup>−</sup> 以 N 计 f = 14/62 = 0.2259；NH<sub>4</sub><sup>+</sup> 以 N 计 f = 14/18 = 0.7778；SO<sub>4</sub><sup>2−</sup> 以 S 计 f = 32/96 = 0.3333；PO<sub>4</sub><sup>3−</sup> 以 P 计 f = 31/95 = 0.3263。程序已内置常见指标的 M 与 f，选择指标后自动换算。报出结果时必须注明计量基准（以 N 计 / 以化合物计）。</div>
   </div>
   <div class="calc-body">
 <div class="input-row"><label>指标</label><select id="w10_sub"><option value="Ca">Ca²⁺ (钙)</option><option value="Mg">Mg²⁺ (镁)</option><option value="Na">Na⁺ (钠)</option><option value="K">K⁺ (钾)</option><option value="NH4">NH₄⁺ (铵)</option><option value="Cl">Cl⁻ (氯)</option><option value="SO4">SO₄²⁻ (硫酸根)</option><option value="NO3">NO₃⁻ (硝酸根)</option><option value="NO2">NO₂⁻ (亚硝酸根)</option><option value="F">F⁻ (氟)</option><option value="HCO3">HCO₃⁻ (碳酸氢根)</option><option value="PO4">PO₄³⁻ (磷酸根)</option><option value="TN">总氮 TN</option><option value="TP">总磷 TP</option><option value="COD">COD</option><option value="TOC">TOC</option></select></div>
@@ -1843,13 +1844,13 @@ S<sub>T</sub> = 59.16 &times; (T + 273.15) / 298.15&nbsp;&nbsp;<span style="font
 <!-- W11: 地下水洗井体积计算 -->
 <div class="calc-card" id="calc-w11">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 3v18"/><circle cx="12" cy="12" r="9"/><path d="M12 8v8"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 3v18"></path><circle cx="12" cy="12" r="9"></circle><path d="M12 8v8"></path></svg>
     <h3>地下水洗井体积</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（井体积与洗井水量 · HJ 164-2020 / HJ 25.2）</div>
-    <div class="fcontent">井内水体积 V = π·D²/4·h&nbsp;&nbsp;<span style="font-size:11px;color:#888">(D 井管内径, h 井内水柱高度)</span><br>
-洗井体积 V<sub>purge</sub> ≥ n·V&nbsp;&nbsp;<span style="font-size:11px;color:#888">(n 一般取 3，宜 3~5)</span></div>
+    <div class="fcontent">井内水体积 V = π·D²/4·h  <span style="font-size:11px;color:#888">(D 井管内径, h 井内水柱高度)</span><br>
+洗井体积 V<sub>purge</sub> ≥ n·V  <span style="font-size:11px;color:#888">(n 一般取 3，宜 3~5)</span></div>
     <div class="note" tabindex="-1">成井洗井应至少洗出约 3 倍井体积的水量；采样前洗井原则上达到 3~5 倍滞水体积。井体积按井管（井筒）截面积乘以井内水柱高度计算，h 取静水位（或动水位）以下至井底深度。洗井体积达到 3~5 倍井体积且水质参数稳定（见下一张卡片）方可采样。</div>
   </div>
   <div class="calc-body">
@@ -1865,7 +1866,7 @@ S<sub>T</sub> = 59.16 &times; (T + 273.15) / 298.15&nbsp;&nbsp;<span style="font
 <!-- W12: 地下水洗井终点(稳定)判定 -->
 <div class="calc-card" id="calc-w12">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M20 6L9 17l-5-5"></path></svg>
     <h3>洗井终点(稳定)判定</h3>
   </div>
   <div class="formula-box">
@@ -1887,7 +1888,7 @@ DO：极差 ≤ 0.3 mg/L 或 相对变化 ≤ 10%；ORP：极差 ≤ 10 mV 或 �
 <!-- W13: 地下水流向与水力梯度 -->
 <div class="calc-card" id="calc-w13">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h18"/><path d="M15 6l6 6-6 6"/><circle cx="6" cy="12" r="2"/><circle cx="18" cy="12" r="2"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h18"></path><path d="M15 6l6 6-6 6"></path><circle cx="6" cy="12" r="2"></circle><circle cx="18" cy="12" r="2"></circle></svg>
     <h3>地下水流向与梯度</h3>
   </div>
   <div class="formula-box">
@@ -1916,7 +1917,7 @@ DO：极差 ≤ 0.3 mg/L 或 相对变化 ≤ 10%；ORP：极差 ≤ 10 mV 或 �
 <!-- W14: 地下水质量分类评价(GB/T 14848-2017) -->
 <div class="calc-card" id="calc-w14">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 3h18v18H3z"></path><path d="M3 9h18M3 15h18M9 3v18"></path></svg>
     <h3>地下水质量分类评价</h3>
   </div>
   <div class="formula-box">
@@ -1937,7 +1938,7 @@ DO：极差 ≤ 0.3 mg/L 或 相对变化 ≤ 10%；ORP：极差 ≤ 10 mV 或 �
 <!-- W15: 渗透系数K(稳定流抽水试验·Thiem/裘布依) -->
 <div class="calc-card" id="calc-w15">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2v20"/><path d="M5 9c0 4 3 6 7 6s7-2 7-6"/><circle cx="12" cy="6" r="2"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2v20"></path><path d="M5 9c0 4 3 6 7 6s7-2 7-6"></path><circle cx="12" cy="6" r="2"></circle></svg>
     <h3>渗透系数K(抽水试验)</h3>
   </div>
   <div class="formula-box">
@@ -1966,7 +1967,7 @@ DO：极差 ≤ 0.3 mg/L 或 相对变化 ≤ 10%；ORP：极差 ≤ 10 mV 或 �
 <!-- W16: 地下水监测井参数互算 -->
 <div class="calc-card" id="calc-w16">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2v20"/><path d="M6 18h12"/><circle cx="12" cy="14" r="2"/><path d="M8 6h8"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2v20"></path><path d="M6 18h12"></path><circle cx="12" cy="14" r="2"></circle><path d="M8 6h8"></path></svg>
     <h3>地下水监测井参数互算</h3>
   </div>
   <div class="formula-box">
@@ -1974,54 +1975,54 @@ DO：极差 ≤ 0.3 mg/L 或 相对变化 ≤ 10%；ORP：极差 ≤ 10 mV 或 �
     <div class="fcontent" style="white-space:normal;overflow-x:visible;padding:8px 0;">
       <svg viewBox="0 0 420 260" style="width:100%;max-width:420px;height:auto;display:block;margin:0 auto;background:#fff;border-radius:6px;border:1px solid var(--border);">
         <!-- 海平面（高程基准，虚线） -->
-        <line x1="30" y1="230" x2="400" y2="230" stroke="#90a4ae" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <line x1="30" y1="230" x2="400" y2="230" stroke="#90a4ae" stroke-width="1.5" stroke-dasharray="4 3"></line>
         <text x="35" y="245" font-size="11" fill="#546e7a">海平面（高程基准）</text>
         <!-- 地面线（中上，y=140） -->
-        <line x1="70" y1="140" x2="180" y2="140" stroke="#5d4037" stroke-width="2"/>
+        <line x1="70" y1="140" x2="180" y2="140" stroke="#5d4037" stroke-width="2"></line>
         <text x="75" y="135" font-size="11" fill="#5d4037">地面</text>
         <!-- 井口（高出地面 15px：y=125~140） -->
-        <rect x="110" y="125" width="30" height="15" rx="2" fill="none" stroke="#37474f" stroke-width="1.5"/>
+        <rect x="110" y="125" width="30" height="15" rx="2" fill="none" stroke="#37474f" stroke-width="1.5"></rect>
         <text x="145" y="118" font-size="10" fill="#37474f">井口</text>
         <!-- 井筒双线（从井口 y=140 向下到井底 y=225） -->
-        <line x1="115" y1="140" x2="115" y2="225" stroke="#455a64" stroke-width="2"/>
-        <line x1="135" y1="140" x2="135" y2="225" stroke="#455a64" stroke-width="2"/>
+        <line x1="115" y1="140" x2="115" y2="225" stroke="#455a64" stroke-width="2"></line>
+        <line x1="135" y1="140" x2="135" y2="225" stroke="#455a64" stroke-width="2"></line>
         <!-- 水面（地面下 45px：y=185，蓝色波浪 + 主横线） -->
-        <line x1="115" y1="185" x2="135" y2="185" stroke="#0288d1" stroke-width="3"/>
-        <path d="M115 188 Q122 193 127 188 T135 188" fill="none" stroke="#0288d1" stroke-width="1"/>
-        <path d="M115 192 Q122 197 127 192 T135 192" fill="none" stroke="#0288d1" stroke-width="0.8" opacity="0.6"/>
+        <line x1="115" y1="185" x2="135" y2="185" stroke="#0288d1" stroke-width="3"></line>
+        <path d="M115 188 Q122 193 127 188 T135 188" fill="none" stroke="#0288d1" stroke-width="1"></path>
+        <path d="M115 192 Q122 197 127 192 T135 192" fill="none" stroke="#0288d1" stroke-width="0.8" opacity="0.6"></path>
         <text x="145" y="189" font-size="10" fill="#0288d1">水面</text>
         <!-- 井底（y=225） -->
-        <line x1="115" y1="225" x2="135" y2="225" stroke="#455a64" stroke-width="2"/>
+        <line x1="115" y1="225" x2="135" y2="225" stroke="#455a64" stroke-width="2"></line>
         <text x="150" y="233" font-size="10" fill="#455a64">井底</text>
         <!-- 水位高程 H：水面处水平双箭头 + 竖直虚线引到海平面 -->
-        <line x1="40" y1="185" x2="105" y2="185" stroke="#1565c0" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"/>
-        <line x1="40" y1="230" x2="40" y2="185" stroke="#1565c0" stroke-width="1" stroke-dasharray="2 2"/>
+        <line x1="40" y1="185" x2="105" y2="185" stroke="#1565c0" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"></line>
+        <line x1="40" y1="230" x2="40" y2="185" stroke="#1565c0" stroke-width="1" stroke-dasharray="2 2"></line>
         <text x="25" y="170" font-size="10" fill="#1565c0" text-anchor="middle">水位 H</text>
         <!-- 井口高程 Wt：海平面(230) → 井口(132) -->
-        <line x1="215" y1="132" x2="215" y2="230" stroke="#6a1b9a" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"/>
+        <line x1="215" y1="132" x2="215" y2="230" stroke="#6a1b9a" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"></line>
         <text x="225" y="215" font-size="10" fill="#6a1b9a">井口高程 Wt</text>
         <!-- 井深 D：井口(132) → 井底(225)，沿井筒左侧 -->
-        <line x1="95" y1="132" x2="95" y2="225" stroke="#e65100" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"/>
+        <line x1="95" y1="132" x2="95" y2="225" stroke="#e65100" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"></line>
         <text x="80" y="182" font-size="10" fill="#e65100" text-anchor="middle">井深 D</text>
         <!-- 埋深 B：井口(132) → 水面(185) -->
-        <line x1="170" y1="132" x2="170" y2="185" stroke="#ff8f00" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"/>
+        <line x1="170" y1="132" x2="170" y2="185" stroke="#ff8f00" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"></line>
         <text x="180" y="163" font-size="10" fill="#ff8f00">埋深 B</text>
         <!-- 水深 Hw：水面(185) → 井底(225) -->
-        <line x1="155" y1="185" x2="155" y2="225" stroke="#2e7d32" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"/>
+        <line x1="155" y1="185" x2="155" y2="225" stroke="#2e7d32" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"></line>
         <text x="162" y="208" font-size="10" fill="#2e7d32">水深 Hw</text>
         <!-- 井底高程 Wb：海平面(230) → 井底(225) -->
-        <line x1="250" y1="230" x2="250" y2="225" stroke="#00695c" stroke-width="1" marker-end="url(#arrB)"/>
+        <line x1="250" y1="230" x2="250" y2="225" stroke="#00695c" stroke-width="1" marker-end="url(#arrB)"></line>
         <text x="260" y="212" font-size="10" fill="#00695c">井底高程 Wb</text>
         <!-- 地面高程 G：海平面(230) → 地面(140) -->
-        <line x1="300" y1="140" x2="300" y2="230" stroke="#5d4037" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"/>
+        <line x1="300" y1="140" x2="300" y2="230" stroke="#5d4037" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"></line>
         <text x="310" y="188" font-size="10" fill="#5d4037">地面高程 G</text>
         <!-- 井口高出地面 Hg：地面(140) → 井口(132) -->
-        <line x1="180" y1="140" x2="180" y2="132" stroke="#37474f" stroke-width="1" marker-end="url(#arrB)"/>
+        <line x1="180" y1="140" x2="180" y2="132" stroke="#37474f" stroke-width="1" marker-end="url(#arrB)"></line>
         <text x="190" y="132" font-size="10" fill="#37474f">井口高出地面 Hg</text>
         <!-- 箭头定义 -->
         <defs>
-          <marker id="arrA" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,3 L6,1.5 L6,4.5 Z" fill="#78909c"/></marker>
-          <marker id="arrB" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,1.5 L6,3 L0,4.5 Z" fill="#78909c"/></marker>
+          <marker id="arrA" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,3 L6,1.5 L6,4.5 Z" fill="#78909c"></path></marker>
+          <marker id="arrB" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,1.5 L6,3 L0,4.5 Z" fill="#78909c"></path></marker>
         </defs>
       </svg>
     </div>
@@ -2067,13 +2068,13 @@ DO：极差 ≤ 0.3 mg/L 或 相对变化 ≤ 10%；ORP：极差 ≤ 10 mV 或 �
 <!-- S1: 单项污染指数 -->
 <div class="calc-card" id="calc-s1">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="14" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"></rect><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="14" y2="14"></line></svg>
     <h3>单项污染指数</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（单项污染指数 · GB 15618-2018 / GB 36600-2018）</div>
     <div class="fcontent">P<sub>i</sub> = C<sub>i</sub> / S<sub>i</sub><br>
-判定：P<sub>i</sub> &le; 1 未超标；P<sub>i</sub> &gt; 1 超标</div>
+判定：P<sub>i</sub> ≤ 1 未超标；P<sub>i</sub> &gt; 1 超标</div>
     <div class="note" tabindex="-1">C<sub>i</sub> 为污染物实测含量(mg/kg，干基)，S<sub>i</sub> 为对应用地类型的风险筛选值或风险管制值。农用地执行 GB 15618-2018（需结合土壤 pH 分档与作物类型选值），建设用地执行 GB 36600-2018（区分第一类、第二类用地）。</div>
   </div>
   <div class="calc-body">
@@ -2089,15 +2090,15 @@ DO：极差 ≤ 0.3 mg/L 或 相对变化 ≤ 10%；ORP：极差 ≤ 10 mV 或 �
 <!-- S2: 内梅罗综合污染指数 -->
 <div class="calc-card" id="calc-s2">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path d="M3 9h18"></path><path d="M9 21V9"></path></svg>
     <h3>内梅罗综合污染指数</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（内梅罗综合污染指数 · Nemerow）</div>
     <div class="fcontent">P<sub>i</sub> = C<sub>i</sub> / S<sub>i</sub><br>
-P<sub>avg</sub> = (1/n) &sum; P<sub>i</sub>&nbsp;&nbsp;&nbsp;P<sub>max</sub> = max( P<sub>i</sub> )<br>
-P<sub>综</sub> = &radic;[ ( P<sub>max</sub><sup>2</sup> + P<sub>avg</sub><sup>2</sup> ) / 2 ]</div>
-    <div class="note" tabindex="-1">该指数兼顾平均水平并突出最大单项因子的影响。常用分级：P<sub>综</sub> &le; 0.7 清洁（安全）；0.7 &lt; P &le; 1.0 尚清洁（警戒线）；1.0 &lt; P &le; 2.0 轻度污染；2.0 &lt; P &le; 3.0 中度污染；P &gt; 3.0 重度污染。</div>
+P<sub>avg</sub> = (1/n) ∑ P<sub>i</sub>   P<sub>max</sub> = max( P<sub>i</sub> )<br>
+P<sub>综</sub> = √[ ( P<sub>max</sub><sup>2</sup> + P<sub>avg</sub><sup>2</sup> ) / 2 ]</div>
+    <div class="note" tabindex="-1">该指数兼顾平均水平并突出最大单项因子的影响。常用分级：P<sub>综</sub> ≤ 0.7 清洁（安全）；0.7 &lt; P ≤ 1.0 尚清洁（警戒线）；1.0 &lt; P ≤ 2.0 轻度污染；2.0 &lt; P ≤ 3.0 中度污染；P &gt; 3.0 重度污染。</div>
   </div>
   <div class="calc-body">
     <div class="hint">每行输入：<b>元素名,实测浓度,标准值</b><br>示例：<br>Pb,35,400<br>Cd,0.5,0.6<br>As,10,20</div>
@@ -2114,13 +2115,13 @@ As,10,20"></textarea>
 <!-- S3: 地累积指数 -->
 <div class="calc-card" id="calc-s3">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M2 22l5-14 4 7 5-12 6 18"/><circle cx="7" cy="8" r="2"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M2 22l5-14 4 7 5-12 6 18"></path><circle cx="7" cy="8" r="2"></circle></svg>
     <h3>地累积指数 I<sub>geo</sub></h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（地累积指数 I<sub>geo</sub> · Müller, 1969）</div>
-    <div class="fcontent">I<sub>geo</sub> = log<sub>2</sub>[ C<sub>n</sub> / ( 1.5 &times; B<sub>n</sub> ) ]</div>
-    <div class="note" tabindex="-1">C<sub>n</sub> 为元素实测含量，B<sub>n</sub> 为当地土壤地球化学背景值，系数 1.5 用于修正成岩作用引起的背景值波动。分级：I<sub>geo</sub> &le; 0 无污染；0~1 轻度污染；1~2 偏中度污染；2~3 中度污染；3~4 偏重度污染；4~5 重度污染；&gt; 5 极重度污染。</div>
+    <div class="fcontent">I<sub>geo</sub> = log<sub>2</sub>[ C<sub>n</sub> / ( 1.5 × B<sub>n</sub> ) ]</div>
+    <div class="note" tabindex="-1">C<sub>n</sub> 为元素实测含量，B<sub>n</sub> 为当地土壤地球化学背景值，系数 1.5 用于修正成岩作用引起的背景值波动。分级：I<sub>geo</sub> ≤ 0 无污染；0~1 轻度污染；1~2 偏中度污染；2~3 中度污染；3~4 偏重度污染；4~5 重度污染；&gt; 5 极重度污染。</div>
   </div>
   <div class="calc-body">
     <div class="input-row"><label>污染物</label><input type="text" id="s3_name" value="" placeholder="如: 铅(Pb)"></div>
@@ -2135,15 +2136,15 @@ As,10,20"></textarea>
 <!-- S4: 潜在生态危害指数 -->
 <div class="calc-card" id="calc-s4">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4"></path><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
     <h3>潜在生态危害指数</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（潜在生态危害指数 · Håkanson, 1980）</div>
     <div class="fcontent">污染系数 C<sub>f</sub><sup>i</sup> = C<sub>i</sub> / C<sub>n</sub><br>
-单项潜在生态危害系数 E<sub>r</sub><sup>i</sup> = T<sub>r</sub><sup>i</sup> &times; C<sub>f</sub><sup>i</sup><br>
-综合潜在生态危害指数 RI = &sum; E<sub>r</sub><sup>i</sup></div>
-    <div class="note" tabindex="-1">T<sub>r</sub><sup>i</sup> 为毒性响应系数，常用取值：Zn = 1，Cr = 2，Cu = Ni = Pb = 5，As = 10，Cd = 30，Hg = 40。RI 分级：&lt; 150 轻微生态危害；150~300 中等；300~600 强；&ge; 600 很强。C<sub>n</sub> 应取当地背景值或全国土壤背景值。</div>
+单项潜在生态危害系数 E<sub>r</sub><sup>i</sup> = T<sub>r</sub><sup>i</sup> × C<sub>f</sub><sup>i</sup><br>
+综合潜在生态危害指数 RI = ∑ E<sub>r</sub><sup>i</sup></div>
+    <div class="note" tabindex="-1">T<sub>r</sub><sup>i</sup> 为毒性响应系数，常用取值：Zn = 1，Cr = 2，Cu = Ni = Pb = 5，As = 10，Cd = 30，Hg = 40。RI 分级：&lt; 150 轻微生态危害；150~300 中等；300~600 强；≥ 600 很强。C<sub>n</sub> 应取当地背景值或全国土壤背景值。</div>
   </div>
   <div class="calc-body">
     <div class="hint">每行：<b>元素名,实测浓度,参考值,毒性系数</b><br>
@@ -2163,7 +2164,7 @@ Pb,35,25,5"></textarea>
 <!-- S6: 土壤单项标准指数 -->
 <div class="calc-card" id="calc-s5">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
     <h3>土壤单项污染指数（筛选值/管制值）</h3>
   </div>
   <div class="formula-box">
@@ -2184,12 +2185,12 @@ Pb,35,25,5"></textarea>
 <!-- S7: 土壤重金属有效度换算 -->
 <div class="calc-card" id="calc-s6">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2l4 8h-8z"/><path d="M12 10v12"/><path d="M6 16h12"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2l4 8h-8z"></path><path d="M12 10v12"></path><path d="M6 16h12"></path></svg>
     <h3>土壤重金属有效态占比</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（重金属有效态占比）</div>
-    <div class="fcontent">有效态占比(%) = C<sub>有效态</sub> / C<sub>全量</sub> &times; 100%</div>
+    <div class="fcontent">有效态占比(%) = C<sub>有效态</sub> / C<sub>全量</sub> × 100%</div>
     <div class="note" tabindex="-1">有效态（如 DTPA、CaCl<sub>2</sub>、醋酸铵或 Mehlich-3 提取态）反映重金属的生物可利用性与迁移性，占比越高，作物吸收与向下迁移的风险越大。两项含量须为同一干基单位(mg/kg)，且注明所用提取剂。</div>
   </div>
   <div class="calc-body">
@@ -2230,15 +2231,15 @@ Pb,35,25,5"></textarea>
   <div class="panel-grid">
 <div class="calc-card" id="calc-f1">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line></svg>
     <h3>检出限与测定下限</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（方法检出限与测定下限 · HJ 168-2020 附录A）</div>
-    <div class="fcontent">s = &radic;[ &sum;( x<sub>i</sub> &minus; x&#772; )<sup>2</sup> / ( n &minus; 1 ) ]<br>
-MDL = t<sub>(n&minus;1, 0.99)</sub> &times; s<br>
-测定下限 = 4 &times; MDL</div>
-    <div class="note" tabindex="-1">对浓度约为估计检出限 1~5 倍的空白加标样品平行测定 n &ge; 7 次；t 为自由度 n&minus;1、置信度 99% 的单侧 t 值（n = 7 时 t = 3.143，n = 8 时 t = 2.998）。计算所得 MDL 应不大于方法标准规定值，否则须查找原因并重新验证。</div>
+    <div class="fcontent">s = √[ ∑( x<sub>i</sub> − x̄ )<sup>2</sup> / ( n − 1 ) ]<br>
+MDL = t<sub>(n−1, 0.99)</sub> × s<br>
+测定下限 = 4 × MDL</div>
+    <div class="note" tabindex="-1">对浓度约为估计检出限 1~5 倍的空白加标样品平行测定 n ≥ 7 次；t 为自由度 n−1、置信度 99% 的单侧 t 值（n = 7 时 t = 3.143，n = 8 时 t = 2.998）。计算所得 MDL 应不大于方法标准规定值，否则须查找原因并重新验证。</div>
   </div>
   <div class="calc-body">
 <div class="hint">输入空白(或低浓度)样品的多次重复测定值，逗号/空格/换行分隔<br>建议 n=7，t(0.99,6)=3.143</div>
@@ -2253,14 +2254,14 @@ MDL = t<sub>(n&minus;1, 0.99)</sub> &times; s<br>
 <!-- V2: 精密度估算（相对标准偏差） -->
 <div class="calc-card" id="calc-f2">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M18 20V10"></path><path d="M12 20V4"></path><path d="M6 20v-6"></path></svg>
     <h3>精密度（RSD）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（方法精密度 RSD · HJ 168-2020）</div>
-    <div class="fcontent">x&#772; = (1/n) &sum; x<sub>i</sub><br>
-s = &radic;[ &sum;( x<sub>i</sub> &minus; x&#772; )<sup>2</sup> / ( n &minus; 1 ) ]<br>
-RSD = s / x&#772; &times; 100%</div>
+    <div class="fcontent">x̄ = (1/n) ∑ x<sub>i</sub><br>
+s = √[ ∑( x<sub>i</sub> − x̄ )<sup>2</sup> / ( n − 1 ) ]<br>
+RSD = s / x̄ × 100%</div>
     <div class="note" tabindex="-1">方法验证要求对低、中、高三个浓度水平的样品各平行测定 6~7 次，分别计算 RSD，结果均应满足方法标准规定的精密度指标。低浓度水平的 RSD 允许值通常较高浓度宽松。</div>
   </div>
   <div class="calc-body">
@@ -2275,13 +2276,13 @@ RSD = s / x&#772; &times; 100%</div>
 <!-- V3: 准确度（标准物质相对误差） -->
 <div class="calc-card" id="calc-f3">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
     <h3>准确度（标准物质 RE）</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（方法准确度 · 有证标准物质 RE，HJ 168-2020）</div>
-    <div class="fcontent">RE = ( x&#772; &minus; &mu; ) / &mu; &times; 100%</div>
-    <div class="note" tabindex="-1">x&#772; 为对有证标准物质平行测定 6 次的均值，&mu; 为标准物质认定值。判定：|RE| 应落在标准物质给出的不确定度区间内，或满足方法标准规定的准确度要求。无适用标准物质时，改用基体加标回收率评价准确度。</div>
+    <div class="fcontent">RE = ( x̄ − μ ) / μ × 100%</div>
+    <div class="note" tabindex="-1">x̄ 为对有证标准物质平行测定 6 次的均值，μ 为标准物质认定值。判定：|RE| 应落在标准物质给出的不确定度区间内，或满足方法标准规定的准确度要求。无适用标准物质时，改用基体加标回收率评价准确度。</div>
   </div>
   <div class="calc-body">
     <div class="input-row"><label>测定均值 x̄</label><input type="number" id="f3_x" step="any"></div>
@@ -2305,7 +2306,7 @@ RSD = s / x&#772; &times; 100%</div>
 <!-- OD1: 臭气浓度测定（环境空气/无组织 HJ 1262 §9.1 M1/M2 法） -->
 <div class="calc-card" id="calc-od1">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14l2-4 2 4 2-4 2 4"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14l2-4 2 4 2-4 2 4"></path></svg>
     <h3>臭气浓度测定（环境空气/无组织 · HJ 1262 §9.1）</h3>
   </div>
   <div class="formula-box">
@@ -2334,7 +2335,7 @@ Y = t₁ · (t₂ / t₁)<sup>α</sup>　（t₂ &gt; t₁）</div>
 <!-- OD2: 臭气浓度测定（固定污染源废气 HJ 1262 §9.2 个人阈值法） -->
 <div class="calc-card" id="calc-od2">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14l2-4 2 4 2-4 2 4"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14l2-4 2 4 2-4 2 4"></path></svg>
     <h3>臭气浓度测定（固定污染源废气 · HJ 1262 §9.2）</h3>
   </div>
   <div class="formula-box">
@@ -2452,7 +2453,7 @@ Y = D × 10<sup>X̄</sup></div>
 <!-- OD3: 稀释倍数梯度与样品注入体积（HJ 1262 表1/表2） -->
 <div class="calc-card" id="calc-od3">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14l2-4 2 4 2-4 2 4"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14l2-4 2 4 2-4 2 4"></path></svg>
     <h3>稀释倍数梯度与注入体积（HJ 1262 表1/表2）</h3>
   </div>
   <div class="formula-box">
@@ -2477,7 +2478,7 @@ Y = D × 10<sup>X̄</sup></div>
 <!-- OD4: 结果判定（GB 14554-1993） -->
 <div class="calc-card" id="calc-od4">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14l2-4 2 4 2-4 2 4"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14l2-4 2 4 2-4 2 4"></path></svg>
     <h3>结果判定（GB 14554-1993）</h3>
   </div>
   <div class="formula-box">
@@ -2505,7 +2506,7 @@ Y = D × 10<sup>X̄</sup></div>
 <!-- OD5: 臭气指数换算（辅助） -->
 <div class="calc-card" id="calc-od5">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14l2-4 2 4 2-4 2 4"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14l2-4 2 4 2-4 2 4"></path></svg>
     <h3>臭气指数换算（辅助）</h3>
   </div>
   <div class="formula-box">
@@ -2549,13 +2550,13 @@ Y = D × 10<sup>X̄</sup></div>
 <!-- P1b: 颗粒物浓度 -->
 <div class="calc-card" id="calc-p1b">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 12h8"></path><path d="M12 8v8"></path></svg>
     <h3>颗粒物/降尘浓度</h3>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（颗粒物质量浓度 · GB/T 16157 / HJ 836-2017 / HJ 1221-2021）</div>
-    <div class="fcontent multiline">C = ( m̄<sub>后</sub> − m̄<sub>前</sub> ) / V<sub>nd</sub> × 10<sup>6</sup>&nbsp;&nbsp;(mg/m³)<br>
-降尘（HJ 1221-2021）：C = (m − m₀) / (A × t) × 30 × 10⁴&nbsp;&nbsp;(t/km²·30d，A 单位 cm²)<br>
+    <div class="fcontent multiline">C = ( m̄<sub>后</sub> − m̄<sub>前</sub> ) / V<sub>nd</sub> × 10<sup>6</sup>  (mg/m³)<br>
+降尘（HJ 1221-2021）：C = (m − m₀) / (A × t) × 30 × 10⁴  (t/km²·30d，A 单位 cm²)<br>
 恒重判定：|m<sub>前1</sub>−m<sub>前2</sub>| ≤ 允差 且 |m<sub>后1</sub>−m<sub>后2</sub>| ≤ 允差</div>
     <div class="note" tabindex="-1">颗粒物分支按恒重法：采样前后滤筒各 2 次称量（质量单位 <b>g</b>），V<sub>nd</sub> 为标况干气采样体积（L）；天平精度 十万分之一 恒重允差 0.0004 g、万分之一 0.0010 g。降尘分支按 HJ 1221-2021：C = (m₁−m₀−m₂)/(A·t)×30×10⁴（A 为集尘缸缸口面积，单位 cm²；t 为采样天数 d；10⁴ 为 g/cm²→t/km² 换算系数）；本卡未单列空白 m₂，按 m₂=0 处理。</div>
   </div>
@@ -2587,11 +2588,9 @@ Y = D × 10<sup>X̄</sup></div>
   <div class="std-ref">参考标准：GB/T 16157-1996（颗粒物/烟尘）；HJ 836-2017（恒重）；HJ 1221-2021（降尘）</div>
 </div>
 
-</div>
-
 <!-- g1-nmhc: 非甲烷总烃（HJ 38-2017 / HJ 604-2017 双场景双模式） -->
 <div class="calc-card compact" id="calc-g1-nmhc">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg><h3>非甲烷总烃 NMHC（HJ 38-2017 / HJ 604-2017）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg><h3>非甲烷总烃 NMHC（HJ 38-2017 / HJ 604-2017）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式</div>
     <div class="fcontent multiline">NMHC = 总烃 − 甲烷<br>标曲反算：C = (A − a) / b</div>
@@ -2620,7 +2619,7 @@ Y = D × 10<sup>X̄</sup></div>
 
 <!-- g1-gces: GC 外标法定量通用 -->
 <div class="calc-card compact" id="calc-g1-gces">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 3v18h18"/></svg><h3>GC 外标法定量净化（通用）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 3v18h18"></path></svg><h3>GC 外标法定量净化（通用）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（HJ 644 / HJ 734 外标法）</div>
     <div class="fcontent">C = (A<sub>样</sub> / A<sub>标</sub>) × C<sub>标</sub> × 稀释倍数</div>
@@ -2642,7 +2641,7 @@ Y = D × 10<sup>X̄</sup></div>
 
 <!-- g1-gcis: GC 内标法定量通用 -->
 <div class="calc-card compact" id="calc-g1-gcis">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 3v18h18"/><circle cx="9" cy="9" r="2"/><circle cx="15" cy="15" r="2"/></svg><h3>GC 内标法定量（通用）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 3v18h18"></path><circle cx="9" cy="9" r="2"></circle><circle cx="15" cy="15" r="2"></circle></svg><h3>GC 内标法定量（通用）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（HJ 734 内标法）</div>
     <div class="fcontent">C = (A<sub>i</sub> / A<sub>is</sub>) × (ρ<sub>is</sub> × V<sub>is</sub> / V)</div>
@@ -2664,7 +2663,7 @@ Y = D × 10<sup>X̄</sup></div>
 
 <!-- g1-metal: 金属 AAS/分光专项 -->
 <div class="calc-card compact" id="calc-g1-metal">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3v18"/></svg><h3>金属 AAS/分光专项</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18"></path></svg><h3>金属 AAS/分光专项</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（HJ 540/685/543/7467/700 等）</div>
     <div class="fcontent">C = (A − A₀) / B × 稀释倍数</div>
@@ -2686,7 +2685,7 @@ Y = D × 10<sup>X̄</sup></div>
 
 <!-- g1-spec: 废气分光/比色标曲通用 -->
 <div class="calc-card compact" id="calc-g1-spec">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M9 3v18"/><path d="M15 3v18"/><path d="M3 9h18"/><path d="M3 15h18"/></svg><h3>废气 分光/比色标曲通用</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M9 3v18"></path><path d="M15 3v18"></path><path d="M3 9h18"></path><path d="M3 15h18"></path></svg><h3>废气 分光/比色标曲通用</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（HJ 533/482/479/504/14678/503/832/480）</div>
     <div class="fcontent">C(mg/m³) = (A − A₀) × B<sub>s</sub> / V<sub>nd</sub></div>
@@ -2708,7 +2707,7 @@ Y = D × 10<sup>X̄</sup></div>
 
 <!-- g1-oil: 饮食业油烟（净化率 / HJ 1077-2019 浓度 / GB 18483 基准风量折算） -->
 <div class="calc-card compact" id="calc-g1-oil">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2s6 8 6 12a6 6 0 11-12 0c0-4 6-12 6-12z"/></svg><h3>饮食业油烟（净化率 / 浓度 / 基准折算）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2s6 8 6 12a6 6 0 11-12 0c0-4 6-12 6-12z"></path></svg><h3>饮食业油烟（净化率 / 浓度 / 基准折算）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB 18483-2001 / HJ 1077-2019）</div>
     <div class="fcontent multiline">净化率 η = (C<sub>前</sub> − C<sub>后</sub>) / C<sub>前</sub> × 100%<br>HJ 1077-2019：ρ<sub>排</sub>(mg/m³) = ρ₁(mg/L) × V₁(mL) / V<sub>nd</sub>(L)<br>GB 18483 基准风量折算：c<sub>基</sub> = c<sub>排</sub> × Q<sub>排</sub> / (n × q<sub>基</sub>)，q<sub>基</sub>=2000 m³/h</div>
@@ -2746,7 +2745,7 @@ Y = D × 10<sup>X̄</sup></div>
 <!-- P2: BOD5 计算 -->
 <div class="calc-card" id="calc-p2">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"></path><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>
     <h3>BOD₅ 五日生化需氧量</h3>
   </div>
   <div class="formula-box">
@@ -2771,7 +2770,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 <!-- P2b: 化学需氧量 COD 滴定 -->
 <div class="calc-card" id="calc-p2b">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 12h8"></path><path d="M12 8v8"></path></svg>
     <h3>COD<sub>Cr</sub> 化学需氧量</h3>
   </div>
   <div class="formula-box">
@@ -2795,7 +2794,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 
 <!-- g2-codmn: 高锰酸盐指数 -->
 <div class="calc-card compact" id="calc-g2-codmn">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v8"/></svg><h3>高锰酸盐指数 COD<sub>Mn</sub></h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v8"></path></svg><h3>高锰酸盐指数 COD<sub>Mn</sub></h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB 11892-1989）</div>
     <div class="fcontent">COD<sub>Mn</sub> = (V₀ − V₁) × c × 8 × 1000 / V</div>
@@ -2816,7 +2815,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 
 <!-- g2-do: 溶解氧碘量法 -->
 <div class="calc-card compact" id="calc-g2-do">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2v20"/><path d="M5 12h14"/></svg><h3>溶解氧 DO（碘量法）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2v20"></path><path d="M5 12h14"></path></svg><h3>溶解氧 DO（碘量法）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 7489-1987）</div>
     <div class="fcontent">DO = (M × V₁ × 8 × 1000) / V₂</div>
@@ -2836,7 +2835,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 
 <!-- g2-hard: 总硬度 EDTA -->
 <div class="calc-card compact" id="calc-g2-hard">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 3v18"/><path d="M3 12h18"/></svg><h3>总硬度（EDTA 滴定）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 3v18"></path><path d="M3 12h18"></path></svg><h3>总硬度（EDTA 滴定）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 7477-1987）</div>
     <div class="fcontent">ρ = (V₁ − V₀) × c × 100.09 × 1000 / V</div>
@@ -2857,7 +2856,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 
 <!-- g2-alk: 总碱度 -->
 <div class="calc-card compact" id="calc-g2-alk">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 3v18"/><path d="M3 12h18"/></svg><h3>总碱度（指示剂滴定）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 3v18"></path><path d="M3 12h18"></path></svg><h3>总碱度（指示剂滴定）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 8538 / GB/T 7476）</div>
     <div class="fcontent">以 CaCO₃ 计：ρ = P × c × 50.05 × 1000 / V</div>
@@ -2877,7 +2876,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 
 <!-- g2-cl: 氯化物硝酸银滴定 -->
 <div class="calc-card compact" id="calc-g2-cl">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg><h3>氯化物（硝酸银滴定）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M8 12h8"></path></svg><h3>氯化物（硝酸银滴定）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 11896-1989）</div>
     <div class="fcontent">ρ = (V − V₀) × c × 35.45 × 1000 / V<sub>样</sub></div>
@@ -2898,7 +2897,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 
 <!-- g2-ss: 悬浮物重量法 -->
 <div class="calc-card compact" id="calc-g2-ss">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"/></svg><h3>悬浮物 SS（重量法）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"></path></svg><h3>悬浮物 SS（重量法）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 11901-1989）</div>
     <div class="fcontent">ρ = (m − m₀) × 10⁶ / V</div>
@@ -2918,7 +2917,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 
 <!-- g2-spec: 水 分光/比色标曲通用 -->
 <div class="calc-card compact" id="calc-g2-spec">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M9 3v18"/><path d="M15 3v18"/><path d="M3 9h18"/><path d="M3 15h18"/></svg><h3>水 分光/比色标曲通用</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M9 3v18"></path><path d="M15 3v18"></path><path d="M3 9h18"></path><path d="M3 15h18"></path></svg><h3>水 分光/比色标曲通用</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（HJ 535/11893/636/484/503/7467/488/694）</div>
     <div class="fcontent">C(mg/L) = (A − A₀) × B<sub>s</sub> / V</div>
@@ -2940,7 +2939,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 
 <!-- g2-ic: 离子色谱标曲通用 -->
 <div class="calc-card compact" id="calc-g2-ic">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v4h-4"/></svg><h3>离子色谱标曲通用</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"></path><path d="M21 7v4h-4"></path></svg><h3>离子色谱标曲通用</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（HJ 84 / HJ 799）</div>
     <div class="fcontent">C = (Area − b) / k × 稀释倍数</div>
@@ -2962,7 +2961,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 
 <!-- g2-kjeldahl: 凯氏氮 -->
 <div class="calc-card compact" id="calc-g2-kjeldahl">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2v20"/><circle cx="12" cy="7" r="3"/></svg><h3>凯氏氮</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2v20"></path><circle cx="12" cy="7" r="3"></circle></svg><h3>凯氏氮</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 11891-1989）</div>
     <div class="fcontent">N = (V − V₀) × c × 14 × 1000 / V<sub>样</sub></div>
@@ -2983,7 +2982,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 
 <!-- g2-color: 色度稀释倍数法 -->
 <div class="calc-card compact" id="calc-g2-color">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><h3>色度（稀释倍数法）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg><h3>色度（稀释倍数法）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 11903-1989）</div>
     <div class="fcontent">色度 = 稀释倍数（至与空白刚可分辨）</div>
@@ -2999,14 +2998,11 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
   <div class="std-ref">GB/T 11903-1989《水质 色度的测定》；GB 11892-1989（色度参照）</div>
 </div>
 
-</div>
-
-<!-- P-G3: 工业用水 -->
 <div class="subgroup-title" id="p-g3" data-group="p-g3"><span class="tag">3</span>工业用水</div>
 <div class="panel-grid">
 <div class="calc-card" id="calc-p3">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"></path></svg>
     <h3>溶解固形物 / 溶解性固体</h3>
   </div>
   <div class="formula-box">
@@ -3029,7 +3025,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 <!-- 工业用水通用计算（重量/滴定/离子色谱通用逻辑） -->
 <div class="calc-card compact" id="calc-g3-generic">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"></path></svg>
     <h3>工业用水水质通用计算</h3>
   </div>
   <div class="formula-box compact">
@@ -3058,14 +3054,13 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 </div>
 </div>
 
-<!-- P-G4: 公共场所 -->
 <div class="subgroup-title" id="p-g4" data-group="p-g4"><span class="tag">4</span>公共场所</div>
 <div class="panel-grid">
 
 <!-- P4: 空气细菌总数 CFU/m³ -->
 <div class="calc-card" id="calc-p4">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 12h6"/><path d="M12 9v6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9 12h6"></path><path d="M12 9v6"></path></svg>
     <h3>空气细菌总数（CFU/m³）</h3>
   </div>
   <div class="formula-box">
@@ -3086,7 +3081,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 
 <!-- 公共场所 化学/物理指标（GB/T 18204.2-2025 / .1-2025） -->
 <div class="calc-card compact" id="calc-g4-hcho">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"/></svg><h3>甲醛（酚试剂法）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"></path></svg><h3>甲醛（酚试剂法）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 18204.2-2025 7.2 / GB/T 18883-2022）</div>
     <div class="fcontent">C(mg/m³) = (A − A₀) × B<sub>s</sub> / V<sub>nd</sub></div>
@@ -3106,7 +3101,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 </div>
 
 <div class="calc-card compact" id="calc-g4-nh3">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"/></svg><h3>氨（靛酚蓝法）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"></path></svg><h3>氨（靛酚蓝法）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 18204.2-2025 8.2）</div>
     <div class="fcontent">C(mg/m³) = (A − A₀) × B<sub>s</sub> / V<sub>nd</sub></div>
@@ -3126,7 +3121,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 </div>
 
 <div class="calc-card compact" id="calc-g4-o3">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"/></svg><h3>臭氧（靛蓝二磺钠法）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"></path></svg><h3>臭氧（靛蓝二磺钠法）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 18204.2-2025 9.2）</div>
     <div class="fcontent">C(mg/m³) = (A₀ − A) × B<sub>s</sub> / V<sub>nd</sub></div>
@@ -3146,7 +3141,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 </div>
 
 <div class="calc-card compact" id="calc-g4-urea">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"/></svg><h3>尿素（公共场所）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"></path></svg><h3>尿素（公共场所）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 18204.2-2025 10.2）</div>
     <div class="fcontent">C(mg/L) = (A − A₀) × B<sub>s</sub> / V</div>
@@ -3166,7 +3161,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 </div>
 
 <div class="calc-card compact" id="calc-g4-airrate">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h18M3 12l4-4M3 12l4 4"/></svg><h3>新风量</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h18M3 12l4-4M3 12l4 4"></path></svg><h3>新风量</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 18204.1-2025 附录 A）</div>
     <div class="fcontent">Q = Σq / n　或　示踪气体衰减法 Q = (V × ln(C₀/C_t)) / t</div>
@@ -3187,7 +3182,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 </div>
 
 <div class="calc-card compact" id="calc-g4-airchange">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h18M3 12l4-4M3 12l4 4"/></svg><h3>换气次数</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h18M3 12l4-4M3 12l4 4"></path></svg><h3>换气次数</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 18204.1-2025）</div>
     <div class="fcontent">N(次/h) = Q / V</div>
@@ -3206,12 +3201,11 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 
 </div>
 
-<!-- P-G5: 公共用品用具 -->
 <div class="subgroup-title" id="p-g5" data-group="p-g5"><span class="tag">5</span>公共用品用具</div>
 <div class="panel-grid">
 <div class="calc-card" id="calc-p5">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path d="M8 12h8"></path><path d="M12 8v8"></path></svg>
     <h3>用品用具细菌总数（CFU/25cm²）</h3>
   </div>
   <div class="formula-box">
@@ -3230,7 +3224,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 
 <!-- 公共用品用具 微生物通用（细菌总数/大肠菌群/致病菌） -->
 <div class="calc-card compact" id="calc-g5-micro">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8"/><path d="M12 8v8"/></svg><h3>用品微生物通用计算</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path d="M8 12h8"></path><path d="M12 8v8"></path></svg><h3>用品微生物通用计算</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 18204.4-2025 / GB 15979-2024）</div>
     <div class="fcontent multiline">细菌总数 = 平皿菌落数 × 稀释倍数 / 采样面积<br>大肠菌群(MPN) = MPN 表查值 × 稀释倍数 / 采样面积</div>
@@ -3250,12 +3244,11 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 </div>
 </div>
 
-<!-- P-G6: 集中空调 -->
 <div class="subgroup-title" id="p-g6" data-group="p-g6"><span class="tag">6</span>集中空调通风系统</div>
 <div class="panel-grid">
 <div class="calc-card" id="calc-p6">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18"></path><path d="M3 15h18"></path></svg>
     <h3>风管内表面积尘量</h3>
   </div>
   <div class="formula-box">
@@ -3277,7 +3270,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 
 <!-- 集中空调 微生物/送风量/可吸入颗粒物 -->
 <div class="calc-card compact" id="calc-g6-micro">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 12h6"/><path d="M12 9v6"/></svg><h3>空调风管内/送风口微生物</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9 12h6"></path><path d="M12 9v6"></path></svg><h3>空调风管内/送风口微生物</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 18204.5-2025）</div>
     <div class="fcontent">细菌总数 = 平皿菌落数 × 1000 / (Q × t)　CFU/m³</div>
@@ -3297,12 +3290,11 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 
 </div>
 
-<!-- P-G7: 洁净室 -->
 <div class="subgroup-title" id="p-g7" data-group="p-g7"><span class="tag">7</span>洁净室</div>
 <div class="panel-grid">
 <!-- 洁净室 专属计算（GB 50591-2010 / GB/T 16292/25915/16293/16294） -->
 <div class="calc-card compact" id="calc-g7-wind">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h18M3 12l4-4M3 12l4 4"/></svg><h3>风速不均匀度</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h18M3 12l4-4M3 12l4 4"></path></svg><h3>风速不均匀度</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB 50591-2010 附录 C）</div>
     <div class="fcontent">β = (1 − v̄²/Σvᵢ²)^½ ×100%　或　β = (σ/ v̄)×100%</div>
@@ -3319,7 +3311,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 </div>
 
 <div class="calc-card compact" id="calc-g7-clean">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"/></svg><h3>自净时间</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"></path></svg><h3>自净时间</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB 50591-2010 附录 D）</div>
     <div class="fcontent">t = (N₀/N − 1) × (V/Q)　或　N/N₀ = e^(−n·t)</div>
@@ -3339,7 +3331,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 </div>
 
 <div class="calc-card compact" id="calc-g7-airchange">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h18M3 12l4-4M3 12l4 4"/></svg><h3>换气次数（洁净室）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h18M3 12l4-4M3 12l4 4"></path></svg><h3>换气次数（洁净室）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB 50591-2010 / GB 50073-2013）</div>
     <div class="fcontent">n(次/h) = L / V</div>
@@ -3357,7 +3349,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 </div>
 
 <div class="calc-card compact" id="calc-g7-leak">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"/></svg><h3>漏风率（围护结构）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"></path></svg><h3>漏风率（围护结构）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB 50591-2010）</div>
     <div class="fcontent">漏风率 = (q₁ − q₂) / q₁ × 100%　（q 为总送风量±压差时的风量差）</div>
@@ -3375,7 +3367,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 </div>
 
 <div class="calc-card compact" id="calc-g7-fbio">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 12h6"/><path d="M12 9v6"/></svg><h3>浮游菌浓度</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9 12h6"></path><path d="M12 9v6"></path></svg><h3>浮游菌浓度</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 16293-2025）</div>
     <div class="fcontent">浮游菌(CFU/m³) = 菌落数 / (采样流量 Q × 采样时间 t) × 1000</div>
@@ -3394,7 +3386,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 </div>
 
 <div class="calc-card compact" id="calc-g7-sbio">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 12h6"/><path d="M12 9v6"/></svg><h3>沉降菌浓度</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9 12h6"></path><path d="M12 9v6"></path></svg><h3>沉降菌浓度</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 16294-2025）</div>
     <div class="fcontent">沉降菌(CFU/皿·h 或 CFU/m³) = 菌落数 / 暴露时间 T</div>
@@ -3412,7 +3404,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 </div>
 
 <div class="calc-card compact" id="calc-g7-illum">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v3M12 20v3M4 4l2 2M18 18l2 2"/></svg><h3>照度均匀度</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v3M12 20v3M4 4l2 2M18 18l2 2"></path></svg><h3>照度均匀度</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB 50591-2010 / GB/T 50034-2024）</div>
     <div class="fcontent">U = E_min / E_avg</div>
@@ -3430,12 +3422,11 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 </div>
 </div>
 
-<!-- P-G8: 室内环境 -->
 <div class="subgroup-title" id="p-g8" data-group="p-g8"><span class="tag">8</span>室内环境</div>
 <div class="panel-grid">
 <div class="calc-card" id="calc-p8">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
     <h3>甲醛浓度（酚试剂分光光度法）</h3>
   </div>
   <div class="formula-box">
@@ -3457,7 +3448,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 
 <!-- 室内环境 其他项目（GB/T 18883-2022 / GB 50325-2020 / HJ 583/644/549/683） -->
 <div class="calc-card compact" id="calc-g8-benzene">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"/></svg><h3>苯/甲苯/二甲苯（TVOC组分）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"></path></svg><h3>苯/甲苯/二甲苯（TVOC组分）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GC 外标法 · HJ 583-2010 / GB 50325）</div>
     <div class="fcontent">C(mg/m³) = (A − A₀) × C标 / A标　（经 Tenax 富集热解吸）</div>
@@ -3477,7 +3468,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 </div>
 
 <div class="calc-card compact" id="calc-g8-tvoc">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"/></svg><h3>TVOC（总挥发性有机物）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"></path></svg><h3>TVOC（总挥发性有机物）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 18883-2022 附录C / ISO 16000-6）</div>
     <div class="fcontent multiline">Cᵢ(mg/m³) = mᵢ(ng) / V(L) × 10⁻³<br>TVOC = ΣCᵢ</div>
@@ -3501,7 +3492,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 </div>
 
 <div class="calc-card compact" id="calc-g8-radon">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20"/></svg><h3>氡浓度（Rn-222）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2v20M2 12h20"></path></svg><h3>氡浓度（Rn-222）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（累积法/连续法 · GB/T 16146-2015 / GB 50325）</div>
     <div class="fcontent">C(Bq/m³) = N / (E × t)　或　C = 仪器直接读数 / 校准因子</div>
@@ -3520,7 +3511,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 </div>
 
 <div class="calc-card compact" id="calc-g8-pm">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"/></svg><h3>PM2.5 / PM10 质量浓度（恒重法）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"></path></svg><h3>PM2.5 / PM10 质量浓度（恒重法）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（重量法 · HJ 618-2011 / HJ 656 / GB/T 18883）</div>
     <div class="fcontent multiline">ρ(mg/m³) = ( m̄<sub>后</sub> − m̄<sub>前</sub> ) × 10<sup>6</sup> / V<sub>nd</sub><br>恒重判定：|m<sub>前1</sub>−m<sub>前2</sub>| ≤ 允差 且 |m<sub>后1</sub>−m<sub>后2</sub>| ≤ 允差</div>
@@ -3544,7 +3535,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 </div>
 
 <div class="calc-card compact" id="calc-g8-nh3">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"/></svg><h3>氨（室内）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"></path></svg><h3>氨（室内）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 18204.2-2025 8.2 / GB 50325）</div>
     <div class="fcontent">C(mg/m³) = (A − A₀) × B<sub>s</sub> / V<sub>nd</sub></div>
@@ -3564,12 +3555,11 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 </div>
 </div>
 
-<!-- P-G9: 学校 -->
 <div class="subgroup-title" id="p-g9" data-group="p-g9"><span class="tag">9</span>学校</div>
 <div class="panel-grid">
 <div class="calc-card" id="calc-p9">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2"/><path d="M12 21v2"/><path d="M4.22 4.22l1.42 1.42"/><path d="M18.36 18.36l1.42 1.42"/><path d="M1 12h2"/><path d="M21 12h2"/><path d="M4.22 19.78l1.42-1.42"/><path d="M18.36 5.64l1.42-1.42"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2"></path><path d="M12 21v2"></path><path d="M4.22 4.22l1.42 1.42"></path><path d="M18.36 18.36l1.42 1.42"></path><path d="M1 12h2"></path><path d="M21 12h2"></path><path d="M4.22 19.78l1.42-1.42"></path><path d="M18.36 5.64l1.42-1.42"></path></svg>
     <h3>照度均匀度</h3>
   </div>
   <div class="formula-box">
@@ -3588,7 +3578,7 @@ E<sub>avg</sub> = ΣE<sub>i</sub> / n</div>
 
 <!-- 学校 专项（GB 7793-2025 / GB/T 18205-2012） -->
 <div class="calc-card compact" id="calc-g9-window">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18"/><path d="M12 3v18"/></svg><h3>教室窗地面积比</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 12h18"></path><path d="M12 3v18"></path></svg><h3>教室窗地面积比</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB 7793-2025 / GB/T 18205-2012）</div>
     <div class="fcontent">窗地比 = 透光窗口面积 / 室内地面面积</div>
@@ -3606,7 +3596,7 @@ E<sub>avg</sub> = ΣE<sub>i</sub> / n</div>
 </div>
 
 <div class="calc-card compact" id="calc-g9-coef">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18"/><path d="M12 3v18"/></svg><h3>采光系数</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 12h18"></path><path d="M12 3v18"></path></svg><h3>采光系数</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 5699-2017 / GB 7793-2025）</div>
     <div class="fcontent">C = (E<sub>in</sub> / E<sub>out</sub>) × 100%</div>
@@ -3624,7 +3614,7 @@ E<sub>avg</sub> = ΣE<sub>i</sub> / n</div>
 </div>
 
 <div class="calc-card compact" id="calc-g9-desk">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2"/><path d="M12 21v2"/></svg><h3>课桌面照度达标判定</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2"></path><path d="M12 21v2"></path></svg><h3>课桌面照度达标判定</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB 7793-2025）</div>
     <div class="fcontent">平均照度 E_avg = ΣEᵢ / n；判定 E_avg ≥ 300 lx 且 U ≥ 0.7</div>
@@ -3642,7 +3632,7 @@ E<sub>avg</sub> = ΣE<sub>i</sub> / n</div>
 
 <!-- 学校 课桌椅分配符合率（GB/T 18205-2012 / GB 3976-2014） -->
 <div class="calc-card compact" id="calc-g9-deskfit">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8"/><path d="M12 8v8"/></svg><h3>课桌椅分配符合率</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path d="M8 12h8"></path><path d="M12 8v8"></path></svg><h3>课桌椅分配符合率</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 18205-2012 / GB 3976-2014）</div>
     <div class="fcontent">符合率 = 身高匹配合格数 / 抽查课桌椅数 × 100%</div>
@@ -3660,12 +3650,11 @@ E<sub>avg</sub> = ΣE<sub>i</sub> / n</div>
 </div>
 </div>
 
-<!-- P-G10: 一次性使用卫生用品 -->
 <div class="subgroup-title" id="p-g10" data-group="p-g10"><span class="tag">10</span>一次性使用卫生用品</div>
 <div class="panel-grid">
 <div class="calc-card" id="calc-p10">
   <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path d="M8 12h8"></path><path d="M12 8v8"></path></svg>
     <h3>细菌菌落总数（GB 15979）</h3>
   </div>
   <div class="formula-box">
@@ -3686,7 +3675,7 @@ E<sub>avg</sub> = ΣE<sub>i</sub> / n</div>
 
 <!-- 一次性用品 其他微生物指标（GB 15979-2024） -->
 <div class="calc-card compact" id="calc-g10-coli">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8"/><path d="M12 8v8"/></svg><h3>大肠菌群（MPN）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path d="M8 12h8"></path><path d="M12 8v8"></path></svg><h3>大肠菌群（MPN）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB 15979-2024 检验方法）</div>
     <div class="fcontent">大肠菌群(MPN/g 或 MPN/mL) = MPN 查表值 × 稀释倍数 / 取样量</div>
@@ -3705,7 +3694,7 @@ E<sub>avg</sub> = ΣE<sub>i</sub> / n</div>
 </div>
 
 <div class="calc-card compact" id="calc-g10-fungus">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 12h6"/><path d="M12 9v6"/></svg><h3>真菌菌落总数</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9 12h6"></path><path d="M12 9v6"></path></svg><h3>真菌菌落总数</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB 15979-2024 检验方法）</div>
     <div class="fcontent">真菌(CFU/g 或 CFU/mL) = 平均菌落数 × 稀释倍数 / 取样量</div>
@@ -3724,7 +3713,7 @@ E<sub>avg</sub> = ΣE<sub>i</sub> / n</div>
 </div>
 
 <div class="calc-card compact" id="calc-g10-path">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8"/><path d="M12 8v8"/></svg><h3>致病性化脓菌判定</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path d="M8 12h8"></path><path d="M12 8v8"></path></svg><h3>致病性化脓菌判定</h3></div>
   <div class="formula-box compact">
     <div class="flabel">判定规则（GB 15979-2024）</div>
     <div class="fcontent">绿脓杆菌 / 金黄色葡萄球菌 / 溶血性链球菌：定性（检出 / 未检出）</div>
@@ -3744,7 +3733,7 @@ E<sub>avg</sub> = ΣE<sub>i</sub> / n</div>
 
 <!-- g10-surface: 生产环境微生物（GB 15979-2024 附录A：空气/手/工作台） -->
 <div class="calc-card compact" id="calc-g10-surface">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 12h6"/><path d="M12 9v6"/></svg><h3>生产环境微生物（GB 15979-2024 附录A）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9 12h6"></path><path d="M12 9v6"></path></svg><h3>生产环境微生物（GB 15979-2024 附录A）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB 15979-2024 第5.2条 / 附录A）</div>
     <div class="fcontent multiline">空气(采样器法)：N = CFU×1000/(Q×t) CFU/m³<br>空气(平皿暴露法)：直接报 CFU/(皿·5min)<br>表面：N = 菌落数/采样面积(cm²)；手：CFU/只手</div>
@@ -3773,10 +3762,20 @@ E<sub>avg</sub> = ΣE<sub>i</sub> / n</div>
 
 </div>
 
+<!-- P-G3: 工业用水 -->
+<!-- P-G4: 公共场所 -->
+<!-- P-G5: 公共用品用具 -->
+<!-- P-G6: 集中空调 -->
+<!-- P-G7: 洁净室 -->
+<!-- P-G8: 室内环境 -->
+<!-- P-G9: 学校 -->
+<!-- P-G10: 一次性使用卫生用品 -->
+</div>
+
 <!-- Footer -->
 <div class="app-footer">环境监测计算工作台 · fanjianming · 数据仅存储在浏览器本地 · 支持 JSON 导出/导入备份</div>
 
-</div>
+
 
 <script>
 // ==================== STORAGE ====================
@@ -6964,5 +6963,5 @@ document.getElementById('g10s_type').addEventListener('change', function(){
 <script>
 if ('serviceWorker' in navigator) { window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); }); }
 </script>
-</body>
-</html>
+
+</body></html>
