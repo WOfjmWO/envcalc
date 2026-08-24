@@ -92,7 +92,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .record-card .rc-del:hover{background:#ffebee;color:var(--danger);}
 
 /* Tabs */
-.tabs-scroll{margin-bottom:16px;overflow-x:auto;padding:0 14px 6px 14px;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-padding-inline-end:16px;}
+.tabs-scroll{position:sticky;top:0;z-index:30;background:var(--bg);margin-bottom:16px;overflow-x:auto;padding:0 14px 6px 14px;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-padding-inline-end:16px;}
 .tabs-scroll::-webkit-scrollbar{height:0;}
 /* 保持单行；内容放得下时不出现滚动（即“一行不滚动”），左右各留 12px 内边距，保证最后一个 tab 右侧圆角与屏幕边缘之间有空隙，圆角完整可见 */
 .tabs{display:flex;flex-wrap:nowrap;gap:3px;padding:4px 0;background:transparent;border-radius:0;overflow:visible;}
@@ -113,12 +113,12 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .panel-intro strong{color:var(--text);}
 
 /* Subgroup + sub navigation */
-.subgroup-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;padding:10px;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);position:sticky;top:0;z-index:10;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;}
+.subgroup-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;padding:10px;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);position:sticky;top:56px;z-index:10;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;}
 .subgroup-nav::-webkit-scrollbar{height:0;width:0;display:none;}
 .subgroup-nav a{display:inline-flex;align-items:center;flex:0 0 auto;padding:7px 12px;border-radius:var(--radius);background:var(--primary-soft);color:var(--primary);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap;transition:all 0.2s;}
 .subgroup-nav a:hover{background:var(--primary-bg);}
 .subgroup-nav a.active{background:var(--primary);color:#fff;}
-.subgroup-title{font-size:16px;font-weight:600;color:var(--primary);margin:24px 0 12px;padding:10px 14px;background:var(--primary-bg);border-radius:var(--radius);display:flex;align-items:center;gap:10px;scroll-margin-top:70px;}
+.subgroup-title{font-size:16px;font-weight:600;color:var(--primary);margin:24px 0 12px;padding:10px 14px;background:var(--primary-bg);border-radius:var(--radius);display:flex;align-items:center;gap:10px;scroll-margin-top:126px;}
 .subgroup-title:first-child{margin-top:0;}
 .subgroup-title .tag{font-size:11px;padding:2px 8px;border-radius:var(--radius);background:var(--primary);color:#fff;font-weight:600;}
 .subgroup-collapsible{position:relative;}
@@ -166,9 +166,11 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .calc-body .input-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
 .calc-body .input-row label{font-size:13px;color:var(--text-secondary);min-width:110px;flex-shrink:0;}
 .calc-body .input-row input,
-.calc-body .input-row select{flex:1;min-width:140px;padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:16px;font-family:var(--font);transition:border 0.2s,box-shadow 0.2s;background:#fff;}
+.calc-body .input-row select{flex:1;min-width:140px;padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:16px;font-family:var(--font);transition:border 0.2s,box-shadow 0.2s;background:#fff;white-space:normal;height:auto;min-height:44px;line-height:1.4;}
 .calc-body .input-row input:focus,
 .calc-body .input-row select:focus{outline:none;border-color:var(--primary-light);box-shadow:0 0 0 3px var(--primary-soft);}
+.calc-body .input-row select option{white-space:normal;line-height:1.5;font-size:15px;}
+.calc-body .input-row select option .opt-sub{font-size:12px;color:#666;}
 .calc-body .input-row input[type="number"]{-moz-appearance:textfield;}
 .calc-body .input-row input::-webkit-inner-spin-button{-webkit-appearance:none;}
 .two-col{display:flex;flex:1;gap:8px;min-width:140px;}
@@ -305,6 +307,21 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 #calc-p1b .p1b-grid .input-row label{ font-size:12.5px; line-height:1.3; min-height:30px; display:flex; align-items:flex-end; }
 #calc-p1b .p1b-weigh-note{ margin:2px 11px 9px; padding:7px 10px; font-size:11.5px; line-height:1.55; background:#f3f8f4; border-left:3px solid var(--primary); border-radius:0 6px 6px 0; }
 @media (max-width:480px){ #calc-p1b .p1b-grid{ grid-template-columns:1fr 1fr; } #calc-p1b .p1b-grid .input-row label{ min-height:auto; align-items:flex-start; } }
+/* 苯/甲苯/二甲苯（g8-tvoc）与附录D TVOC（g8-tvoc-d）紧凑行 */
+.g8t-row{ display:flex; align-items:center; gap:8px; padding:6px 8px; margin-bottom:5px; background:#f8fafc; border-radius:8px; border:1px solid var(--border); }
+.g8t-row .g8t-name-label{ width:52px; font-size:12.5px; font-weight:600; color:var(--primary); flex-shrink:0; }
+.g8t-row .g8t-inputs{ flex:1; display:flex; gap:6px; min-width:0; }
+.g8t-row .g8t-fld{ flex:1; min-width:0; display:flex; flex-direction:column; gap:2px; }
+.g8t-row .g8t-fld label{ font-size:11px; color:var(--text-secondary); min-width:auto; margin-bottom:0; }
+.g8t-row .g8t-fld input{ width:100%; padding:6px 8px; font-size:13.5px; min-width:0; }
+@media (max-width:480px){ .g8t-row{ flex-direction:column; align-items:stretch; gap:5px; } .g8t-row .g8t-name-label{ width:auto; } }
+/* 附录D TVOC 22项密集输入 */
+.tvoc-d-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,120px),1fr)); gap:5px 8px; margin-bottom:8px; }
+.tvoc-d-grid .input-row{ margin-bottom:0; gap:3px; flex-direction:column; align-items:stretch; }
+.tvoc-d-grid .input-row label{ font-size:10.5px; color:var(--text-secondary); min-width:auto; line-height:1.2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.tvoc-d-grid .input-row input{ width:100%; padding:5px 7px; font-size:13px; min-width:0; }
+.tvoc-d-common{ display:grid; grid-template-columns:1fr 1fr; gap:5px 8px; margin-bottom:8px; }
+@media (max-width:480px){ .tvoc-d-grid{ grid-template-columns:repeat(2,1fr); } .tvoc-d-common{ grid-template-columns:1fr; } }
 </style>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#1a6b3c">
@@ -325,7 +342,7 @@ body.is-desktop.compact .panel-grid {
 }
 body.is-desktop.compact .calc-card { padding: 18px 20px; }
 body.is-desktop.compact .toolbar button { min-height: 36px; padding: 6px 12px; font-size: 13px; }
-body.is-desktop.compact .subgroup-nav { position: sticky; top: 0; margin-bottom: 16px; background: var(--card); box-shadow: var(--shadow); padding-left: 10px; z-index: 10; }
+body.is-desktop.compact .subgroup-nav { position: sticky; top: 56px; margin-bottom: 16px; background: var(--card); box-shadow: var(--shadow); padding-left: 10px; z-index: 10; }
 /* 开发用“清空示例”按钮仅保留在移动端，桌面端隐藏以精简 */
 body.is-desktop .dev-only { display: none !important; }
 /* 密度切换按钮仅桌面端显示 */
@@ -334,7 +351,7 @@ body.is-mobile #densityToggle { display: none !important; }
 body.is-desktop.full .panel-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%,330px),1fr)); gap: 16px; }
 body.is-desktop.full .calc-card { padding: 16px; }
 body.is-desktop.full .toolbar button { min-height: 44px; padding: 8px 14px; }
-body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
+body.is-desktop.full .subgroup-nav { position: sticky; top: 56px; }
 </style>
 </head>
 <body>
@@ -910,13 +927,14 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
   <div class="formula-box">
     <div class="flabel">计算公式（崂应 3012H-D 式7 · 实测烟尘浓度，GB/T 16157-1996 / HJ 836-2017）</div>
     <div class="fcontent multiline">C = ( m̄<sub>后</sub> − m̄<sub>前</sub> ) × 10<sup>6</sup> / V<sub>nd</sub><br>恒重判定：|m<sub>前1</sub>−m<sub>前2</sub>| ≤ 允差 且 |m<sub>后1</sub>−m<sub>后2</sub>| ≤ 允差</div>
-    <div class="note" tabindex="-1">m<sub>前1</sub>/m<sub>前2</sub>、m<sub>后1</sub>/m<sub>后2</sub> 为采样前后滤筒各 2 次恒重称量质量（单位 <b>g</b>）；V<sub>nd</sub> 为标况采样体积（<b>L</b>）；10<sup>6</sup> 为 g/L → mg/m³ 换算系数。天平精度：十万分之一 恒重允差 0.0004 g、万分之一 0.0010 g。恒重不合格时不输出浓度，须继续干燥至恒重。</div>
+    <div class="note" tabindex="-1">m<sub>前1</sub>/m<sub>前2</sub>、m<sub>后1</sub>/m<sub>后2</sub> 为采样前后滤筒各 2 次恒重称量质量（单位 <b>g</b>）；V<sub>nd</sub> 为标况采样体积（<b>L</b>）；10<sup>6</sup> 为 g/L → mg/m³ 换算系数。天平精度可选：HJ 836-2017 低浓度颗粒物两次称量差≤0.20 mg（0.0002 g）、十万分之一天平恒重允差 0.0004 g、万分之一天平 0.0010 g。恒重不合格时不输出浓度，须继续干燥至恒重。</div>
   </div>
   <div class="calc-body">
     <div class="input-grid">
       <div class="input-row"><label>天平精度</label><select id="a20_prec">
-        <option value="0.0004">十万分之一（恒重差≤0.4 mg）</option>
-        <option value="0.0010">万分之一（恒重差≤1.0 mg）</option></select></div>
+        <option value="0.0002">HJ 836 低浓度颗粒物&#10;（两次差≤0.20 mg）</option>
+        <option value="0.0004">十万分之一天平&#10;（恒重差≤0.4 mg）</option>
+        <option value="0.0010">万分之一天平&#10;（恒重差≤1.0 mg）</option></select></div>
       <div class="input-row"><label>采样前质量1 m<sub>前1</sub>(g)</label><input type="number" id="a20_mb1" step="any"></div>
       <div class="input-row"><label>采样前质量2 m<sub>前2</sub>(g)</label><input type="number" id="a20_mb2" step="any"></div>
       <div class="input-row"><label>采样后质量1 m<sub>后1</sub>(g)</label><input type="number" id="a20_ma1" step="any"></div>
@@ -974,7 +992,7 @@ vol% = ppm / 10000<br>
     <div class="input-row"><label>摩尔质量 M</label><input type="number" id="a22_m" step="any" placeholder="g/mol"></div>
     <div class="input-row"><label>输入单位</label><select id="a22_mode"><option value="mgm3">mg/m³</option><option value="ppm">ppm</option><option value="pct">vol%</option></select></div>
     <div class="input-row"><label>输入值</label><input type="number" id="a22_val" step="any" placeholder="输入浓度"></div>
-    <div class="input-row"><label>状态基准</label><select id="a22_state" onchange="syncA15State()"><option value="std">标准状态 (0℃,101.325kPa)</option><option value="ref" selected>参比状态 (25℃,101.325kPa)</option></select></div>
+    <div class="input-row"><label>状态基准</label><select id="a22_state" onchange="syncA15State()"><option value="std">标准状态&#10;(0℃,101.325kPa)</option><option value="ref" selected>参比状态&#10;(25℃,101.325kPa)</option></select></div>
     <div class="input-row"><label>温度 t (℃)</label><input type="number" id="a22_t" value="25" step="any"></div>
     <div class="input-row"><label>大气压 (kPa)</label><input type="number" id="a22_p" value="101.325" step="any"></div>
     <button class="btn-calc" onclick="calcConcConvert()">换算</button>
@@ -2579,25 +2597,26 @@ Y = D × 10<sup>X̄</sup></div>
     <div class="fcontent multiline">颗粒物/PM：C = ( m̄<sub>后</sub> − m̄<sub>前</sub> ) / V<sub>nd</sub> × 10<sup>6</sup>  (mg/m³)<br>
 降尘（HJ 1221-2021）：C = (m − m₀) / (A × t) × 30 × 10⁴  (t/km²·30d，A 单位 cm²)<br>
 恒重判定：|m<sub>前1</sub>−m<sub>前2</sub>| ≤ 允差 且 |m<sub>后1</sub>−m<sub>后2</sub>| ≤ 允差</div>
-    <div class="note" tabindex="-1">颗粒物与 PM2.5/PM10 均按恒重重量法：采样前后各 2 次称量（质量单位 <b>g</b>），V<sub>nd</sub> 为标况采样体积（L）；天平精度 十万分之一 恒重允差 0.0004 g、万分之一 0.0010 g。颗粒物参照 GB/T 16157、HJ 836；PM2.5/PM10 参照 HJ 618-2011，限值参考 GB 3095-2012（PM2.5 0.075 / PM10 0.15 mg/m³）。降尘分支按 HJ 1221-2021：C = (m₁−m₀−m₂)/(A·t)×30×10⁴（A 为集尘缸缸口面积 cm²；t 采样天数 d）；本卡未单列空白 m₂，按 m₂=0 处理。</div>
+    <div class="note" tabindex="-1">颗粒物与 PM2.5/PM10 均按恒重重量法：采样前后各 2 次称量（质量单位 <b>g</b>），V<sub>nd</sub> 为标况采样体积（L）；天平精度可选 HJ 836-2017 低浓度颗粒物两次差≤0.20 mg、十万分之一天平恒重允差 0.0004 g、万分之一天平 0.0010 g。颗粒物参照 GB/T 16157、HJ 836；PM2.5/PM10 参照 HJ 618-2011，限值参考 GB 3095-2012（PM2.5 0.075 / PM10 0.15 mg/m³）。降尘分支按 HJ 1221-2021：C = (m₁−m₀−m₂)/(A·t)×30×10⁴（A 为集尘缸缸口面积 cm²；t 采样天数 d）；本卡未单列空白 m₂，按 m₂=0 处理。</div>
   </div>
   <div class="calc-body">
     <div class="input-row"><label>计算类型</label><select id="p1b_type">
       <option value="tsp">颗粒物/烟尘浓度（恒重法）</option>
-      <option value="pm">环境空气 PM2.5 / PM10（HJ 618-2011）</option>
+      <option value="pm">环境空气 PM2.5 / PM10&#10;（HJ 618-2011）</option>
       <option value="dust">降尘量</option></select></div>
     <div id="p1b_tsp_rows">
       <div class="input-grid p1b-grid">
         <div class="input-row"><label>天平精度</label><select id="p1b_prec">
-          <option value="0.0004">十万分之一（恒重差≤0.4 mg）</option>
-          <option value="0.0010">万分之一（恒重差≤1.0 mg）</option></select></div>
+          <option value="0.0002">HJ 836 低浓度颗粒物&#10;（两次差≤0.20 mg）</option>
+          <option value="0.0004">十万分之一天平&#10;（恒重差≤0.4 mg）</option>
+          <option value="0.0010">万分之一天平&#10;（恒重差≤1.0 mg）</option></select></div>
         <div class="input-row"><label>采样前质量1 m<sub>前1</sub>(g)</label><input type="number" id="p1b_mb1" step="any"></div>
         <div class="input-row"><label>采样前质量2 m<sub>前2</sub>(g)</label><input type="number" id="p1b_mb2" step="any"></div>
         <div class="input-row"><label>采样后质量1 m<sub>后1</sub>(g)</label><input type="number" id="p1b_ma1" step="any"></div>
         <div class="input-row"><label>采样后质量2 m<sub>后2</sub>(g)</label><input type="number" id="p1b_ma2" step="any"></div>
         <div class="input-row"><label>标况采样体积 V<sub>nd</sub>(L)</label><input type="number" id="p1b_vnd" step="any"></div>
       </div>
-      <div class="note p1b-weigh-note" tabindex="-1">恒重要求：采样前后滤膜各称量 2 次，质量单位 <b>g</b>；十万分之一天平恒重允差 0.0004 g、万分之一天平 0.0010 g；两次称量之差均≤允差方为恒重合格，否则不输出浓度。</div>
+      <div class="note p1b-weigh-note" tabindex="-1">恒重要求：采样前后滤膜各称量 2 次，质量单位 <b>g</b>；可选 HJ 836-2017 低浓度颗粒物两次称量差≤0.0002 g、十万分之一天平恒重允差 0.0004 g、万分之一天平 0.0010 g；两次称量之差均≤允差方为恒重合格，否则不输出浓度。</div>
     </div>
     <div id="p1b_pm_rows" style="display:none">
       <div class="input-grid p1b-grid">
@@ -2605,15 +2624,16 @@ Y = D × 10<sup>X̄</sup></div>
           <option value="pm25">PM2.5（φ≤2.5 μm）</option>
           <option value="pm10">PM10（φ≤10 μm）</option></select></div>
         <div class="input-row"><label>天平精度</label><select id="p1b_pm_prec">
-          <option value="0.0004">十万分之一（恒重差≤0.4 mg）</option>
-          <option value="0.0010">万分之一（恒重差≤1.0 mg）</option></select></div>
+          <option value="0.0002">HJ 836 低浓度颗粒物&#10;（两次差≤0.20 mg）</option>
+          <option value="0.0004">十万分之一天平&#10;（恒重差≤0.4 mg）</option>
+          <option value="0.0010">万分之一天平&#10;（恒重差≤1.0 mg）</option></select></div>
         <div class="input-row"><label>采样前质量1 m<sub>前1</sub>(g)</label><input type="number" id="p1b_pmb1" step="any"></div>
         <div class="input-row"><label>采样前质量2 m<sub>前2</sub>(g)</label><input type="number" id="p1b_pmb2" step="any"></div>
         <div class="input-row"><label>采样后质量1 m<sub>后1</sub>(g)</label><input type="number" id="p1b_pma1" step="any"></div>
         <div class="input-row"><label>采样后质量2 m<sub>后2</sub>(g)</label><input type="number" id="p1b_pma2" step="any"></div>
         <div class="input-row"><label>标况采样体积 V<sub>nd</sub>(L)</label><input type="number" id="p1b_pmvnd" step="any"></div>
       </div>
-      <div class="note p1b-weigh-note" tabindex="-1">检测方法 HJ 618-2011（环境空气 PM10 和 PM2.5 的测定 重量法）。恒重要求同颗粒物：滤膜采样前后各 2 次称量，质量单位 <b>g</b>，十万分之一天平允差 0.0004 g、万分之一 0.0010 g；恒重不合格不输出浓度。限值参考 GB 3095-2012：PM2.5 日均 0.075 mg/m³、PM10 日均 0.15 mg/m³。</div>
+      <div class="note p1b-weigh-note" tabindex="-1">检测方法 HJ 618-2011（环境空气 PM10 和 PM2.5 的测定 重量法）。恒重要求同颗粒物：滤膜采样前后各 2 次称量，质量单位 <b>g</b>；可选 HJ 836-2017 低浓度颗粒物两次差≤0.0002 g、十万分之一天平允差 0.0004 g、万分之一 0.0010 g；恒重不合格不输出浓度。限值参考 GB 3095-2012：PM2.5 日均 0.075 mg/m³、PM10 日均 0.15 mg/m³。</div>
     </div>
     <div id="p1b_dust_rows" style="display:none">
       <div class="input-grid p1b-grid">
@@ -2641,7 +2661,7 @@ Y = D × 10<sup>X̄</sup></div>
     <div class="input-grid">
       <div class="input-row"><label>测定场景</label><select id="g1_nmhc_scene">
         <option value="org">有组织废气（HJ 38-2017）</option>
-        <option value="fug">无组织/环境空气（HJ 604-2017）</option></select></div>
+        <option value="fug">无组织/环境空气&#10;（HJ 604-2017）</option></select></div>
       <div class="input-row"><label>输入方式</label><select id="g1_nmhc_mode">
         <option value="area">峰面积反算</option>
         <option value="conc">直接输入浓度</option></select></div>
@@ -2712,7 +2732,7 @@ Y = D × 10<sup>X̄</sup></div>
   </div>
   <div class="calc-body">
     <div class="input-grid">
-      <div class="input-row"><label>元素/方法</label><select id="g1_metal_name"><option>砷 HJ 540</option><option>铅 HJ 685</option><option>汞 HJ 543</option><option>铬(六价) GB/T 7467</option><option>锰 HJ 700</option><option>镍 HJ 700</option></select></div>
+      <div class="input-row"><label>元素/方法</label><select id="g1_metal_name"><option>砷 HJ 540</option><option>铅 HJ 685</option><option>汞 HJ 543</option><option>铬&#10;(六价) GB/T 7467</option><option>锰 HJ 700</option><option>镍 HJ 700</option></select></div>
       <div class="input-row"><label>A(样品吸光度)</label><input type="number" id="g1_metal_a" step="any"></div>
       <div class="input-row"><label>A₀(空白吸光度)</label><input type="number" id="g1_metal_a0" step="any" value="0"></div>
       <div class="input-row"><label>B(斜率)</label><input type="number" id="g1_metal_b" step="any"></div>
@@ -2757,8 +2777,8 @@ Y = D × 10<sup>X̄</sup></div>
   <div class="calc-body">
     <div class="input-grid">
       <div class="input-row"><label>计算类型</label><select id="g1_oil_type">
-        <option value="purify">净化效率（排放速率·GB 18483）</option>
-        <option value="hj1077">油烟浓度（HJ 1077-2019）</option>
+        <option value="purify">净化效率&#10;（排放速率·GB 18483）</option>
+        <option value="hj1077">油烟浓度&#10;（HJ 1077-2019）</option>
         <option value="gb18483">基准风量折算（GB 18483）</option></select></div>
       <div class="input-row" id="g1_oil_row_qfront"><label>Q<sub>前</sub> 处理前排风量(m³/h)</label><input type="number" id="g1_oil_qfront" step="any"></div>
       <div class="input-row" id="g1_oil_row_c1"><label>C<sub>前</sub> 处理前浓度(mg/m³)</label><input type="number" id="g1_oil_c1" step="any"></div>
@@ -3511,27 +3531,91 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 </div>
 
 <div class="calc-card compact" id="calc-g8-tvoc">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"></path></svg><h3>TVOC（总挥发性有机物）</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"></path></svg><h3>苯、甲苯、二甲苯</h3></div>
   <div class="formula-box compact">
-    <div class="flabel">计算公式（GB/T 18883-2022 附录C / ISO 16000-6）</div>
-    <div class="fcontent multiline">Cᵢ(mg/m³) = mᵢ(ng) / V(L) × 10⁻³<br>TVOC = ΣCᵢ</div>
-    <div class="note" tabindex="-1">mᵢ 为第 i 种定性组分的上机量（ng，由标准曲线反算），V 为标况/参比采样体积（L）。单位链：1 ng/L = 1 μg/m³ = 10⁻³ mg/m³。GB/T 18883-2022 限量 0.60 mg/m³（8h 均值）。</div>
+    <div class="flabel">计算公式（GB/T 18883-2022 附录C）</div>
+    <div class="fcontent multiline" id="g8t_formula">C.1 固体吸附-热解析-GC：<br>ρ(mg/m³) = (W − W₀) / (Vᵣ × 1000)</div>
+    <div class="note" tabindex="-1" id="g8t_note">附录 C 含 C.1 固体吸附-热解析-气相色谱法、C.2 活性炭吸附-二硫化碳解析-气相色谱法、C.3 便携式气相色谱法。固定组分为苯、甲苯、二甲苯（二甲苯以邻/间/对总和计），无需手动添加。GB/T 18883-2022 限量：苯 ≤0.03 mg/m³、甲苯 ≤0.20 mg/m³、二甲苯 ≤0.20 mg/m³。</div>
   </div>
   <div class="calc-body">
     <div class="input-grid">
-      <div class="input-row"><label>标况/参比体积 V(L)</label><input type="number" id="g8t_v" step="any"></div>
+      <div class="input-row"><label>检测方法</label><select id="g8t_method" onchange="onG8tMethodChange()">
+        <option value="c1">C.1 固体吸附-热解析-GC</option>
+        <option value="c2">C.2 活性炭吸附-二硫化碳解析-GC</option>
+        <option value="c3">C.3 便携式气相色谱法</option>
+      </select></div>
+      <div class="input-row" id="g8t_v1_row" style="display:none;"><label>二硫化碳体积 V₁(mL)</label><input type="number" id="g8t_v1" step="any"></div>
+      <div class="input-row"><label>参比采样体积 Vᵣ(L)</label><input type="number" id="g8t_v" step="any"></div>
     </div>
     <div id="g8t_rows">
-      <div class="g8t-row" style="display:flex;gap:6px;margin-bottom:5px;">
-        <div class="input-row" style="flex:1;margin-bottom:0;"><label>组分名</label><input type="text" class="g8t-name" placeholder="如: 苯"></div>
-        <div class="input-row" style="flex:1;margin-bottom:0;"><label>上机值(ng)</label><input type="number" class="g8t-m" step="any"></div>
+      <div class="g8t-row" data-name="苯">
+        <div class="g8t-name-label">苯</div>
+        <div class="g8t-inputs">
+          <div class="g8t-fld"><label class="g8t-lbl-a">样品量</label><input type="number" class="g8t-a" step="any" placeholder="W"></div>
+          <div class="g8t-fld"><label class="g8t-lbl-b">空白量</label><input type="number" class="g8t-b" step="any" placeholder="W₀"></div>
+        </div>
+      </div>
+      <div class="g8t-row" data-name="甲苯">
+        <div class="g8t-name-label">甲苯</div>
+        <div class="g8t-inputs">
+          <div class="g8t-fld"><label class="g8t-lbl-a">样品量</label><input type="number" class="g8t-a" step="any" placeholder="W"></div>
+          <div class="g8t-fld"><label class="g8t-lbl-b">空白量</label><input type="number" class="g8t-b" step="any" placeholder="W₀"></div>
+        </div>
+      </div>
+      <div class="g8t-row" data-name="二甲苯">
+        <div class="g8t-name-label">二甲苯</div>
+        <div class="g8t-inputs">
+          <div class="g8t-fld"><label class="g8t-lbl-a">样品量</label><input type="number" class="g8t-a" step="any" placeholder="W"></div>
+          <div class="g8t-fld"><label class="g8t-lbl-b">空白量</label><input type="number" class="g8t-b" step="any" placeholder="W₀"></div>
+        </div>
       </div>
     </div>
-    <button class="btn-calc outline" onclick="addG8tRow('g8t_rows', '.g8t-row')" style="margin:0 8px 8px 0;min-height:34px;padding:6px 12px;font-size:13px;">＋ 增加组分</button>
-    <button class="btn-calc" onclick="calcG8Tvoc()" style="margin-top:0;">计算 TVOC</button>
+    <button class="btn-calc" onclick="calcG8Tvoc()" style="margin-top:6px;">计算浓度</button>
     <div class="result-area compact" id="g8-tvoc_result"></div>
   </div>
-  <div class="std-ref">参考标准：GB/T 18883-2022《室内空气质量标准》；ISO 16000-6</div>
+  <div class="std-ref">参考标准：GB/T 18883-2022《室内空气质量标准》附录C</div>
+</div>
+
+<div class="calc-card compact" id="calc-g8-tvoc-d">
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"></path></svg><h3>TVOC（总挥发性有机物）— 附录D</h3></div>
+  <div class="formula-box compact">
+    <div class="flabel">计算公式（GB/T 18883-2022 附录D · 固体吸附-热解吸-GC/MS）</div>
+    <div class="fcontent multiline">ρᵢ(μg/m³) = (Wᵢ − W₀) / Vᵣ<br>TVOC = Σρᵢ（22 项特征目标化合物之和）</div>
+    <div class="note" tabindex="-1">Wᵢ、W₀ 为样品管/空白管中第 i 种特征目标化合物质量（ng），Vᵣ 为参比状态采样体积（L）。22 项特征目标化合物见表 D.1；其他满足 TVOC 定义要求的未校正化合物，浓度大于 2 μg/m³ 时以甲苯响应系数计入。GB/T 18883-2022 限量 TVOC ≤0.60 mg/m³（8h 均值）。</div>
+  </div>
+  <div class="calc-body">
+    <div class="tvoc-d-common">
+      <div class="input-row"><label>空白 W₀(ng)</label><input type="number" id="g8td_w0" step="any" value="0"></div>
+      <div class="input-row"><label>参比体积 Vᵣ(L)</label><input type="number" id="g8td_vr" step="any"></div>
+    </div>
+    <div class="tvoc-d-grid" id="g8td_grid">
+      <div class="input-row"><label>1 正己烷</label><input type="number" id="g8td_1" step="any" placeholder="ng"></div>
+      <div class="input-row"><label>2 乙酸乙酯</label><input type="number" id="g8td_2" step="any" placeholder="ng"></div>
+      <div class="input-row"><label>3 三氯甲烷</label><input type="number" id="g8td_3" step="any" placeholder="ng"></div>
+      <div class="input-row"><label>4 苯</label><input type="number" id="g8td_4" step="any" placeholder="ng"></div>
+      <div class="input-row"><label>5 四氯化碳</label><input type="number" id="g8td_5" step="any" placeholder="ng"></div>
+      <div class="input-row"><label>6 环己烷</label><input type="number" id="g8td_6" step="any" placeholder="ng"></div>
+      <div class="input-row"><label>7 正庚烷</label><input type="number" id="g8td_7" step="any" placeholder="ng"></div>
+      <div class="input-row"><label>8 三氯乙烯</label><input type="number" id="g8td_8" step="any" placeholder="ng"></div>
+      <div class="input-row"><label>9 甲基环己烷</label><input type="number" id="g8td_9" step="any" placeholder="ng"></div>
+      <div class="input-row"><label>10 甲苯</label><input type="number" id="g8td_10" step="any" placeholder="ng"></div>
+      <div class="input-row"><label>11 正辛烷</label><input type="number" id="g8td_11" step="any" placeholder="ng"></div>
+      <div class="input-row"><label>12 四氯乙烯</label><input type="number" id="g8td_12" step="any" placeholder="ng"></div>
+      <div class="input-row"><label>13 乙酸丁酯</label><input type="number" id="g8td_13" step="any" placeholder="ng"></div>
+      <div class="input-row"><label>14 氯苯</label><input type="number" id="g8td_14" step="any" placeholder="ng"></div>
+      <div class="input-row"><label>15 乙苯</label><input type="number" id="g8td_15" step="any" placeholder="ng"></div>
+      <div class="input-row"><label>16 间二甲苯</label><input type="number" id="g8td_16" step="any" placeholder="ng"></div>
+      <div class="input-row"><label>17 对二甲苯</label><input type="number" id="g8td_17" step="any" placeholder="ng"></div>
+      <div class="input-row"><label>18 苯乙烯</label><input type="number" id="g8td_18" step="any" placeholder="ng"></div>
+      <div class="input-row"><label>19 邻二甲苯</label><input type="number" id="g8td_19" step="any" placeholder="ng"></div>
+      <div class="input-row"><label>20 正壬烷</label><input type="number" id="g8td_20" step="any" placeholder="ng"></div>
+      <div class="input-row"><label>21 1,4-二氯苯</label><input type="number" id="g8td_21" step="any" placeholder="ng"></div>
+      <div class="input-row"><label>22 正十六烷</label><input type="number" id="g8td_22" step="any" placeholder="ng"></div>
+    </div>
+    <button class="btn-calc" onclick="calcG8TvocD()">计算 TVOC</button>
+    <div class="result-area compact" id="g8-tvoc-d_result"></div>
+  </div>
+  <div class="std-ref">参考标准：GB/T 18883-2022《室内空气质量标准》附录D</div>
 </div>
 
 <div class="calc-card compact" id="calc-g8-radon">
@@ -3558,13 +3642,14 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
   <div class="formula-box compact">
     <div class="flabel">计算公式（重量法 · HJ 618-2011 / HJ 656 / GB/T 18883）</div>
     <div class="fcontent multiline">ρ(mg/m³) = ( m̄<sub>后</sub> − m̄<sub>前</sub> ) × 10<sup>6</sup> / V<sub>nd</sub><br>恒重判定：|m<sub>前1</sub>−m<sub>前2</sub>| ≤ 允差 且 |m<sub>后1</sub>−m<sub>后2</sub>| ≤ 允差</div>
-    <div class="note" tabindex="-1">采样前后滤膜各 2 次恒重称量，质量单位 <b>g</b>；Vₙ𝒹 标况采气体积(L)。天平精度 十万分之一 恒重允差 0.0004 g、万分之一 0.0010 g。恒重不合格不输出浓度。GB/T 18883-2022 限量 PM2.5 24h平均 0.075 mg/m³、PM10 24h平均 0.15 mg/m³。</div>
+    <div class="note" tabindex="-1">采样前后滤膜各 2 次恒重称量，质量单位 <b>g</b>；Vₙ𝒹 标况采气体积(L)。天平精度可选 HJ 836-2017 低浓度颗粒物两次差≤0.0002 g、十万分之一天平恒重允差 0.0004 g、万分之一天平 0.0010 g。恒重不合格不输出浓度。GB/T 18883-2022 限量 PM2.5 24h平均 0.075 mg/m³、PM10 24h平均 0.15 mg/m³。</div>
   </div>
   <div class="calc-body">
     <div class="input-grid">
       <div class="input-row"><label>天平精度</label><select id="g8p_prec">
-        <option value="0.0004">十万分之一（恒重差≤0.4 mg）</option>
-        <option value="0.0010">万分之一（恒重差≤1.0 mg）</option></select></div>
+        <option value="0.0002">HJ 836 低浓度颗粒物&#10;（两次差≤0.20 mg）</option>
+        <option value="0.0004">十万分之一天平&#10;（恒重差≤0.4 mg）</option>
+        <option value="0.0010">万分之一天平&#10;（恒重差≤1.0 mg）</option></select></div>
       <div class="input-row"><label>采样前质量1 m<sub>前1</sub>(g)</label><input type="number" id="g8p_mb1" step="any"></div>
       <div class="input-row"><label>采样前质量2 m<sub>前2</sub>(g)</label><input type="number" id="g8p_mb2" step="any"></div>
       <div class="input-row"><label>采样后质量1 m<sub>后1</sub>(g)</label><input type="number" id="g8p_ma1" step="any"></div>
@@ -3624,8 +3709,8 @@ E<sub>avg</sub> = ΣE<sub>i</sub> / n</div>
   <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 12h18"></path><path d="M12 3v18"></path></svg><h3>教室窗地面积比</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB 7793-2025 / GB/T 18205-2012）</div>
-    <div class="fcontent">窗地比 = 透光窗口面积 / 室内地面面积</div>
-    <div class="note" tabindex="-1">中小学校教室窗地面积比不应低于 1:5（即 ≥0.20）。本卡计算比值并判定是否达标。</div>
+    <div class="fcontent">窗地比 = 透光窗口面积 / 室内地面面积；并以「1 : x」表示（x = 地面面积 / 窗口面积）</div>
+    <div class="note" tabindex="-1">按 GB/T 18205-2012 4.2.3.6.4：窗洞口总面积为 1，求与地板面积的比例，以 1 比多少表示。中小学校教室窗地面积比不应低于 1:5（即 ≥0.20）。本卡同时输出小数比值、百分比与「1:x」形式并判定达标。</div>
   </div>
   <div class="calc-body">
     <div class="input-grid">
@@ -3635,25 +3720,26 @@ E<sub>avg</sub> = ΣE<sub>i</sub> / n</div>
     <button class="btn-calc" onclick="calcG9Window()">计算 窗地比</button>
     <div class="result-area compact" id="g9-window_result"></div>
   </div>
-  <div class="std-ref">参考标准：GB 7793-2025《中小学校教室采光和照明卫生标准》；GB/T 18205-2012</div>
+  <div class="std-ref">参考标准：GB 7793-2025《中小学校教室采光和照明卫生标准》；GB/T 18205-2012《学校卫生综合评价》4.2.3.6.4</div>
 </div>
 
 <div class="calc-card compact" id="calc-g9-coef">
   <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 12h18"></path><path d="M12 3v18"></path></svg><h3>采光系数</h3></div>
   <div class="formula-box compact">
-    <div class="flabel">计算公式（GB/T 5699-2017 / GB 7793-2025）</div>
-    <div class="fcontent">C = (E<sub>in</sub> / E<sub>out</sub>) × 100%</div>
-    <div class="note" tabindex="-1">E_in 为室内典型工作面照度，E_out 为室外全云天水平照度。教室采光系数最低值不应低于 2.0%（GB 7793-2025）。本卡按瞬时值计算。</div>
+    <div class="flabel">计算公式（GB/T 5699-2025 / GB/T 18205-2012 / GB 7793-2025）</div>
+    <div class="fcontent">C = (E<sub>室内</sub> / E<sub>室外</sub>) × 100%　（E<sub>室外</sub> = (测前+测后)/2）</div>
+    <div class="note" tabindex="-1">按 GB/T 18205-2012 4.2.3.6.4 定义：<b>室内照度</b>=选择教室内光线最差的课桌面测量照度（即最小值）；<b>室外照度</b>=选择周围无遮挡空地、避免直射阳光，在测量室内照度前后各测一次、取两次平均值。教室采光系数最低值不应低于 2.0%（GB 7793-2025）。采光测量方法按 GB/T 5699-2025（2026-02-01 实施，代替 2017 版）。</div>
   </div>
   <div class="calc-body">
     <div class="input-grid">
-      <div class="input-row"><label>室内照度 E_in(lx)</label><input type="number" id="g9c_ein" step="any"></div>
-      <div class="input-row"><label>室外照度 E_out(lx)</label><input type="number" id="g9c_eout" step="any"></div>
+      <div class="input-row"><label>室内照度 E_室内(lx，最差课桌面)</label><input type="number" id="g9c_ein" step="any" placeholder="光线最差课桌面照度"></div>
+      <div class="input-row"><label>室外照度·测前 E_out1(lx)</label><input type="number" id="g9c_eout1" step="any"></div>
+      <div class="input-row"><label>室外照度·测后 E_out2(lx)</label><input type="number" id="g9c_eout2" step="any"></div>
     </div>
     <button class="btn-calc" onclick="calcG9Coef()">计算 采光系数%</button>
     <div class="result-area compact" id="g9-coef_result"></div>
   </div>
-  <div class="std-ref">参考标准：GB/T 5699-2017《采光测量方法》；GB 7793-2025</div>
+  <div class="std-ref">参考标准：GB/T 5699-2025《采光测量方法》（代替 2017 版）；GB/T 18205-2012《学校卫生综合评价》4.2.3.6.4；GB 7793-2025</div>
 </div>
 
 <div class="calc-card compact" id="calc-g9-desk">
@@ -3677,19 +3763,20 @@ E<sub>avg</sub> = ΣE<sub>i</sub> / n</div>
 <div class="calc-card compact" id="calc-g9-deskfit">
   <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path d="M8 12h8"></path><path d="M12 8v8"></path></svg><h3>课桌椅分配符合率</h3></div>
   <div class="formula-box compact">
-    <div class="flabel">计算公式（GB/T 18205-2012 / GB 3976-2014）</div>
-    <div class="fcontent">符合率 = 身高匹配合格数 / 抽查课桌椅数 × 100%</div>
-    <div class="note" tabindex="-1">按 GB/T 18205-2012《学校卫生综合评价》抽查课桌椅并与学生身高逐一核对匹配情况。仅输出百分率，不做达标判定。</div>
+    <div class="flabel">计算公式（GB/T 18205-2012 4.2.3.4 / GB 3976-2014 表4）</div>
+    <div class="fcontent">按学生身高查 GB/T 3976-2014 表4 自动分配桌高号/椅高号；实际桌高、椅高与分配型号标准尺寸之差 ≤ ±2 mm（4.4.1）即符合</div>
+    <div class="note" tabindex="-1">按 GB/T 18205-2012 4.2.3.4.4：测量在座学生身高及相应课桌椅高度，按 GB/T 3976 表4 各型号身高范围评价，被测课桌椅号数在使用者身高范围内则分配符合。本卡输入学生身高与实际桌高、椅高（mm），自动给出应分配桌号/椅号及判定；尺寸允许误差 ±2 mm。</div>
   </div>
   <div class="calc-body">
     <div class="input-grid">
-      <div class="input-row"><label>抽查课桌椅数 n(件)</label><input type="number" id="g9df_n" step="any"></div>
-      <div class="input-row"><label>身高匹配合格数 k(件)</label><input type="number" id="g9df_k" step="any"></div>
+      <div class="input-row"><label>学生身高(cm)</label><input type="number" id="g9df_h" step="any" placeholder="如 136"></div>
+      <div class="input-row"><label>课桌实际高度(mm)</label><input type="number" id="g9df_dh" step="any" placeholder="如 610"></div>
+      <div class="input-row"><label>课椅实际高度(mm)</label><input type="number" id="g9df_ch" step="any" placeholder="如 340"></div>
     </div>
-    <button class="btn-calc" onclick="calcG9DeskFit()">计算 符合率</button>
+    <button class="btn-calc" onclick="calcG9DeskFit()">自动分配并判定</button>
     <div class="result-area compact" id="g9-deskfit_result"></div>
   </div>
-  <div class="std-ref">参考标准：GB/T 18205-2012《学校卫生综合评价》；GB 3976-2014《学校课桌椅功能尺寸及技术要求》</div>
+  <div class="std-ref">参考标准：GB/T 18205-2012《学校卫生综合评价》4.2.3.4；GB 3976-2014《学校课桌椅功能尺寸及技术要求》表4（桌高/椅高/身高范围）</div>
 </div>
 </div>
 
@@ -3979,7 +4066,7 @@ function parseNumList(s) {
 
 // ==================== 共享计算 helper（envcalc v51 新增） ====================
 // 恒重判定 + 颗粒物浓度（质量单位统一用 g，输出 mg/m³）。
-// prec 单位 g：十万分之一 恒重允许偏差 0.0004 g / 万分之一 0.0010 g。
+// prec 单位 g：HJ 836-2017 低浓度颗粒物 0.0002 g / 十万分之一 0.0004 g / 万分之一 0.0010 g。
 // 返回 { ok, tol, dmb, dma, mbarB, mbarA, dm, C }：
 //   ok    恒重是否合格（前后各 2 次称量差均 ≤ 允差）
 //   dmb   采样前两次称量差 |m前1−m前2|
@@ -3999,21 +4086,6 @@ function weighingCalc(prec, mb1, mb2, ma1, ma2, Vnd) {
   const C = dm * 1e6 / Vnd;
   return { ok: ok, tol: tol, dmb: dmb, dma: dma, mbarB: mbarB, mbarA: mbarA, dm: dm, C: C };
 }
-
-// TVOC 动态组分行克隆（通用）：以容器内首个 .tvoc-row 为模板克隆新行并清空输入。
-// 容器 id 由调用方传入，默认 'g8t_rows'；行模板类默认 '.tvoc-row'。
-function addG8tRow(containerId, rowClass) {
-  const cid = containerId || 'g8t_rows';
-  const rc = rowClass || '.tvoc-row';
-  const box = document.getElementById(cid);
-  if (!box) return;
-  const tpl = box.querySelector(rc);
-  if (!tpl) return;
-  const clone = tpl.cloneNode(true);
-  clone.querySelectorAll('input, select').forEach(function (el) { el.value = ''; });
-  box.appendChild(clone);
-}
-
 
 // ==================== WATER CALCULATIONS ====================
 function calcWaterStdIndex() {
@@ -4614,7 +4686,7 @@ const MOLAR_MASS = {
 };
 function initPollutantSelect() {
   const sel = document.getElementById('a22_pollutant');
-  sel.innerHTML = Object.keys(MOLAR_MASS).map(k => '<option value="'+k+'">'+k+' ('+ (MOLAR_MASS[k]||'?') +')</option>').join('');
+  sel.innerHTML = Object.keys(MOLAR_MASS).map(k => '<option value="'+k+'">'+k+'&#10;('+ (MOLAR_MASS[k]||'?') +')</option>').join('');
   sel.addEventListener('change', function(){ document.getElementById('a22_m').value = MOLAR_MASS[this.value] || ''; });
   sel.value = 'SO₂';
   document.getElementById('a22_m').value = MOLAR_MASS['SO₂'];
@@ -6824,24 +6896,87 @@ function calcG8Benzene(){
   window._g8_benzene_data={A,A0,Cs,As,C};
 }
 
+function onG8tMethodChange(){
+  const method = document.getElementById('g8t_method').value;
+  const formula = document.getElementById('g8t_formula');
+  const note = document.getElementById('g8t_note');
+  const v1Row = document.getElementById('g8t_v1_row');
+  const rows = document.querySelectorAll('#g8t_rows .g8t-row');
+  if(method === 'c1'){
+    formula.innerHTML = 'C.1 固体吸附-热解析-GC：<br>ρ(mg/m³) = (W − W₀) / (Vᵣ × 1000)';
+    note.innerHTML = 'W、W₀ 为样品管/空白管中待测组分质量（ng），Vᵣ 为参比状态采样体积（L）。ρ = (W−W₀)/(Vᵣ×1000)，结果 mg/m³。二甲苯以邻/间/对总和计。';
+    v1Row.style.display = 'none';
+    rows.forEach(function(r){
+      r.querySelector('.g8t-lbl-a').textContent = '样品 W(ng)';
+      r.querySelector('.g8t-lbl-b').textContent = '空白 W₀(ng)';
+      r.querySelector('.g8t-a').placeholder = 'W';
+      r.querySelector('.g8t-b').placeholder = 'W₀';
+    });
+  } else if(method === 'c2'){
+    formula.innerHTML = 'C.2 活性炭吸附-二硫化碳解析-GC：<br>ρ(mg/m³) = (ρ₁ − ρ₀) × V₁ / Vᵣ';
+    note.innerHTML = 'ρ₁、ρ₀ 为样品解吸液/空白解吸液中待测组分质量浓度（μg/mL，a段+b段之和），V₁ 为二硫化碳体积（mL），Vᵣ 为参比状态采样体积（L）。二甲苯以邻/间/对总和计。';
+    v1Row.style.display = 'flex';
+    rows.forEach(function(r){
+      r.querySelector('.g8t-lbl-a').textContent = '样品 ρ₁(μg/mL)';
+      r.querySelector('.g8t-lbl-b').textContent = '空白 ρ₀(μg/mL)';
+      r.querySelector('.g8t-a').placeholder = 'ρ₁';
+      r.querySelector('.g8t-b').placeholder = 'ρ₀';
+    });
+  } else {
+    formula.innerHTML = 'C.3 便携式气相色谱法：<br>ρ(mg/m³) = (W − W₀) × M / 24.45';
+    note.innerHTML = 'W、W₀ 为样品/空白中待测组分体积分数（μL/L），M 为相对分子质量（g/mol）：苯 78.11、甲苯 92.14、二甲苯 106.16；24.45 为参比状态下气体常数（L/mol）。二甲苯以邻/间/对总和计。';
+    v1Row.style.display = 'none';
+    rows.forEach(function(r){
+      r.querySelector('.g8t-lbl-a').textContent = '样品 W(μL/L)';
+      r.querySelector('.g8t-lbl-b').textContent = '空白 W₀(μL/L)';
+      r.querySelector('.g8t-a').placeholder = 'W';
+      r.querySelector('.g8t-b').placeholder = 'W₀';
+    });
+  }
+}
+
 function calcG8Tvoc(){
-  const V = parseFloat(document.getElementById('g8t_v').value);
-  if(isNaN(V) || V <= 0){ alert('请输入标况/参比体积 V(L)'); return; }
-  let sum = 0, detail = '', n = 0;
-  document.querySelectorAll('#g8t_rows .g8t-row').forEach(function(r, i){
-    const name = (r.querySelector('.g8t-name').value.trim()) || ('组分' + (i + 1));
-    const m = parseFloat(r.querySelector('.g8t-m').value);
-    if(isNaN(m)) return;
-    const C = m / V * 1e-3;   // ng/L → μg/m³ → 10⁻³ mg/m³
+  const method = document.getElementById('g8t_method').value;
+  const Vr = parseFloat(document.getElementById('g8t_v').value);
+  if(isNaN(Vr) || Vr <= 0){ alert('请输入参比采样体积 Vᵣ(L)'); return; }
+  let V1 = 1;
+  if(method === 'c2'){
+    V1 = parseFloat(document.getElementById('g8t_v1').value);
+    if(isNaN(V1) || V1 <= 0){ alert('请输入二硫化碳体积 V₁(mL)'); return; }
+  }
+  const limits = { '苯': 0.03, '甲苯': 0.20, '二甲苯': 0.20 };
+  const M = { '苯': 78.11, '甲苯': 92.14, '二甲苯': 106.16 };
+  let detail = '', sum = 0, n = 0;
+  document.querySelectorAll('#g8t_rows .g8t-row').forEach(function(r){
+    const name = r.getAttribute('data-name') || '组分';
+    const a = parseFloat(r.querySelector('.g8t-a').value);
+    const b = parseFloat(r.querySelector('.g8t-b').value) || 0;
+    if(isNaN(a)) return;
+    let C = 0, unit = '';
+    if(method === 'c1'){
+      C = (a - b) / (Vr * 1000); // ng → mg/m³
+      unit = 'mg/m³';
+      detail += name + ': ρ = (' + fmtNum(a,2) + '−' + fmtNum(b,2) + ')/(' + fmtNum(Vr,2) + '×1000) = ' + fmtNum(C,4) + ' ' + unit + '<br>';
+    } else if(method === 'c2'){
+      C = (a - b) * V1 / Vr; // μg/mL × mL / L = μg/L = mg/m³
+      unit = 'mg/m³';
+      detail += name + ': ρ = (' + fmtNum(a,3) + '−' + fmtNum(b,3) + ')×' + fmtNum(V1,2) + '/' + fmtNum(Vr,2) + ' = ' + fmtNum(C,4) + ' ' + unit + '<br>';
+    } else {
+      C = (a - b) * M[name] / 24.45; // μL/L × g/mol / (L/mol) = mg/m³
+      unit = 'mg/m³';
+      detail += name + ': ρ = (' + fmtNum(a,4) + '−' + fmtNum(b,4) + ')×' + M[name] + '/24.45 = ' + fmtNum(C,4) + ' ' + unit + '<br>';
+    }
     sum += C; n++;
-    detail += name + ': Cᵢ = ' + fmtNum(m,2) + ' ng / ' + fmtNum(V,2) + ' L × 10⁻³ = ' + fmtNum(C,4) + ' mg/m³<br>';
+    const lim = limits[name];
+    if(lim !== undefined){
+      detail += '<span class="r-interpret ' + (C <= lim ? 'pass' : 'fail') + '">' + name + ' 限值 ' + lim + ' mg/m³ → ' + (C <= lim ? '达标' : '超标') + '</span><br>';
+    }
   });
-  if(n === 0){ alert('请至少输入一组上机值'); return; }
-  const pass = sum <= 0.60;
-  showResult('g8-tvoc_result', fmtNum(sum,3) + ' mg/m³',
-    detail + 'TVOC = ΣCᵢ = <b>' + fmtNum(sum,3) + '</b> mg/m³<br>GB/T 18883-2022 限值 0.60 mg/m³（8h 均值）→ ' + (pass ? '达标' : '超标'),
-    pass ? 'pass' : 'fail');
-  window._g8_tvoc_data = {V: V, sum: sum, n: n};
+  if(n === 0){ alert('请至少输入一组数据'); return; }
+  showResult('g8-tvoc_result', '总和 Σρ = ' + fmtNum(sum,4) + ' mg/m³',
+    detail + '苯+甲苯+二甲苯总和 = <b>' + fmtNum(sum,4) + '</b> mg/m³',
+    sum <= 0.43 ? 'pass' : 'neutral'); // 0.03+0.20+0.20 单项和，仅作参考
+  window._g8_tvoc_data = {method: method, Vr: Vr, V1: V1, sum: sum, n: n};
 }
 
 function calcG8Radon(){
@@ -6880,6 +7015,32 @@ function calcG8Pm(){
   window._g8_pm_data = {prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, Vnd: Vnd, ok: true, dmb: r.dmb, dma: r.dma, C: r.C};
 }
 
+function calcG8TvocD(){
+  const w0 = parseFloat(document.getElementById('g8td_w0').value) || 0;
+  const Vr = parseFloat(document.getElementById('g8td_vr').value);
+  if(isNaN(Vr) || Vr <= 0){ alert('请输入参比采样体积 Vᵣ(L)'); return; }
+  const names = ['正己烷','乙酸乙酯','三氯甲烷','苯','四氯化碳','环己烷','正庚烷','三氯乙烯','甲基环己烷','甲苯','正辛烷','四氯乙烯','乙酸丁酯','氯苯','乙苯','间二甲苯','对二甲苯','苯乙烯','邻二甲苯','正壬烷','1,4-二氯苯','正十六烷'];
+  let sum = 0, detail = '', n = 0, firstDetail = '';
+  names.forEach(function(name, i){
+    const v = parseFloat(document.getElementById('g8td_' + (i + 1)).value);
+    if(isNaN(v)) return;
+    const rho = (v - w0) / Vr; // ng/L = μg/m³
+    sum += rho; n++;
+    const line = name + ': ' + fmtNum(rho,2) + ' μg/m³';
+    if(n <= 8) firstDetail += line + '；';
+    detail += line + '<br>';
+  });
+  if(n === 0){ alert('请至少输入一项上机值'); return; }
+  const tvocMg = sum / 1000; // μg/m³ → mg/m³
+  const pass = tvocMg <= 0.60;
+  showResult('g8-tvoc-d_result', 'TVOC = ' + fmtNum(tvocMg,4) + ' mg/m³',
+    '有效组分 n=' + n + '；单项结果（μg/m³）：<br>' + detail
+    + 'TVOC = Σρᵢ = ' + fmtNum(sum,2) + ' μg/m³ = <b>' + fmtNum(tvocMg,4) + '</b> mg/m³<br>'
+    + '<span class="r-interpret ' + (pass ? 'pass' : 'fail') + '">GB/T 18883-2022 限值 0.60 mg/m³（8h 均值）→ ' + (pass ? '达标' : '超标') + '</span>',
+    pass ? 'pass' : 'fail');
+  window._g8_tvoc_d_data = {w0: w0, Vr: Vr, sum: sum, tvocMg: tvocMg, n: n};
+}
+
 function calcG8Nh3(){
   const A=parseFloat(document.getElementById('g8n_a').value);
   const A0=parseFloat(document.getElementById('g8n_a0').value)||0;
@@ -6897,21 +7058,30 @@ function calcG9Window(){
   const floor=parseFloat(document.getElementById('g9w_floor').value);
   if([win,floor].some(isNaN)||floor===0){ alert('请输入窗口面积、地面面积'); return; }
   const ratio=win/floor;
-  const pass = ratio>=0.20;
-  showResult('g9-window_result', fmtNum(ratio,3)+' ('+fmtNum(ratio*100,1)+'%)',
-    '窗地比=窗口面积/地面面积='+fmtNum(win,2)+'/'+fmtNum(floor,2)+'='+fmtNum(ratio,3)+'<br>要求 ≥1:5（0.20）→ '+(pass?'达标':'不足'), pass?'ok':'warn');
-  window._g9_window_data={win,floor,ratio};
+  const oneToX = floor/win; // 以1比多少表示
+  const pass = ratio >= 0.20 - 1e-9; // 浮点容差
+  const xStr = fmtNum(oneToX,2);
+  showResult('g9-window_result', fmtNum(ratio,3)+' ('+fmtNum(ratio*100,1)+'%)　|　1 : '+xStr,
+    '窗地比 = 窗口面积/地面面积 = '+fmtNum(win,2)+' / '+fmtNum(floor,2)+' = '+fmtNum(ratio,3)+'<br>'
+    + '以 1:x 表示：x = 地面面积/窗口面积 = '+fmtNum(floor,2)+' / '+fmtNum(win,2)+' = <b>1 : '+xStr+'</b><br>'
+    + '要求 ≥ 1:5（0.20）→ '+(pass?'达标':'不足（应 ≥ 1:5，即 x ≤ 5）'), pass?'ok':'warn');
+  window._g9_window_data={win,floor,ratio,oneToX};
 }
 
 function calcG9Coef(){
   const ein=parseFloat(document.getElementById('g9c_ein').value);
-  const eout=parseFloat(document.getElementById('g9c_eout').value);
-  if([ein,eout].some(isNaN)||eout===0){ alert('请输入室内、室外照度'); return; }
+  const eout1=parseFloat(document.getElementById('g9c_eout1').value);
+  const eout2=parseFloat(document.getElementById('g9c_eout2').value);
+  if([ein,eout1,eout2].some(isNaN)){ alert('请输入室内照度（最差课桌面）与室外照度测前、测后两次值'); return; }
+  const eout=(eout1+eout2)/2; // GB/T 18205-2012：测前测后各一次取平均
+  if(eout===0){ alert('室外照度平均值不能为 0'); return; }
   const C=ein/eout*100;
   const pass = C>=2.0;
   showResult('g9-coef_result', fmtNum(C,2)+' %',
-    'C=(E_in/E_out)×100%=('+fmtNum(ein,0)+'/'+fmtNum(eout,0)+')×100%='+fmtNum(C,2)+'%<br>要求 ≥2.0% → '+(pass?'达标':'不足'), pass?'ok':'warn');
-  window._g9_coef_data={ein,eout,C};
+    'E_室外 = (测前+测后)/2 = ('+fmtNum(eout1,0)+'+'+fmtNum(eout2,0)+')/2 = '+fmtNum(eout,1)+' lx<br>'
+    + 'C = (E_室内/E_室外)×100% = ('+fmtNum(ein,0)+'/'+fmtNum(eout,1)+')×100% = <b>'+fmtNum(C,2)+'%</b><br>'
+    + '要求 ≥2.0%（GB 7793-2025）→ '+(pass?'达标':'不足'), pass?'ok':'warn');
+  window._g9_coef_data={ein,eout1,eout2,eout,C};
 }
 
 function calcG9Desk(){
@@ -6927,17 +7097,49 @@ function calcG9Desk(){
   window._g9_desk_data={arr,avg,emin,U};
 }
 
-// 课桌椅分配符合率（GB/T 18205-2012 / GB 3976-2014）：仅输出百分率，不做达标判定
+// 课桌椅分配：按身高自动分配型号并判定（GB/T 3976-2014 表4 + GB/T 18205-2012 4.2.3.4）
+// 表4：型号 -> [桌面高mm, 座面高mm, 标准身高cm, 身高下限cm, 身高上限cm]
+const G9_DESK_TABLE = [
+  {no:'0号', dh:790, ch:460, std:187.5, lo:180, hi:9999},
+  {no:'1号', dh:760, ch:440, std:180.0, lo:173, hi:187},
+  {no:'2号', dh:730, ch:420, std:172.5, lo:165, hi:179},
+  {no:'3号', dh:700, ch:400, std:165.0, lo:158, hi:172},
+  {no:'4号', dh:670, ch:380, std:157.5, lo:150, hi:164},
+  {no:'5号', dh:640, ch:360, std:150.0, lo:143, hi:157},
+  {no:'6号', dh:610, ch:340, std:142.5, lo:135, hi:149},
+  {no:'7号', dh:580, ch:320, std:135.0, lo:128, hi:142},
+  {no:'8号', dh:550, ch:300, std:127.5, lo:120, hi:134},
+  {no:'9号', dh:520, ch:290, std:120.0, lo:113, hi:127},
+  {no:'10号', dh:490, ch:270, std:112.5, lo:0, hi:119}
+];
 function calcG9DeskFit(){
-  const n = parseFloat(document.getElementById('g9df_n').value);
-  const k = parseFloat(document.getElementById('g9df_k').value);
-  if(isNaN(n) || isNaN(k) || n <= 0){ alert('请输入抽查课桌椅数 n（>0）与合格数 k'); return; }
-  if(k > n){ alert('合格数不能大于抽查数（k ≤ n）'); return; }
-  const rate = k / n * 100;
-  showResult('g9-deskfit_result', fmtNum(rate,1) + ' %',
-    '符合率 = 身高匹配合格数 / 抽查课桌椅数 × 100% = ' + fmtNum(k,0) + ' / ' + fmtNum(n,0) + ' × 100% = <b>' + fmtNum(rate,1) + '%</b>（仅输出百分率，不做达标判定）',
-    'neutral');
-  window._g9_deskfit_data = {n: n, k: k, rate: rate};
+  const h = parseFloat(document.getElementById('g9df_h').value);
+  const dh = parseFloat(document.getElementById('g9df_dh').value);
+  const ch = parseFloat(document.getElementById('g9df_ch').value);
+  if([h,dh,ch].some(isNaN)){ alert('请输入学生身高(cm)、课桌实际高度(mm)、课椅实际高度(mm)'); return; }
+  // 命中身高范围内所有型号（边界可能重叠）
+  const hits = G9_DESK_TABLE.filter(r => h >= r.lo && h <= r.hi);
+  if(hits.length === 0){ alert('身高超出表4 范围（0号≥180cm，10号≤119cm）'); return; }
+  // 取最贴身小号：标准身高 ≤ 实测身高 的型号中取标准身高最大者；若都超出则取标准身高最小者
+  const lower = hits.filter(r => r.std <= h);
+  let pick;
+  if(lower.length > 0){ pick = lower.reduce((a,b)=> b.std > a.std ? b : a); }
+  else { pick = hits.reduce((a,b)=> b.std < a.std ? b : a); }
+  const TOL = 2; // GB/T 3976-2014 4.4.1 允许误差 ±2mm
+  const dDh = dh - pick.dh;
+  const dCh = ch - pick.ch;
+  const deskOk = Math.abs(dDh) <= TOL;
+  const chairOk = Math.abs(dCh) <= TOL;
+  const ok = deskOk && chairOk;
+  const cls = ok ? 'ok' : 'fail';
+  const parts = [];
+  parts.push('应分配型号：桌 <b>'+pick.no+'</b>（标准桌高 '+pick.dh+' mm）、椅 <b>'+pick.no+'</b>（标准椅高 '+pick.ch+' mm）');
+  parts.push('身高 '+fmtNum(h,1)+' cm 落在 '+pick.no+' 身高范围（'+pick.lo+'~'+(pick.hi>9999?'∞':pick.hi)+' cm）');
+  parts.push('课桌：实际 '+fmtNum(dh,0)+' mm，标准 '+pick.dh+' mm，偏差 '+fmtNum(dDh,0)+' mm → '+(deskOk?'符合(≤±2mm)':'不符合(>±2mm)'));
+  parts.push('课椅：实际 '+fmtNum(ch,0)+' mm，标准 '+pick.ch+' mm，偏差 '+fmtNum(dCh,0)+' mm → '+(chairOk?'符合(≤±2mm)':'不符合(>±2mm)'));
+  parts.push('综合判定：'+(ok?'符合（桌、椅均与分配型号一致）':'不符合（存在超差项，应按 GB/T 3976 调整至分配型号）'));
+  showResult('g9-deskfit_result', (ok?'符合':'不符合')+'（'+pick.no+'）', parts.join('<br>'), cls);
+  window._g9_deskfit_data = {h, dh, ch, pick:pick.no, dDh, dCh, deskOk, chairOk, ok};
 }
 
 function calcG10Coli(){

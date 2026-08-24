@@ -1,6 +1,6 @@
 // 环境监测计算工作台 Service Worker
-// v52 —— 范工三项增量：① 油气回收密闭性「判定检测条件」即时绿/红（无需先输剩余压力）；② g1-oil 净化效率按 GB 18483 排放速率计算（η=(Q前C前−Q后C后)/(Q前C前)×100%，新增 Q前/Q后）；③ p1b 新增 PM2.5/PM10（HJ 618-2011 恒重法）+ 排版优化；本地验证 16/16 功能断言 + 13/13 Edge 真实渲染回归全过
-const CACHE = 'envcalc-v52-20260824';
+// v54 —— 在 v53（TVOC 附录C/D 重构 + 选择框美化 + HJ836 恒重）基础上新增：一级 Tab 栏与二级子组导航栏同时吸顶固定（tabs-scroll top:0，subgroup-nav top:56px），子组锚点 scroll-margin-top 同步 126px
+const CACHE = 'envcalc-v54-20260824';
 const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', function (e) {
