@@ -171,6 +171,12 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .calc-body .input-row select:focus{outline:none;border-color:var(--primary-light);box-shadow:0 0 0 3px var(--primary-soft);}
 .calc-body .input-row select option{white-space:normal;line-height:1.5;font-size:15px;}
 .calc-body .input-row select option .opt-sub{font-size:12px;color:#666;}
+/* select 行：label 在上，select 在下并占满列宽，彻底解决闭合态文字被截断 */
+.calc-body .input-row.select-row{flex-direction:column;align-items:stretch;gap:4px;margin-bottom:12px;}
+.calc-body .input-row.select-row label{min-width:auto;width:100%;margin-bottom:2px;}
+.calc-body .input-row.select-row select{width:100%;min-width:auto;}
+/* 选项详细说明行：把原 option 中的长说明移出选择框 */
+.calc-body .select-help{font-size:12px;color:var(--text-secondary);line-height:1.5;padding:6px 10px;background:var(--primary-soft);border-radius:var(--radius);margin-top:2px;word-break:break-all;}
 .calc-body .input-row input[type="number"]{-moz-appearance:textfield;}
 .calc-body .input-row input::-webkit-inner-spin-button{-webkit-appearance:none;}
 .two-col{display:flex;flex:1;gap:8px;min-width:140px;}
@@ -932,9 +938,11 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 56px; }
   <div class="calc-body">
     <div class="input-grid">
       <div class="input-row"><label>天平精度</label><select id="a20_prec">
-        <option value="0.0002">HJ 836 低浓度颗粒物&#10;（两次差≤0.20 mg）</option>
-        <option value="0.0004">十万分之一天平&#10;（恒重差≤0.4 mg）</option>
-        <option value="0.0010">万分之一天平&#10;（恒重差≤1.0 mg）</option></select></div>
+        <option value="0.0002">0.0002 g</option>
+        <option value="0.0004">0.0004 g</option>
+        <option value="0.0010">0.0010 g</option></select>
+        <div class="select-help">0.0002 g = HJ 836 低浓度颗粒物（两次恒重差 ≤0.20 mg）；0.0004 g = 十万分之一天平（≤0.4 mg）；0.0010 g = 万分之一天平（≤1.0 mg）</div>
+      </div>
       <div class="input-row"><label>采样前质量1 m<sub>前1</sub>(g)</label><input type="number" id="a20_mb1" step="any"></div>
       <div class="input-row"><label>采样前质量2 m<sub>前2</sub>(g)</label><input type="number" id="a20_mb2" step="any"></div>
       <div class="input-row"><label>采样后质量1 m<sub>后1</sub>(g)</label><input type="number" id="a20_ma1" step="any"></div>
@@ -992,7 +1000,9 @@ vol% = ppm / 10000<br>
     <div class="input-row"><label>摩尔质量 M</label><input type="number" id="a22_m" step="any" placeholder="g/mol"></div>
     <div class="input-row"><label>输入单位</label><select id="a22_mode"><option value="mgm3">mg/m³</option><option value="ppm">ppm</option><option value="pct">vol%</option></select></div>
     <div class="input-row"><label>输入值</label><input type="number" id="a22_val" step="any" placeholder="输入浓度"></div>
-    <div class="input-row"><label>状态基准</label><select id="a22_state" onchange="syncA15State()"><option value="std">标准状态&#10;(0℃,101.325kPa)</option><option value="ref" selected>参比状态&#10;(25℃,101.325kPa)</option></select></div>
+    <div class="input-row"><label>状态基准</label><select id="a22_state" onchange="syncA15State()"><option value="std">标准状态 0℃</option><option value="ref" selected>参比状态 25℃</option></select>
+    <div class="select-help">标准状态：0℃，101.325 kPa；参比状态：25℃，101.325 kPa</div>
+    </div>
     <div class="input-row"><label>温度 t (℃)</label><input type="number" id="a22_t" value="25" step="any"></div>
     <div class="input-row"><label>大气压 (kPa)</label><input type="number" id="a22_p" value="101.325" step="any"></div>
     <button class="btn-calc" onclick="calcConcConvert()">换算</button>
@@ -2593,47 +2603,34 @@ Y = D × 10<sup>X̄</sup></div>
     <h3>颗粒物 / 降尘 / PM2.5·PM10 浓度</h3>
   </div>
   <div class="formula-box">
-    <div class="flabel">计算公式（颗粒物质量浓度 · GB/T 16157 / HJ 836-2017；PM2.5·PM10 · HJ 618-2011；降尘 · HJ 1221-2021）</div>
+    <div class="flabel">计算公式（颗粒物 · GB/T 16157 / HJ 836-2017；PM/TSP · HJ 618-2011；降尘 · HJ 1221-2021）</div>
     <div class="fcontent multiline">颗粒物/PM：C = ( m̄<sub>后</sub> − m̄<sub>前</sub> ) / V<sub>nd</sub> × 10<sup>6</sup>  (mg/m³)<br>
 降尘（HJ 1221-2021）：C = (m − m₀) / (A × t) × 30 × 10⁴  (t/km²·30d，A 单位 cm²)<br>
 恒重判定：|m<sub>前1</sub>−m<sub>前2</sub>| ≤ 允差 且 |m<sub>后1</sub>−m<sub>后2</sub>| ≤ 允差</div>
-    <div class="note" tabindex="-1">颗粒物与 PM2.5/PM10 均按恒重重量法：采样前后各 2 次称量（质量单位 <b>g</b>），V<sub>nd</sub> 为标况采样体积（L）；天平精度可选 HJ 836-2017 低浓度颗粒物两次差≤0.20 mg、十万分之一天平恒重允差 0.0004 g、万分之一天平 0.0010 g。颗粒物参照 GB/T 16157、HJ 836；PM2.5/PM10 参照 HJ 618-2011，限值参考 GB 3095-2012（PM2.5 0.075 / PM10 0.15 mg/m³）。降尘分支按 HJ 1221-2021：C = (m₁−m₀−m₂)/(A·t)×30×10⁴（A 为集尘缸缸口面积 cm²；t 采样天数 d）；本卡未单列空白 m₂，按 m₂=0 处理。</div>
+    <div class="note" tabindex="-1">先选择检测方法与项目：① 有组织废气颗粒物（GB/T 16157 / HJ 836-2017）— 标况体积，可选 0.0002 g（HJ 836 低浓度）、0.0004 g、0.0010 g；② 无组织废气颗粒物 — 标况体积，可选 0.0004 g、0.0010 g；③ 环境空气 TSP/PM10/PM2.5（HJ 618-2011）— 实际采样体积，可选 0.0004 g、0.0010 g；④ 降尘量（HJ 1221-2021）。恒重不合格不输出浓度。环境空气限值参考 GB 3095-2012（PM2.5 0.075 / PM10 0.15 / TSP 0.30 mg/m³）。降尘分支 A 为集尘缸缸口面积 cm²，t 为采样天数 d；本卡未单列空白 m₂，按 m₂=0 处理。</div>
   </div>
   <div class="calc-body">
-    <div class="input-row"><label>计算类型</label><select id="p1b_type">
-      <option value="tsp">颗粒物/烟尘浓度（恒重法）</option>
-      <option value="pm">环境空气 PM2.5 / PM10&#10;（HJ 618-2011）</option>
-      <option value="dust">降尘量</option></select></div>
-    <div id="p1b_tsp_rows">
+    <div class="input-row"><label>检测方法/项目</label><select id="p1b_type">
+      <option value="stack">有组织废气颗粒物（GB/T 16157 / HJ 836）</option>
+      <option value="fugitive">无组织废气颗粒物</option>
+      <option value="ambient-tsp">环境空气 TSP（HJ 618）</option>
+      <option value="ambient-pm10">环境空气 PM10（HJ 618）</option>
+      <option value="ambient-pm25">环境空气 PM2.5（HJ 618）</option>
+      <option value="dust">降尘量（HJ 1221）</option></select>
+      <div class="select-help">有/无组织废气：标况采样体积，其中组织废气可选 HJ 836 低浓度 0.0002 g；环境空气：实际采样体积。恒重判定自动按所选精度执行。</div>
+    </div>
+    <div id="p1b_particle_rows">
       <div class="input-grid p1b-grid">
-        <div class="input-row"><label>天平精度</label><select id="p1b_prec">
-          <option value="0.0002">HJ 836 低浓度颗粒物&#10;（两次差≤0.20 mg）</option>
-          <option value="0.0004">十万分之一天平&#10;（恒重差≤0.4 mg）</option>
-          <option value="0.0010">万分之一天平&#10;（恒重差≤1.0 mg）</option></select></div>
+        <div class="input-row"><label>天平精度</label><select id="p1b_prec"></select>
+          <div class="select-help" id="p1b_prec_help"></div>
+        </div>
         <div class="input-row"><label>采样前质量1 m<sub>前1</sub>(g)</label><input type="number" id="p1b_mb1" step="any"></div>
         <div class="input-row"><label>采样前质量2 m<sub>前2</sub>(g)</label><input type="number" id="p1b_mb2" step="any"></div>
         <div class="input-row"><label>采样后质量1 m<sub>后1</sub>(g)</label><input type="number" id="p1b_ma1" step="any"></div>
         <div class="input-row"><label>采样后质量2 m<sub>后2</sub>(g)</label><input type="number" id="p1b_ma2" step="any"></div>
-        <div class="input-row"><label>标况采样体积 V<sub>nd</sub>(L)</label><input type="number" id="p1b_vnd" step="any"></div>
+        <div class="input-row"><label id="p1b_v_label">标况采样体积 V<sub>nd</sub>(L)</label><input type="number" id="p1b_v" step="any"></div>
       </div>
-      <div class="note p1b-weigh-note" tabindex="-1">恒重要求：采样前后滤膜各称量 2 次，质量单位 <b>g</b>；可选 HJ 836-2017 低浓度颗粒物两次称量差≤0.0002 g、十万分之一天平恒重允差 0.0004 g、万分之一天平 0.0010 g；两次称量之差均≤允差方为恒重合格，否则不输出浓度。</div>
-    </div>
-    <div id="p1b_pm_rows" style="display:none">
-      <div class="input-grid p1b-grid">
-        <div class="input-row"><label>项目类别</label><select id="p1b_pm_kind">
-          <option value="pm25">PM2.5（φ≤2.5 μm）</option>
-          <option value="pm10">PM10（φ≤10 μm）</option></select></div>
-        <div class="input-row"><label>天平精度</label><select id="p1b_pm_prec">
-          <option value="0.0002">HJ 836 低浓度颗粒物&#10;（两次差≤0.20 mg）</option>
-          <option value="0.0004">十万分之一天平&#10;（恒重差≤0.4 mg）</option>
-          <option value="0.0010">万分之一天平&#10;（恒重差≤1.0 mg）</option></select></div>
-        <div class="input-row"><label>采样前质量1 m<sub>前1</sub>(g)</label><input type="number" id="p1b_pmb1" step="any"></div>
-        <div class="input-row"><label>采样前质量2 m<sub>前2</sub>(g)</label><input type="number" id="p1b_pmb2" step="any"></div>
-        <div class="input-row"><label>采样后质量1 m<sub>后1</sub>(g)</label><input type="number" id="p1b_pma1" step="any"></div>
-        <div class="input-row"><label>采样后质量2 m<sub>后2</sub>(g)</label><input type="number" id="p1b_pma2" step="any"></div>
-        <div class="input-row"><label>标况采样体积 V<sub>nd</sub>(L)</label><input type="number" id="p1b_pmvnd" step="any"></div>
-      </div>
-      <div class="note p1b-weigh-note" tabindex="-1">检测方法 HJ 618-2011（环境空气 PM10 和 PM2.5 的测定 重量法）。恒重要求同颗粒物：滤膜采样前后各 2 次称量，质量单位 <b>g</b>；可选 HJ 836-2017 低浓度颗粒物两次差≤0.0002 g、十万分之一天平允差 0.0004 g、万分之一 0.0010 g；恒重不合格不输出浓度。限值参考 GB 3095-2012：PM2.5 日均 0.075 mg/m³、PM10 日均 0.15 mg/m³。</div>
+      <div class="note p1b-weigh-note" tabindex="-1" id="p1b_particle_note"></div>
     </div>
     <div id="p1b_dust_rows" style="display:none">
       <div class="input-grid p1b-grid">
@@ -2646,7 +2643,7 @@ Y = D × 10<sup>X̄</sup></div>
     <button class="btn-calc" onclick="calcP1b()">计算</button>
     <div class="result-area" id="p1b_result"></div>
   </div>
-  <div class="std-ref">参考标准：GB/T 16157-1996（颗粒物/烟尘）；HJ 836-2017（恒重）；HJ 1221-2021（降尘）</div>
+  <div class="std-ref">参考标准：GB/T 16157-1996 / HJ 836-2017（有组织废气颗粒物）；HJ 618-2011（环境空气 TSP/PM10/PM2.5）；HJ 1221-2021（降尘）</div>
 </div>
 
 <!-- g1-nmhc: 非甲烷总烃（HJ 38-2017 / HJ 604-2017 双场景双模式） -->
@@ -2732,7 +2729,9 @@ Y = D × 10<sup>X̄</sup></div>
   </div>
   <div class="calc-body">
     <div class="input-grid">
-      <div class="input-row"><label>元素/方法</label><select id="g1_metal_name"><option>砷 HJ 540</option><option>铅 HJ 685</option><option>汞 HJ 543</option><option>铬&#10;(六价) GB/T 7467</option><option>锰 HJ 700</option><option>镍 HJ 700</option></select></div>
+      <div class="input-row"><label>元素/方法</label><select id="g1_metal_name"><option>砷 HJ 540</option><option>铅 HJ 685</option><option>汞 HJ 543</option><option>铬(六价) GB/T 7467</option><option>锰 HJ 700</option><option>镍 HJ 700</option></select>
+      <div class="select-help">铬（六价）依据 GB/T 7467（二苯碳酰二肼分光光度法），其余元素方法见卡片说明</div>
+      </div>
       <div class="input-row"><label>A(样品吸光度)</label><input type="number" id="g1_metal_a" step="any"></div>
       <div class="input-row"><label>A₀(空白吸光度)</label><input type="number" id="g1_metal_a0" step="any" value="0"></div>
       <div class="input-row"><label>B(斜率)</label><input type="number" id="g1_metal_b" step="any"></div>
@@ -2777,9 +2776,11 @@ Y = D × 10<sup>X̄</sup></div>
   <div class="calc-body">
     <div class="input-grid">
       <div class="input-row"><label>计算类型</label><select id="g1_oil_type">
-        <option value="purify">净化效率&#10;（排放速率·GB 18483）</option>
-        <option value="hj1077">油烟浓度&#10;（HJ 1077-2019）</option>
-        <option value="gb18483">基准风量折算（GB 18483）</option></select></div>
+        <option value="purify">净化效率</option>
+        <option value="hj1077">油烟浓度</option>
+        <option value="gb18483">基准风量折算</option></select>
+      <div class="select-help">净化效率：按排放速率计算，GB 18483；油烟浓度：HJ 1077-2019；基准风量折算：单个灶头 2000 m³/h</div>
+      </div>
       <div class="input-row" id="g1_oil_row_qfront"><label>Q<sub>前</sub> 处理前排风量(m³/h)</label><input type="number" id="g1_oil_qfront" step="any"></div>
       <div class="input-row" id="g1_oil_row_c1"><label>C<sub>前</sub> 处理前浓度(mg/m³)</label><input type="number" id="g1_oil_c1" step="any"></div>
       <div class="input-row" id="g1_oil_row_qback"><label>Q<sub>后</sub> 处理后排风量(m³/h)</label><input type="number" id="g1_oil_qback" step="any"></div>
@@ -3641,20 +3642,21 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
   <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"></path></svg><h3>PM2.5 / PM10 质量浓度（恒重法）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（重量法 · HJ 618-2011 / HJ 656 / GB/T 18883）</div>
-    <div class="fcontent multiline">ρ(mg/m³) = ( m̄<sub>后</sub> − m̄<sub>前</sub> ) × 10<sup>6</sup> / V<sub>nd</sub><br>恒重判定：|m<sub>前1</sub>−m<sub>前2</sub>| ≤ 允差 且 |m<sub>后1</sub>−m<sub>后2</sub>| ≤ 允差</div>
-    <div class="note" tabindex="-1">采样前后滤膜各 2 次恒重称量，质量单位 <b>g</b>；Vₙ𝒹 标况采气体积(L)。天平精度可选 HJ 836-2017 低浓度颗粒物两次差≤0.0002 g、十万分之一天平恒重允差 0.0004 g、万分之一天平 0.0010 g。恒重不合格不输出浓度。GB/T 18883-2022 限量 PM2.5 24h平均 0.075 mg/m³、PM10 24h平均 0.15 mg/m³。</div>
+    <div class="fcontent multiline">ρ(mg/m³) = ( m̄<sub>后</sub> − m̄<sub>前</sub> ) × 10<sup>6</sup> / V<br>恒重判定：|m<sub>前1</sub>−m<sub>前2</sub>| ≤ 允差 且 |m<sub>后1</sub>−m<sub>后2</sub>| ≤ 允差</div>
+    <div class="note" tabindex="-1">采样前后滤膜各 2 次恒重称量，质量单位 <b>g</b>；V 为实际采样体积（L）。天平精度可选十万分之一天平恒重允差 0.0004 g、万分之一天平 0.0010 g（室内空气/公共场所 PM 不采用 HJ 836 低浓度颗粒物 0.0002 g 允差）。恒重不合格不输出浓度。GB/T 18883-2022 限量 PM2.5 24h平均 0.075 mg/m³、PM10 24h平均 0.15 mg/m³。</div>
   </div>
   <div class="calc-body">
     <div class="input-grid">
       <div class="input-row"><label>天平精度</label><select id="g8p_prec">
-        <option value="0.0002">HJ 836 低浓度颗粒物&#10;（两次差≤0.20 mg）</option>
-        <option value="0.0004">十万分之一天平&#10;（恒重差≤0.4 mg）</option>
-        <option value="0.0010">万分之一天平&#10;（恒重差≤1.0 mg）</option></select></div>
+        <option value="0.0004">0.0004 g</option>
+        <option value="0.0010">0.0010 g</option></select>
+        <div class="select-help">0.0004 g = 十万分之一天平（恒重差 ≤0.4 mg）；0.0010 g = 万分之一天平（恒重差 ≤1.0 mg）</div>
+      </div>
       <div class="input-row"><label>采样前质量1 m<sub>前1</sub>(g)</label><input type="number" id="g8p_mb1" step="any"></div>
       <div class="input-row"><label>采样前质量2 m<sub>前2</sub>(g)</label><input type="number" id="g8p_mb2" step="any"></div>
       <div class="input-row"><label>采样后质量1 m<sub>后1</sub>(g)</label><input type="number" id="g8p_ma1" step="any"></div>
       <div class="input-row"><label>采样后质量2 m<sub>后2</sub>(g)</label><input type="number" id="g8p_ma2" step="any"></div>
-      <div class="input-row"><label>标况体积 V<sub>nd</sub>(L)</label><input type="number" id="g8p_vnd" step="any"></div>
+      <div class="input-row"><label>实际采样体积 V(L)</label><input type="number" id="g8p_v" step="any"></div>
     </div>
     <button class="btn-calc" onclick="calcG8Pm()">计算 mg/m³</button>
     <div class="result-area compact" id="g8-pm_result"></div>
@@ -4074,8 +4076,8 @@ function parseNumList(s) {
 //   mbarB 采样前平均质量 (m前1+m前2)/2
 //   mbarA 采样后平均质量 (m后1+m后2)/2
 //   dm    平均增重 m̄后−m̄前（g）
-//   C     颗粒物浓度 (m̄后−m̄前)×10⁶/Vnd（mg/m³）
-function weighingCalc(prec, mb1, mb2, ma1, ma2, Vnd) {
+//   C     颗粒物浓度 (m̄后−m̄前)×10⁶/V（V 为采样体积，L；mg/m³）
+function weighingCalc(prec, mb1, mb2, ma1, ma2, V) {
   const tol = prec;
   const dmb = Math.abs(mb1 - mb2);
   const dma = Math.abs(ma1 - ma2);
@@ -4083,7 +4085,7 @@ function weighingCalc(prec, mb1, mb2, ma1, ma2, Vnd) {
   const mbarB = (mb1 + mb2) / 2;
   const mbarA = (ma1 + ma2) / 2;
   const dm = mbarA - mbarB;
-  const C = dm * 1e6 / Vnd;
+  const C = dm * 1e6 / V;
   return { ok: ok, tol: tol, dmb: dmb, dma: dma, mbarB: mbarB, mbarA: mbarA, dm: dm, C: C };
 }
 
@@ -5799,59 +5801,59 @@ function clearW16(){
 }
 
 // ---- P1b 颗粒物/降尘浓度 ----
+function updateP1bUI(){
+  const type = document.getElementById('p1b_type').value;
+  const isParticle = type !== 'dust';
+  const particleRows = document.getElementById('p1b_particle_rows');
+  const dustRows = document.getElementById('p1b_dust_rows');
+  if(particleRows) particleRows.style.display = isParticle ? 'block' : 'none';
+  if(dustRows) dustRows.style.display = type === 'dust' ? 'block' : 'none';
+
+  const precSel = document.getElementById('p1b_prec');
+  if(precSel){
+    precSel.innerHTML = '';
+    const opts = [];
+    if(type === 'stack') opts.push({v:'0.0002', t:'0.0002 g（HJ 836 低浓度）'});
+    opts.push({v:'0.0004', t:'0.0004 g（十万分之一天平）'});
+    opts.push({v:'0.0010', t:'0.0010 g（万分之一天平）'});
+    opts.forEach(function(o){
+      const op = document.createElement('option');
+      op.value = o.v; op.textContent = o.t;
+      precSel.appendChild(op);
+    });
+  }
+
+  const vLabel = document.getElementById('p1b_v_label');
+  if(vLabel){
+    if(type.indexOf('ambient') === 0) vLabel.innerHTML = '实际采样体积 V(L)';
+    else vLabel.innerHTML = '标况采样体积 V<sub>nd</sub>(L)';
+  }
+
+  const help = document.getElementById('p1b_prec_help');
+  if(help){
+    if(type === 'stack') help.textContent = '0.0002 g = HJ 836 低浓度颗粒物（两次恒重差 ≤0.20 mg）；0.0004 g = 十万分之一天平（≤0.4 mg）；0.0010 g = 万分之一天平（≤1.0 mg）';
+    else help.textContent = '0.0004 g = 十万分之一天平（恒重差 ≤0.4 mg）；0.0010 g = 万分之一天平（恒重差 ≤1.0 mg）';
+  }
+
+  const note = document.getElementById('p1b_particle_note');
+  if(note){
+    if(type === 'stack'){
+      note.innerHTML = '有组织废气颗粒物（GB/T 16157-1996 / HJ 836-2017）：采样前后滤膜各 2 次称量，质量单位 <b>g</b>；V<sub>nd</sub> 为标况采样体积（L）。可选 0.0002 g（HJ 836 低浓度）、0.0004 g、0.0010 g；两次称量差均≤允差方为恒重合格。';
+    } else if(type === 'fugitive'){
+      note.innerHTML = '无组织废气颗粒物：采样前后滤膜各 2 次称量，质量单位 <b>g</b>；V<sub>nd</sub> 为标况采样体积（L）。可选 0.0004 g、0.0010 g；两次称量差均≤允差方为恒重合格。';
+    } else if(type === 'ambient-tsp'){
+      note.innerHTML = '环境空气 TSP（HJ 618-2011 重量法）：采样前后滤膜各 2 次称量，质量单位 <b>g</b>；V 为实际采样体积（L）。可选 0.0004 g、0.0010 g；恒重合格方可计算。';
+    } else if(type === 'ambient-pm10'){
+      note.innerHTML = '环境空气 PM10（HJ 618-2011 重量法）：采样前后滤膜各 2 次称量，质量单位 <b>g</b>；V 为实际采样体积（L）。可选 0.0004 g、0.0010 g；恒重合格方可计算。限值参考 GB 3095-2012：PM10 日均 0.15 mg/m³。';
+    } else if(type === 'ambient-pm25'){
+      note.innerHTML = '环境空气 PM2.5（HJ 618-2011 重量法）：采样前后滤膜各 2 次称量，质量单位 <b>g</b>；V 为实际采样体积（L）。可选 0.0004 g、0.0010 g；恒重合格方可计算。限值参考 GB 3095-2012：PM2.5 日均 0.075 mg/m³。';
+    }
+  }
+}
+
 function calcP1b(){
   const type = document.getElementById('p1b_type').value;
-  if(type === 'tsp'){
-    const prec = parseFloat(document.getElementById('p1b_prec').value);
-    const mb1 = parseFloat(document.getElementById('p1b_mb1').value);
-    const mb2 = parseFloat(document.getElementById('p1b_mb2').value);
-    const ma1 = parseFloat(document.getElementById('p1b_ma1').value);
-    const ma2 = parseFloat(document.getElementById('p1b_ma2').value);
-    const V = parseFloat(document.getElementById('p1b_vnd').value);
-    if([mb1,mb2,ma1,ma2].some(isNaN) || isNaN(V)){ alert('请输入采样前后各 2 次称量质量与标况采样体积'); return; }
-    if(V <= 0){ alert('标况采样体积必须 > 0'); return; }
-    const r = weighingCalc(prec, mb1, mb2, ma1, ma2, V);
-    if(!r.ok){
-      showResult('p1b_result', '恒重不合格',
-        '恒重判定失败：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dmb > r.tol ? ' 超限' : ' 合格')
-        + '；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dma > r.tol ? ' 超限' : ' 合格')
-        + '<br>须继续干燥至恒重后再称量，暂不输出浓度。', 'fail');
-      window._p1b = {type: type, prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, V: V, ok: false, dmb: r.dmb, dma: r.dma};
-      return;
-    }
-    showResult('p1b_result', fmtNum(r.C,2) + ' mg/m³',
-      '<span class="r-interpret pass">✓ 恒重合格</span>：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g<br>'
-      + 'm̄前 = (' + fmtNum(mb1,4) + '+' + fmtNum(mb2,4) + ')/2 = ' + fmtNum(r.mbarB,4) + ' g；m̄后 = (' + fmtNum(ma1,4) + '+' + fmtNum(ma2,4) + ')/2 = ' + fmtNum(r.mbarA,4) + ' g<br>'
-      + 'C = (m̄后−m̄前)×10⁶/V<sub>nd</sub> = (' + fmtNum(r.mbarA,4) + '−' + fmtNum(r.mbarB,4) + ')×10⁶/' + fmtNum(V,1) + ' = <b>' + fmtNum(r.C,2) + '</b> mg/m³', 'pass');
-    window._p1b = {type: type, prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, V: V, ok: true, dmb: r.dmb, dma: r.dma, C: r.C};
-  } else if(type === 'pm'){
-    const kind = document.getElementById('p1b_pm_kind').value;
-    const prec = parseFloat(document.getElementById('p1b_pm_prec').value);
-    const mb1 = parseFloat(document.getElementById('p1b_pmb1').value);
-    const mb2 = parseFloat(document.getElementById('p1b_pmb2').value);
-    const ma1 = parseFloat(document.getElementById('p1b_pma1').value);
-    const ma2 = parseFloat(document.getElementById('p1b_pma2').value);
-    const V = parseFloat(document.getElementById('p1b_pmvnd').value);
-    if([mb1,mb2,ma1,ma2].some(isNaN) || isNaN(V)){ alert('请输入采样前后各 2 次称量质量与标况采样体积'); return; }
-    if(V <= 0){ alert('标况采样体积必须 > 0'); return; }
-    const r = weighingCalc(prec, mb1, mb2, ma1, ma2, V);
-    if(!r.ok){
-      showResult('p1b_result', '恒重不合格',
-        '恒重判定失败：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dmb > r.tol ? ' 超限' : ' 合格')
-        + '；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dma > r.tol ? ' 超限' : ' 合格')
-        + '<br>须继续干燥至恒重后再称量，暂不输出浓度（HJ 618-2011 重量法）。', 'fail');
-      window._p1b = {type: type, kind: kind, prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, V: V, ok: false, dmb: r.dmb, dma: r.dma};
-      return;
-    }
-    const lim = kind === 'pm25' ? 0.075 : 0.15;
-    const label = kind === 'pm25' ? 'PM2.5' : 'PM10';
-    const pass = r.C <= lim;
-    showResult('p1b_result', label + ' = ' + fmtNum(r.C,4) + ' mg/m³',
-      '<span class="r-interpret pass">✓ 恒重合格</span>（HJ 618-2011 重量法）：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g<br>'
-      + 'ρ = (m̄后−m̄前)×10⁶/V<sub>nd</sub> = (' + fmtNum(r.mbarA,4) + '−' + fmtNum(r.mbarB,4) + ')×10⁶/' + fmtNum(V,1) + ' = <b>' + fmtNum(r.C,4) + '</b> mg/m³<br>'
-      + 'GB 3095-2012 限值 ' + label + ' ' + fmtNum(lim,3) + ' mg/m³ → ' + (pass ? '达标' : '超标'), pass ? 'pass' : 'fail');
-    window._p1b = {type: type, kind: kind, prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, V: V, ok: true, dmb: r.dmb, dma: r.dma, C: r.C};
-  } else {
+  if(type === 'dust'){
     const m0 = parseFloat(document.getElementById('p1b_m0').value);
     const m = parseFloat(document.getElementById('p1b_m').value);
     const S = parseFloat(document.getElementById('p1b_s').value);
@@ -5860,17 +5862,52 @@ function calcP1b(){
     if(isNaN(S) || isNaN(td) || S <= 0 || td <= 0){ alert('请输入集尘缸面积和采样天数'); return; }
     const dm = m - m0;
     const C = dm/(S*td)*30*1e4; // HJ 1221-2021：A(cm²), ×30×10⁴ → t/km²·30d
-    showResult('p1b_result','降尘量 = '+fmtNum(C,2)+' t/km²·月',
-      'Δm = '+fmtNum(dm,4)+' g；S='+fmtNum(S,4)+' m²；t='+fmtNum(td,1)+' d<br>月降尘量 = Δm/(S×t)×30×10⁶ = '+fmtNum(C,2)+' t/km²·月','neutral');
+    showResult('p1b_result','降尘量 = '+fmtNum(C,2)+' t/(km²·30d)',
+      'Δm = '+fmtNum(dm,4)+' g；S='+fmtNum(S,4)+' cm²；t='+fmtNum(td,1)+' d<br>降尘量 = Δm/(S×t)×30×10⁴ = '+fmtNum(C,2)+' t/(km²·30d)','neutral');
     window._p1b = {type: type, m0: m0, m: m, S: S, td: td, C: C};
+    return;
   }
+
+  const prec = parseFloat(document.getElementById('p1b_prec').value);
+  const mb1 = parseFloat(document.getElementById('p1b_mb1').value);
+  const mb2 = parseFloat(document.getElementById('p1b_mb2').value);
+  const ma1 = parseFloat(document.getElementById('p1b_ma1').value);
+  const ma2 = parseFloat(document.getElementById('p1b_ma2').value);
+  const V = parseFloat(document.getElementById('p1b_v').value);
+  const isAmbient = type.indexOf('ambient') === 0;
+  const volLabel = isAmbient ? '实际采样体积' : '标况采样体积';
+  if([mb1,mb2,ma1,ma2].some(isNaN) || isNaN(V)){ alert('请输入采样前后各 2 次称量质量与' + volLabel); return; }
+  if(V <= 0){ alert(volLabel + '必须 > 0'); return; }
+  const r = weighingCalc(prec, mb1, mb2, ma1, ma2, V);
+  if(!r.ok){
+    showResult('p1b_result', '恒重不合格',
+      '恒重判定失败：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dmb > r.tol ? ' 超限' : ' 合格')
+      + '；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dma > r.tol ? ' 超限' : ' 合格')
+      + '<br>须继续干燥至恒重后再称量，暂不输出浓度。', 'fail');
+    window._p1b = {type: type, prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, V: V, ok: false, dmb: r.dmb, dma: r.dma};
+    return;
+  }
+
+  let label = '颗粒物', lim = null, std = '';
+  if(type === 'stack'){ label = '有组织废气颗粒物'; std = 'GB/T 16157 / HJ 836'; }
+  else if(type === 'fugitive'){ label = '无组织废气颗粒物'; std = '无组织废气颗粒物'; }
+  else if(type === 'ambient-tsp'){ label = 'TSP'; lim = 0.30; std = 'HJ 618-2011'; }
+  else if(type === 'ambient-pm10'){ label = 'PM10'; lim = 0.15; std = 'HJ 618-2011'; }
+  else if(type === 'ambient-pm25'){ label = 'PM2.5'; lim = 0.075; std = 'HJ 618-2011'; }
+
+  let detail = '<span class="r-interpret pass">✓ 恒重合格</span>（' + std + '）：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g<br>'
+    + 'm̄前 = (' + fmtNum(mb1,4) + '+' + fmtNum(mb2,4) + ')/2 = ' + fmtNum(r.mbarB,4) + ' g；m̄后 = (' + fmtNum(ma1,4) + '+' + fmtNum(ma2,4) + ')/2 = ' + fmtNum(r.mbarA,4) + ' g<br>'
+    + 'C = (m̄后−m̄前)×10⁶/' + (isAmbient ? 'V' : 'V<sub>nd</sub>') + ' = (' + fmtNum(r.mbarA,4) + '−' + fmtNum(r.mbarB,4) + ')×10⁶/' + fmtNum(V,1) + ' = <b>' + fmtNum(r.C,4) + '</b> mg/m³';
+  let interpretClass = 'pass';
+  if(lim !== null){
+    const pass = r.C <= lim;
+    interpretClass = pass ? 'pass' : 'fail';
+    detail += '<br>GB 3095-2012 限值 ' + label + ' 日均 ' + fmtNum(lim,3) + ' mg/m³ → ' + (pass ? '达标' : '超标');
+  }
+  showResult('p1b_result', label + ' = ' + fmtNum(r.C,4) + ' mg/m³', detail, interpretClass);
+  window._p1b = {type: type, prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, V: V, ok: true, dmb: r.dmb, dma: r.dma, C: r.C};
 }
-document.getElementById('p1b_type').addEventListener('change',function(){
-  const t = this.value;
-  document.getElementById('p1b_tsp_rows').style.display = t === 'tsp' ? 'block' : 'none';
-  document.getElementById('p1b_pm_rows').style.display = t === 'pm' ? 'block' : 'none';
-  document.getElementById('p1b_dust_rows').style.display = t === 'dust' ? 'block' : 'none';
-});
+document.getElementById('p1b_type').addEventListener('change', updateP1bUI);
 
 // ---- P2 BOD5 ----
 function calcP2(){
@@ -6996,23 +7033,23 @@ function calcG8Pm(){
   const mb2 = parseFloat(document.getElementById('g8p_mb2').value);
   const ma1 = parseFloat(document.getElementById('g8p_ma1').value);
   const ma2 = parseFloat(document.getElementById('g8p_ma2').value);
-  const Vnd = parseFloat(document.getElementById('g8p_vnd').value);
-  if([mb1,mb2,ma1,ma2].some(isNaN) || isNaN(Vnd)){ alert('请输入采样前后各 2 次称量质量与标况体积'); return; }
-  if(Vnd <= 0){ alert('标况体积必须 > 0'); return; }
-  const r = weighingCalc(prec, mb1, mb2, ma1, ma2, Vnd);
+  const V = parseFloat(document.getElementById('g8p_v').value);
+  if([mb1,mb2,ma1,ma2].some(isNaN) || isNaN(V)){ alert('请输入采样前后各 2 次称量质量与实际采样体积'); return; }
+  if(V <= 0){ alert('实际采样体积必须 > 0'); return; }
+  const r = weighingCalc(prec, mb1, mb2, ma1, ma2, V);
   if(!r.ok){
     showResult('g8-pm_result', '恒重不合格',
       '恒重判定失败：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dmb > r.tol ? ' 超限' : ' 合格')
       + '；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dma > r.tol ? ' 超限' : ' 合格')
       + '<br>须继续干燥至恒重后再称量，暂不输出浓度。', 'fail');
-    window._g8_pm_data = {prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, Vnd: Vnd, ok: false, dmb: r.dmb, dma: r.dma};
+    window._g8_pm_data = {prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, V: V, ok: false, dmb: r.dmb, dma: r.dma};
     return;
   }
   showResult('g8-pm_result', fmtNum(r.C,4) + ' mg/m³',
     '<span class="r-interpret pass">✓ 恒重合格</span>：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g<br>'
     + 'm̄前 = (' + fmtNum(mb1,4) + '+' + fmtNum(mb2,4) + ')/2 = ' + fmtNum(r.mbarB,4) + ' g；m̄后 = (' + fmtNum(ma1,4) + '+' + fmtNum(ma2,4) + ')/2 = ' + fmtNum(r.mbarA,4) + ' g<br>'
-    + 'ρ = (m̄后−m̄前)×10⁶/V<sub>nd</sub> = (' + fmtNum(r.mbarA,4) + '−' + fmtNum(r.mbarB,4) + ')×10⁶/' + fmtNum(Vnd,1) + ' = <b>' + fmtNum(r.C,4) + '</b> mg/m³', 'pass');
-  window._g8_pm_data = {prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, Vnd: Vnd, ok: true, dmb: r.dmb, dma: r.dma, C: r.C};
+    + 'ρ = (m̄后−m̄前)×10⁶/V = (' + fmtNum(r.mbarA,4) + '−' + fmtNum(r.mbarB,4) + ')×10⁶/' + fmtNum(V,1) + ' = <b>' + fmtNum(r.C,4) + '</b> mg/m³', 'pass');
+  window._g8_pm_data = {prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, V: V, ok: true, dmb: r.dmb, dma: r.dma, C: r.C};
 }
 
 function calcG8TvocD(){
@@ -7263,7 +7300,14 @@ document.getElementById('g10s_type').addEventListener('change', function(){
     if (mq.addEventListener) mq.addEventListener('change', applyMode);
     else if (mq.addListener) mq.addListener(applyMode);
   }
+  function initSelectRows(){
+    document.querySelectorAll('.calc-body .input-row').forEach(function(row){
+      if(row.querySelector('select')) row.classList.add('select-row');
+    });
+  }
   applyMode();
+  initSelectRows();
+  if(typeof updateP1bUI === 'function') updateP1bUI();
 })();
 </script>
 <script>

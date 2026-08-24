@@ -1,6 +1,6 @@
 // 环境监测计算工作台 Service Worker
-// v54 —— 在 v53（TVOC 附录C/D 重构 + 选择框美化 + HJ836 恒重）基础上新增：一级 Tab 栏与二级子组导航栏同时吸顶固定（tabs-scroll top:0，subgroup-nav top:56px），子组锚点 scroll-margin-top 同步 126px
-const CACHE = 'envcalc-v54-20260824';
+// v57 —— 在 v56（g8-pm 去 HJ836 + p1b 方法/项目联动）基础上，第 7 项整体验证修复：① p1b 降尘分支展示文案（S 单位 m²→cm²、换算系数 ×30×10⁶→×30×10⁴、结果单位统一为 t/(km²·30d)，计算逻辑 ×30×1e4 本就正确）；② 共享函数 weighingCalc 参数名 Vnd→V（位置传参，不影响调用方；g8-pm/p1b 环境空气分支传的是实际采样体积）
+const CACHE = 'envcalc-v57-20260824';
 const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', function (e) {
