@@ -1,6 +1,6 @@
 // 环境监测计算工作台 Service Worker
-// v51 —— 范工深度审计后回归：19+2 项增量全部落地 + w16 互算 P1 修复；修正 P1b 降尘量单位换算因子（原 ×30×1e6 误，按 HJ 1221-2021 改为 ×30×10⁴，面积单位 cm²）；O1 密闭性 t充≤2×t预算 + 绿/红双判定；全量验证 133 函数 0 THROW/0 NaN、功能断言 21/21、w16 3/3 PASS
-const CACHE = 'envcalc-v51-20260824';
+// v52 —— 范工三项增量：① 油气回收密闭性「判定检测条件」即时绿/红（无需先输剩余压力）；② g1-oil 净化效率按 GB 18483 排放速率计算（η=(Q前C前−Q后C后)/(Q前C前)×100%，新增 Q前/Q后）；③ p1b 新增 PM2.5/PM10（HJ 618-2011 恒重法）+ 排版优化；本地验证 16/16 功能断言 + 13/13 Edge 真实渲染回归全过
+const CACHE = 'envcalc-v52-20260824';
 const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', function (e) {

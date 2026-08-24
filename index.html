@@ -292,6 +292,19 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .result-area.compact .r-val{ font-size:20px; margin-bottom:3px; }
 .result-area.compact .r-detail{ font-size:11.5px; line-height:1.5; }
 @media (max-width:480px){ .input-grid{ grid-template-columns:1fr 1fr; } }
+/* 油气回收密闭性：检测条件/合格判定分块 */
+.o1-section{ border:1px solid var(--border,#e3e8e3); border-radius:10px; padding:9px 11px; margin-bottom:9px; background:#fafcfa; }
+.o1-section-title{ font-size:12.5px; font-weight:600; color:var(--primary); margin-bottom:7px; }
+.o1-cond-section{ background:#f3f9f4; }
+.o1-seal-section{ background:#f7f8fb; }
+.o1-section .result-area{ margin:7px 0 2px; }
+/* p1b 颗粒物/降尘卡：加宽网格、放大输入框、label 完整可见 */
+#calc-p1b .p1b-grid{ grid-template-columns:repeat(auto-fill,minmax(min(100%,180px),1fr)); gap:7px 11px; }
+#calc-p1b .p1b-grid .input-row input,
+#calc-p1b .p1b-grid .input-row select{ padding:8px 10px; font-size:15px; }
+#calc-p1b .p1b-grid .input-row label{ font-size:12.5px; line-height:1.3; min-height:30px; display:flex; align-items:flex-end; }
+#calc-p1b .p1b-weigh-note{ margin:2px 11px 9px; padding:7px 10px; font-size:11.5px; line-height:1.55; background:#f3f8f4; border-left:3px solid var(--primary); border-radius:0 6px 6px 0; }
+@media (max-width:480px){ #calc-p1b .p1b-grid{ grid-template-columns:1fr 1fr; } #calc-p1b .p1b-grid .input-row label{ min-height:auto; align-items:flex-start; } }
 </style>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#1a6b3c">
@@ -1399,13 +1412,21 @@ L<sub>eq</sub> = SEL − 10 lg(T / T<sub>0</sub>)   T<sub>0</sub> = 1 s</div>
     <div class="note" tabindex="-1">程序内置 V = 1893 L ~ 94625 L 的 P<sub>min</sub> 对照表（对应 1~6 支加油枪的常见罐容），按最接近体积取值。若需在表列体积之间线性内插，或采用其他枪数/罐组对应的限值，可在“最小剩余压力限值”栏手动填入标准查得值覆盖。</div>
   </div>
   <div class="calc-body">
+<div class="o1-section o1-cond-section">
+  <div class="o1-section-title">① 检测条件判定（先判此步）</div>
 <div class="input-row"><label>储罐油气空间(L)</label><input type="number" id="o1_v" step="any" placeholder="如: 2271"></div>
 <div class="input-row"><label>氮气充压时间(s)</label><input type="number" id="o1_tch" step="any" placeholder="实际充压耗时"></div>
 <div class="input-row"><label>预算时间(s)</label><input type="number" id="o1_tb" step="any" placeholder="规定预算时间"></div>
+  <button class="btn-calc" onclick="checkO1Condition()">判定检测条件</button>
+  <div class="result-area" id="o1_cond_result"></div>
+</div>
+<div class="o1-section o1-seal-section">
+  <div class="o1-section-title">② 密闭性合格判定（条件符合后继续）</div>
 <div class="input-row"><label>5min后剩余压力(Pa)</label><input type="number" id="o1_pmeas" step="any" placeholder="实测剩余压力"></div>
 <div class="input-row"><label>最小剩余压力限值Pa(可选手动)</label><input type="text" id="o1_pmin_manual" placeholder="留空则按油气空间自动查表2(1~6枪)"></div>
-    <button class="btn-calc" onclick="calcO1()">计算</button>
-    <div class="result-area" id="o1_result"></div>
+  <button class="btn-calc" onclick="calcO1()">计算密闭性合格判定</button>
+  <div class="result-area" id="o1_result"></div>
+</div>
   </div>
   <div class="std-ref">GB 20952-2020 表2（1~6枪限值；7~12枪用表2第二列，建议手动输入）</div>
 </div>
@@ -2551,19 +2572,22 @@ Y = D × 10<sup>X̄</sup></div>
 <div class="calc-card" id="calc-p1b">
   <div class="calc-header">
     <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 12h8"></path><path d="M12 8v8"></path></svg>
-    <h3>颗粒物/降尘浓度</h3>
+    <h3>颗粒物 / 降尘 / PM2.5·PM10 浓度</h3>
   </div>
   <div class="formula-box">
-    <div class="flabel">计算公式（颗粒物质量浓度 · GB/T 16157 / HJ 836-2017 / HJ 1221-2021）</div>
-    <div class="fcontent multiline">C = ( m̄<sub>后</sub> − m̄<sub>前</sub> ) / V<sub>nd</sub> × 10<sup>6</sup>  (mg/m³)<br>
+    <div class="flabel">计算公式（颗粒物质量浓度 · GB/T 16157 / HJ 836-2017；PM2.5·PM10 · HJ 618-2011；降尘 · HJ 1221-2021）</div>
+    <div class="fcontent multiline">颗粒物/PM：C = ( m̄<sub>后</sub> − m̄<sub>前</sub> ) / V<sub>nd</sub> × 10<sup>6</sup>  (mg/m³)<br>
 降尘（HJ 1221-2021）：C = (m − m₀) / (A × t) × 30 × 10⁴  (t/km²·30d，A 单位 cm²)<br>
 恒重判定：|m<sub>前1</sub>−m<sub>前2</sub>| ≤ 允差 且 |m<sub>后1</sub>−m<sub>后2</sub>| ≤ 允差</div>
-    <div class="note" tabindex="-1">颗粒物分支按恒重法：采样前后滤筒各 2 次称量（质量单位 <b>g</b>），V<sub>nd</sub> 为标况干气采样体积（L）；天平精度 十万分之一 恒重允差 0.0004 g、万分之一 0.0010 g。降尘分支按 HJ 1221-2021：C = (m₁−m₀−m₂)/(A·t)×30×10⁴（A 为集尘缸缸口面积，单位 cm²；t 为采样天数 d；10⁴ 为 g/cm²→t/km² 换算系数）；本卡未单列空白 m₂，按 m₂=0 处理。</div>
+    <div class="note" tabindex="-1">颗粒物与 PM2.5/PM10 均按恒重重量法：采样前后各 2 次称量（质量单位 <b>g</b>），V<sub>nd</sub> 为标况采样体积（L）；天平精度 十万分之一 恒重允差 0.0004 g、万分之一 0.0010 g。颗粒物参照 GB/T 16157、HJ 836；PM2.5/PM10 参照 HJ 618-2011，限值参考 GB 3095-2012（PM2.5 0.075 / PM10 0.15 mg/m³）。降尘分支按 HJ 1221-2021：C = (m₁−m₀−m₂)/(A·t)×30×10⁴（A 为集尘缸缸口面积 cm²；t 采样天数 d）；本卡未单列空白 m₂，按 m₂=0 处理。</div>
   </div>
   <div class="calc-body">
-    <div class="input-row"><label>计算类型</label><select id="p1b_type"><option value="tsp">颗粒物/烟尘浓度（恒重法）</option><option value="dust">降尘量</option></select></div>
+    <div class="input-row"><label>计算类型</label><select id="p1b_type">
+      <option value="tsp">颗粒物/烟尘浓度（恒重法）</option>
+      <option value="pm">环境空气 PM2.5 / PM10（HJ 618-2011）</option>
+      <option value="dust">降尘量</option></select></div>
     <div id="p1b_tsp_rows">
-      <div class="input-grid">
+      <div class="input-grid p1b-grid">
         <div class="input-row"><label>天平精度</label><select id="p1b_prec">
           <option value="0.0004">十万分之一（恒重差≤0.4 mg）</option>
           <option value="0.0010">万分之一（恒重差≤1.0 mg）</option></select></div>
@@ -2573,9 +2597,26 @@ Y = D × 10<sup>X̄</sup></div>
         <div class="input-row"><label>采样后质量2 m<sub>后2</sub>(g)</label><input type="number" id="p1b_ma2" step="any"></div>
         <div class="input-row"><label>标况采样体积 V<sub>nd</sub>(L)</label><input type="number" id="p1b_vnd" step="any"></div>
       </div>
+      <div class="note p1b-weigh-note" tabindex="-1">恒重要求：采样前后滤膜各称量 2 次，质量单位 <b>g</b>；十万分之一天平恒重允差 0.0004 g、万分之一天平 0.0010 g；两次称量之差均≤允差方为恒重合格，否则不输出浓度。</div>
+    </div>
+    <div id="p1b_pm_rows" style="display:none">
+      <div class="input-grid p1b-grid">
+        <div class="input-row"><label>项目类别</label><select id="p1b_pm_kind">
+          <option value="pm25">PM2.5（φ≤2.5 μm）</option>
+          <option value="pm10">PM10（φ≤10 μm）</option></select></div>
+        <div class="input-row"><label>天平精度</label><select id="p1b_pm_prec">
+          <option value="0.0004">十万分之一（恒重差≤0.4 mg）</option>
+          <option value="0.0010">万分之一（恒重差≤1.0 mg）</option></select></div>
+        <div class="input-row"><label>采样前质量1 m<sub>前1</sub>(g)</label><input type="number" id="p1b_pmb1" step="any"></div>
+        <div class="input-row"><label>采样前质量2 m<sub>前2</sub>(g)</label><input type="number" id="p1b_pmb2" step="any"></div>
+        <div class="input-row"><label>采样后质量1 m<sub>后1</sub>(g)</label><input type="number" id="p1b_pma1" step="any"></div>
+        <div class="input-row"><label>采样后质量2 m<sub>后2</sub>(g)</label><input type="number" id="p1b_pma2" step="any"></div>
+        <div class="input-row"><label>标况采样体积 V<sub>nd</sub>(L)</label><input type="number" id="p1b_pmvnd" step="any"></div>
+      </div>
+      <div class="note p1b-weigh-note" tabindex="-1">检测方法 HJ 618-2011（环境空气 PM10 和 PM2.5 的测定 重量法）。恒重要求同颗粒物：滤膜采样前后各 2 次称量，质量单位 <b>g</b>，十万分之一天平允差 0.0004 g、万分之一 0.0010 g；恒重不合格不输出浓度。限值参考 GB 3095-2012：PM2.5 日均 0.075 mg/m³、PM10 日均 0.15 mg/m³。</div>
     </div>
     <div id="p1b_dust_rows" style="display:none">
-      <div class="input-grid">
+      <div class="input-grid p1b-grid">
         <div class="input-row"><label>m₀ 采样前质量(g)</label><input type="number" id="p1b_m0" step="any"></div>
         <div class="input-row"><label>m 采样后质量(g)</label><input type="number" id="p1b_m" step="any"></div>
         <div class="input-row"><label>集尘缸缸口面积 A(cm²)</label><input type="number" id="p1b_s" step="any" placeholder="πD²/4（D 取内径 cm）"></div>
@@ -2710,17 +2751,19 @@ Y = D × 10<sup>X̄</sup></div>
   <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2s6 8 6 12a6 6 0 11-12 0c0-4 6-12 6-12z"></path></svg><h3>饮食业油烟（净化率 / 浓度 / 基准折算）</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB 18483-2001 / HJ 1077-2019）</div>
-    <div class="fcontent multiline">净化率 η = (C<sub>前</sub> − C<sub>后</sub>) / C<sub>前</sub> × 100%<br>HJ 1077-2019：ρ<sub>排</sub>(mg/m³) = ρ₁(mg/L) × V₁(mL) / V<sub>nd</sub>(L)<br>GB 18483 基准风量折算：c<sub>基</sub> = c<sub>排</sub> × Q<sub>排</sub> / (n × q<sub>基</sub>)，q<sub>基</sub>=2000 m³/h</div>
-    <div class="note" tabindex="-1">净化率模式按 GB 18483-2001 计算前后浓度差效率（限值 2.0 mg/m³）；HJ 1077-2019 模式由吸收液浓度反算排放浓度（1 mg/L×1 mL=1 μg，μg/L=mg/m³，单位链成立）；基准折算模式将实测浓度折算为单个灶头基准排风量 2000 m³/h 时的浓度，判据 c<sub>基</sub> ≤ 2.0 mg/m³（GB 18483-2001 表2，大中小统一）。</div>
+    <div class="fcontent multiline"><b>净化效率（按排放速率，GB 18483-2001 5.3）：</b><br>η = (Q<sub>前</sub>×C<sub>前</sub> − Q<sub>后</sub>×C<sub>后</sub>) / (Q<sub>前</sub>×C<sub>前</sub>) × 100%<br>HJ 1077-2019：ρ<sub>排</sub>(mg/m³) = ρ₁(mg/L) × V₁(mL) / V<sub>nd</sub>(L)<br>GB 18483 基准风量折算：c<sub>基</sub> = c<sub>排</sub> × Q<sub>排</sub> / (n × q<sub>基</sub>)，q<sub>基</sub>=2000 m³/h</div>
+    <div class="note" tabindex="-1">净化效率模式按 GB 18483-2001 以<b>排放速率</b>计算：η=(净化前油烟排放速率−净化后油烟排放速率)/净化前油烟排放速率×100%（GB 18483-2001 5.3）。排放速率=排风量×浓度（mg/m³ × m³/h = mg/h）。HJ 1077-2019 模式由吸收液浓度反算排放浓度（1 mg/L×1 mL=1 μg，μg/L=mg/m³，单位链成立）；基准折算模式将实测浓度折算为单个灶头基准排风量 2000 m³/h 时的浓度，判据 c<sub>基</sub> ≤ 2.0 mg/m³（GB 18483-2001 表2，大中小统一）。</div>
   </div>
   <div class="calc-body">
     <div class="input-grid">
       <div class="input-row"><label>计算类型</label><select id="g1_oil_type">
-        <option value="purify">净化率（GB 18483）</option>
+        <option value="purify">净化效率（排放速率·GB 18483）</option>
         <option value="hj1077">油烟浓度（HJ 1077-2019）</option>
         <option value="gb18483">基准风量折算（GB 18483）</option></select></div>
-      <div class="input-row" id="g1_oil_row_c1"><label>C<sub>前</sub>(mg/m³)</label><input type="number" id="g1_oil_c1" step="any"></div>
-      <div class="input-row" id="g1_oil_row_c2"><label>C<sub>后</sub>(mg/m³)</label><input type="number" id="g1_oil_c2" step="any"></div>
+      <div class="input-row" id="g1_oil_row_qfront"><label>Q<sub>前</sub> 处理前排风量(m³/h)</label><input type="number" id="g1_oil_qfront" step="any"></div>
+      <div class="input-row" id="g1_oil_row_c1"><label>C<sub>前</sub> 处理前浓度(mg/m³)</label><input type="number" id="g1_oil_c1" step="any"></div>
+      <div class="input-row" id="g1_oil_row_qback"><label>Q<sub>后</sub> 处理后排风量(m³/h)</label><input type="number" id="g1_oil_qback" step="any"></div>
+      <div class="input-row" id="g1_oil_row_c2"><label>C<sub>后</sub> 处理后浓度(mg/m³)</label><input type="number" id="g1_oil_c2" step="any"></div>
       <div class="input-row" id="g1_oil_row_lim"><label>限值(mg/m³)</label><input type="number" id="g1_oil_lim" step="any" value="2.0"></div>
       <div class="input-row" id="g1_oil_row_rho1" style="display:none"><label>ρ₁ 吸收液浓度(mg/L)</label><input type="number" id="g1_oil_rho1" step="any"></div>
       <div class="input-row" id="g1_oil_row_v1" style="display:none"><label>V₁ 吸收液体积(mL)</label><input type="number" id="g1_oil_v1" step="any"></div>
@@ -5193,15 +5236,41 @@ function calcM5(){
 
 // ---- O1 密闭性 ----
 const O1_PMIN=[[1893,182],[2082,199],[2271,217],[2460,232],[2650,244],[2839,257],[3028,267],[3217,277],[3407,286],[3596,294],[3785,301],[4542,329],[5299,349],[6056,364],[6813,376],[7570,389],[8327,396],[9084,404],[9841,411],[10598,416],[11355,421],[13248,431],[15140,438],[17033,446],[18925,451],[22710,458],[26495,463],[30280,468],[34065,471],[37850,473],[56775,481],[75700,486],[94625,488]];
+// ---- O1 密闭性：① 检测条件即时判定（仅需油气空间/充压时间/预算时间）----
+function checkO1Condition(){
+  const V=parseFloat(document.getElementById('o1_v').value);
+  const tch=parseFloat(document.getElementById('o1_tch').value);
+  const tb=parseFloat(document.getElementById('o1_tb').value);
+  if (isNaN(V)||isNaN(tch)||isNaN(tb)){ alert('请输入储罐油气空间、氮气充压时间、预算时间'); return; }
+  // GB 20952-2020 附录B B.7.1：充压到达 500 Pa 所需时间 > 2×t预算 → 系统泄漏严重，停止检测
+  const condOk = tch <= 2*tb;
+  const condText = condOk ? '✓ 符合继续检测条件' : '✗ 不符合继续检测条件';
+  const condCls = condOk ? 'pass' : 'fail';
+  const detail = '判定依据：GB 20952-2020 附录B B.7.1——充压过程到达 500 Pa 所需时间超过 2×t<sub>预算</sub> 即停止检测。<br>'
+    + 't<sub>充</sub> = ' + fmtNum(tch,1) + ' s，t<sub>预算</sub> = ' + fmtNum(tb,1) + ' s，2×t<sub>预算</sub> = ' + fmtNum(2*tb,1) + ' s<br>'
+    + 't<sub>充</sub> ' + (condOk ? '≤' : '＞') + ' 2×t<sub>预算</sub> → '
+    + (condOk
+        ? '符合检测条件，可继续输入「5min 后剩余压力」进行密闭性合格判定。'
+        : '充压时间超过预算时间 2 倍，系统泄漏严重，按标准停止检测，无需继续输入剩余压力。');
+  showResult('o1_cond_result', condText, detail, condCls);
+  window._o1_cond = {V:V, tch:tch, tb:tb, condOk:condOk};
+  // 不合格时清空合格判定区，避免误读
+  if (!condOk){ document.getElementById('o1_result').innerHTML=''; }
+}
+// ---- O1 密闭性：② 合格判定（需先满足检测条件，再输入 5min 后剩余压力）----
 function calcO1(){
   const V=parseFloat(document.getElementById('o1_v').value);
   const tch=parseFloat(document.getElementById('o1_tch').value);
   const tb=parseFloat(document.getElementById('o1_tb').value);
   const pmeas=parseFloat(document.getElementById('o1_pmeas').value);
   const pminManual=document.getElementById('o1_pmin_manual').value.trim();
-  if (isNaN(V)||isNaN(tch)||isNaN(tb)||isNaN(pmeas)){ alert('请输入油气空间、充压时间、预算时间、5min后压力'); return; }
-  // 检测条件：GB 20952-2020 附录B B.7.1，t充 ≤ 2×t预算（原 3 倍判定已按标准修正）
-  const condOk = tch <= 2*tb;
+  if (isNaN(V)||isNaN(pmeas)){ alert('请输入油气空间与 5min 后剩余压力'); return; }
+  // 先做检测条件提示：若充压时间已填且不满足，提示先判定
+  if (!isNaN(tch) && !isNaN(tb) && tch > 2*tb){
+    showResult('o1_result', '✗ 不符合继续检测条件', '检测条件判定未通过（t<sub>充</sub> ＞ 2×t<sub>预算</sub>），按 GB 20952-2020 附录B B.7.1 应停止检测，密闭性合格判定无意义。请先在上方「① 检测条件判定」确认符合。', 'fail');
+    window._o1 = {V:V, tch:tch, tb:tb, pmeas:pmeas, condOk:false};
+    return;
+  }
   let pmin;
   if (pminManual!==''){ pmin=parseFloat(pminManual); }
   else {
@@ -5209,17 +5278,13 @@ function calcO1(){
     for (const r of O1_PMIN){ const d=Math.abs(r[0]-V); if (d<bd){ bd=d; best=r; } }
     pmin=best[1];
   }
-  // ② 密闭性合格判定：P5min ≥ Pmin（与检测条件判定并存、互不冲突）
+  // ② 密闭性合格判定：P5min ≥ Pmin
   const sealPass = pmeas>=pmin;
   const sealText = sealPass ? '密闭性合格（剩余压力≥限值）' : '密闭性不合格（剩余压力低于限值）';
-  // ① 检测条件判定（主结果徽标）
-  const condText = condOk ? '符合检测条件' : '不符合继续检测条件';
-  const condCls = condOk ? 'pass' : 'fail';
   const detail = '【密闭性合格判定】' + sealText + '：实测剩余压力 ' + fmtNum(pmeas,0) + ' Pa，最小剩余压力限值 P_min=' + fmtNum(pmin,0) + ' Pa（GB20952-2020 表2，1~6枪）<br>'
-    + '【检测条件判定】t<sub>充</sub>=' + fmtNum(tch,1) + ' s，t<sub>预算</sub>=' + fmtNum(tb,1) + ' s，2×t<sub>预算</sub>=' + fmtNum(2*tb,1) + ' s<br>'
-    + 't<sub>充</sub> ' + (condOk ? '≤' : '＞') + ' 2×t<sub>预算</sub> → ' + (condOk ? '符合检测条件（可继续密闭性检测）' : '不符合继续检测条件（充压时间超过预算时间2倍，系统泄漏严重，按 GB 20952-2020 附录B B.7.1 停止检测）');
-  showResult('o1_result', condText, detail, condCls);
-  window._o1 = {V:V, tch:tch, tb:tb, pmeas:pmeas, pmin:pmin, condOk:condOk, sealPass:sealPass};
+    + '判定式：P<sub>5min</sub> ' + (sealPass ? '≥' : '＜') + ' P<sub>min</sub>(V) → ' + (sealPass ? '密闭性合格' : '密闭性不合格');
+  showResult('o1_result', sealText, detail, sealPass ? 'pass' : 'fail');
+  window._o1 = {V:V, tch:tch, tb:tb, pmeas:pmeas, pmin:pmin, condOk:true, sealPass:sealPass};
 }
 
 // ---- O2 气液比 ----
@@ -5687,6 +5752,33 @@ function calcP1b(){
       + 'm̄前 = (' + fmtNum(mb1,4) + '+' + fmtNum(mb2,4) + ')/2 = ' + fmtNum(r.mbarB,4) + ' g；m̄后 = (' + fmtNum(ma1,4) + '+' + fmtNum(ma2,4) + ')/2 = ' + fmtNum(r.mbarA,4) + ' g<br>'
       + 'C = (m̄后−m̄前)×10⁶/V<sub>nd</sub> = (' + fmtNum(r.mbarA,4) + '−' + fmtNum(r.mbarB,4) + ')×10⁶/' + fmtNum(V,1) + ' = <b>' + fmtNum(r.C,2) + '</b> mg/m³', 'pass');
     window._p1b = {type: type, prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, V: V, ok: true, dmb: r.dmb, dma: r.dma, C: r.C};
+  } else if(type === 'pm'){
+    const kind = document.getElementById('p1b_pm_kind').value;
+    const prec = parseFloat(document.getElementById('p1b_pm_prec').value);
+    const mb1 = parseFloat(document.getElementById('p1b_pmb1').value);
+    const mb2 = parseFloat(document.getElementById('p1b_pmb2').value);
+    const ma1 = parseFloat(document.getElementById('p1b_pma1').value);
+    const ma2 = parseFloat(document.getElementById('p1b_pma2').value);
+    const V = parseFloat(document.getElementById('p1b_pmvnd').value);
+    if([mb1,mb2,ma1,ma2].some(isNaN) || isNaN(V)){ alert('请输入采样前后各 2 次称量质量与标况采样体积'); return; }
+    if(V <= 0){ alert('标况采样体积必须 > 0'); return; }
+    const r = weighingCalc(prec, mb1, mb2, ma1, ma2, V);
+    if(!r.ok){
+      showResult('p1b_result', '恒重不合格',
+        '恒重判定失败：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dmb > r.tol ? ' 超限' : ' 合格')
+        + '；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dma > r.tol ? ' 超限' : ' 合格')
+        + '<br>须继续干燥至恒重后再称量，暂不输出浓度（HJ 618-2011 重量法）。', 'fail');
+      window._p1b = {type: type, kind: kind, prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, V: V, ok: false, dmb: r.dmb, dma: r.dma};
+      return;
+    }
+    const lim = kind === 'pm25' ? 0.075 : 0.15;
+    const label = kind === 'pm25' ? 'PM2.5' : 'PM10';
+    const pass = r.C <= lim;
+    showResult('p1b_result', label + ' = ' + fmtNum(r.C,4) + ' mg/m³',
+      '<span class="r-interpret pass">✓ 恒重合格</span>（HJ 618-2011 重量法）：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g<br>'
+      + 'ρ = (m̄后−m̄前)×10⁶/V<sub>nd</sub> = (' + fmtNum(r.mbarA,4) + '−' + fmtNum(r.mbarB,4) + ')×10⁶/' + fmtNum(V,1) + ' = <b>' + fmtNum(r.C,4) + '</b> mg/m³<br>'
+      + 'GB 3095-2012 限值 ' + label + ' ' + fmtNum(lim,3) + ' mg/m³ → ' + (pass ? '达标' : '超标'), pass ? 'pass' : 'fail');
+    window._p1b = {type: type, kind: kind, prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, V: V, ok: true, dmb: r.dmb, dma: r.dma, C: r.C};
   } else {
     const m0 = parseFloat(document.getElementById('p1b_m0').value);
     const m = parseFloat(document.getElementById('p1b_m').value);
@@ -5704,6 +5796,7 @@ function calcP1b(){
 document.getElementById('p1b_type').addEventListener('change',function(){
   const t = this.value;
   document.getElementById('p1b_tsp_rows').style.display = t === 'tsp' ? 'block' : 'none';
+  document.getElementById('p1b_pm_rows').style.display = t === 'pm' ? 'block' : 'none';
   document.getElementById('p1b_dust_rows').style.display = t === 'dust' ? 'block' : 'none';
 });
 
@@ -6335,17 +6428,26 @@ function calcSpecGas(){
 function calcOilPurifyG1(){
   const type = document.getElementById('g1_oil_type').value;
   if(type === 'purify'){
+    const qFront = parseFloat(document.getElementById('g1_oil_qfront').value);
     const c1 = parseFloat(document.getElementById('g1_oil_c1').value);
+    const qBack = parseFloat(document.getElementById('g1_oil_qback').value);
     const c2 = parseFloat(document.getElementById('g1_oil_c2').value);
     const lim = parseFloat(document.getElementById('g1_oil_lim').value);
-    if([c1,c2,lim].some(isNaN) || c1 === 0){ alert('请输入 C前、C后、限值'); return; }
-    const eta = (c1 - c2) / c1 * 100;
+    if([qFront,c1,qBack,c2,lim].some(isNaN) || qFront*c1 === 0){ alert('请输入处理前/后排风量与浓度（均>0）'); return; }
+    // GB 18483-2001 5.3：净化效率按排放速率计算
+    const Gfront = qFront * c1;   // 净化前排放速率 mg/h
+    const Gback  = qBack * c2;    // 净化后排放速率 mg/h
+    const eta = (Gfront - Gback) / Gfront * 100;
     const fail = c2 > lim;
     const cls = fail ? 'fail' : 'pass';
     const label = fail ? '超标' : '达标';
-    showResult('g1_oil_result', fmtNum(eta,1) + '%（净化后 ' + fmtNum(c2,3) + ' mg/m³ ' + label + '）',
-      'η = (C前−C后)/C前 = (' + fmtNum(c1,3) + '−' + fmtNum(c2,3) + ')/' + fmtNum(c1,3) + '×100% = ' + fmtNum(eta,1) + '%<br>净化后浓度 ' + fmtNum(c2,3) + ' mg/m³，限值 ' + fmtNum(lim,2) + ' mg/m³ → ' + label, cls);
-    window._g1_oil_data = {type: type, c1: c1, c2: c2, lim: lim, eta: eta, fail: fail};
+    showResult('g1_oil_result', '净化效率 η = ' + fmtNum(eta,1) + '%（净化后 ' + fmtNum(c2,3) + ' mg/m³ ' + label + '）',
+      'GB 18483-2001 5.3 净化效率（按排放速率）：<br>'
+      + 'G<sub>前</sub> = Q<sub>前</sub>×C<sub>前</sub> = ' + fmtNum(qFront,1) + '×' + fmtNum(c1,3) + ' = ' + fmtNum(Gfront,1) + ' mg/h<br>'
+      + 'G<sub>后</sub> = Q<sub>后</sub>×C<sub>后</sub> = ' + fmtNum(qBack,1) + '×' + fmtNum(c2,3) + ' = ' + fmtNum(Gback,1) + ' mg/h<br>'
+      + 'η = (G<sub>前</sub>−G<sub>后</sub>)/G<sub>前</sub>×100% = (' + fmtNum(Gfront,1) + '−' + fmtNum(Gback,1) + ')/' + fmtNum(Gfront,1) + '×100% = ' + fmtNum(eta,1) + '%<br>'
+      + '净化后浓度 ' + fmtNum(c2,3) + ' mg/m³，限值 ' + fmtNum(lim,2) + ' mg/m³ → ' + label, cls);
+    window._g1_oil_data = {type: type, qFront: qFront, c1: c1, qBack: qBack, c2: c2, lim: lim, eta: eta, fail: fail};
   } else if(type === 'hj1077'){
     const rho1 = parseFloat(document.getElementById('g1_oil_rho1').value);
     const v1 = parseFloat(document.getElementById('g1_oil_v1').value);
@@ -6381,7 +6483,9 @@ document.getElementById('g1_oil_type').addEventListener('change', function(){
   const showPurify = t === 'purify';
   const show1077 = t === 'hj1077';
   const show18483 = t === 'gb18483';
+  document.getElementById('g1_oil_row_qfront').style.display = showPurify ? 'flex' : 'none';
   document.getElementById('g1_oil_row_c1').style.display = showPurify ? 'flex' : 'none';
+  document.getElementById('g1_oil_row_qback').style.display = showPurify ? 'flex' : 'none';
   document.getElementById('g1_oil_row_c2').style.display = showPurify ? 'flex' : 'none';
   document.getElementById('g1_oil_row_lim').style.display = showPurify ? 'flex' : 'none';
   document.getElementById('g1_oil_row_rho1').style.display = show1077 ? 'flex' : 'none';
