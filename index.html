@@ -145,6 +145,8 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .formula-box .fcontent::-webkit-scrollbar-track{background:transparent;}
 .formula-box .fcontent::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.16);border-radius:var(--radius);}
 .formula-box .fcontent:hover::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.30);}
+/* 多行公式（含 <br> 断行）：允许自动换行，避免 nowrap 下断行异常导致文字重叠（A5 修复） */
+.formula-box .fcontent.multiline{white-space:normal;overflow-x:visible;overflow-y:visible;word-break:break-word;}
 /* 公式过长可横向滑动时，右侧显示渐隐提示 */
 .formula-box.has-scroll{position:relative;}
 .formula-box.has-scroll::after{content:"";position:absolute;top:0;right:0;bottom:0;width:26px;pointer-events:none;background:linear-gradient(90deg,rgba(255,255,255,0),var(--primary-bg) 75%);}
@@ -888,25 +890,32 @@ body.is-desktop.full .subgroup-nav { position: sticky; top: 0; }
   <div class="std-ref">参考标准：HJ/T 397-2007；GB/T 16157-1996</div>
 </div>
 
-<!-- A36: 实测烟尘浓度(崂应式7) -->
+<!-- A20: 实测烟尘浓度（崂应式7，恒重法） -->
 <div class="calc-card" id="calc-a20">
   <div class="calc-header">
     <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 3h18v4H3z"/><path d="M5 7v13h14V7"/><circle cx="12" cy="14" r="3"/></svg>
-    <h3>实测烟尘浓度（崂应式7）</h3>
+    <h3>实测烟尘浓度（崂应式7，恒重法）</h3>
   </div>
   <div class="formula-box">
-    <div class="flabel">计算公式（崂应 3012H-D 式7 · 实测烟尘浓度，GB/T 16157-1996）</div>
-    <div class="fcontent">C = ( g<sub>2</sub> &minus; g<sub>1</sub> ) &times; 10<sup>6</sup> / V<sub>nd</sub></div>
-    <div class="note" tabindex="-1">g<sub>1</sub>、g<sub>2</sub> 分别为采样前、后滤筒（含捕集颗粒物）的质量，单位 <b>g</b>；V<sub>nd</sub> 为标况采样体积，单位 <b>L</b>；10<sup>6</sup> 为 g/L &rarr; mg/m³ 的换算系数，结果单位 mg/m³。低浓度颗粒物测定应按 HJ 836-2017 执行恒重程序并作全程序空白滤膜修正。</div>
+    <div class="flabel">计算公式（崂应 3012H-D 式7 · 实测烟尘浓度，GB/T 16157-1996 / HJ 836-2017）</div>
+    <div class="fcontent multiline">C = ( m̄<sub>后</sub> − m̄<sub>前</sub> ) × 10<sup>6</sup> / V<sub>nd</sub><br>恒重判定：|m<sub>前1</sub>−m<sub>前2</sub>| ≤ 允差 且 |m<sub>后1</sub>−m<sub>后2</sub>| ≤ 允差</div>
+    <div class="note" tabindex="-1">m<sub>前1</sub>/m<sub>前2</sub>、m<sub>后1</sub>/m<sub>后2</sub> 为采样前后滤筒各 2 次恒重称量质量（单位 <b>g</b>）；V<sub>nd</sub> 为标况采样体积（<b>L</b>）；10<sup>6</sup> 为 g/L &rarr; mg/m³ 换算系数。天平精度：十万分之一 恒重允差 0.0004 g、万分之一 0.0010 g。恒重不合格时不输出浓度，须继续干燥至恒重。</div>
   </div>
   <div class="calc-body">
-    <div class="input-row"><label>滤筒终重 g<sub>2</sub></label><input type="number" id="a20_g2" step="any" placeholder="g"></div>
-    <div class="input-row"><label>滤筒初重 g<sub>1</sub></label><input type="number" id="a20_g1" step="any" placeholder="g"></div>
-    <div class="input-row"><label>标况采样体积 V<sub>nd</sub></label><input type="number" id="a20_vnd" step="any" placeholder="L"></div>
+    <div class="input-grid">
+      <div class="input-row"><label>天平精度</label><select id="a20_prec">
+        <option value="0.0004">十万分之一（恒重差≤0.4 mg）</option>
+        <option value="0.0010">万分之一（恒重差≤1.0 mg）</option></select></div>
+      <div class="input-row"><label>采样前质量1 m<sub>前1</sub>(g)</label><input type="number" id="a20_mb1" step="any"></div>
+      <div class="input-row"><label>采样前质量2 m<sub>前2</sub>(g)</label><input type="number" id="a20_mb2" step="any"></div>
+      <div class="input-row"><label>采样后质量1 m<sub>后1</sub>(g)</label><input type="number" id="a20_ma1" step="any"></div>
+      <div class="input-row"><label>采样后质量2 m<sub>后2</sub>(g)</label><input type="number" id="a20_ma2" step="any"></div>
+      <div class="input-row"><label>标况采样体积 V<sub>nd</sub>(L)</label><input type="number" id="a20_vnd" step="any"></div>
+    </div>
     <button class="btn-calc" onclick="calcDustConc()">计算</button>
     <div class="result-area" id="a20_result"></div>
   </div>
-  <div class="std-ref">崂应3012H-D说明书式(7)；C 单位 mg/m³</div>
+  <div class="std-ref">崂应3012H-D说明书式(7)；C 单位 mg/m³；恒重程序按 HJ 836-2017</div>
 </div>
 
 <!-- A39: 烟尘排放量(崂应式14) -->
@@ -1384,8 +1393,9 @@ L<sub>eq</sub> = SEL &minus; 10 lg(T / T<sub>0</sub>)&nbsp;&nbsp;&nbsp;T<sub>0</
   </div>
   <div class="formula-box">
     <div class="flabel">判定方法（GB 20952-2020 附录B · 密闭性检测）</div>
-    <div class="fcontent"><b>① 检测条件判定</b>：氮气充压时间 t<sub>充</sub> &le; 3 &times; t<sub>预算</sub><br>
-&nbsp;&nbsp;t<sub>充</sub> &gt; 3 t<sub>预算</sub> 说明系统泄漏严重，判定为不具备密闭性检测条件<br>
+    <div class="fcontent"><b>① 检测条件判定</b>：氮气充压时间 t<sub>充</sub> &le; 2 &times; t<sub>预算</sub><br>
+&nbsp;&nbsp;t<sub>充</sub> &gt; 2 t<sub>预算</sub> 说明系统泄漏严重，判定为不具备密闭性检测条件<br>
+&nbsp;&nbsp;（充压过程到达 500 Pa 所需时间超过公式 B.1 计算值 2 倍即停止检测）<br>
 <b>② 合格判据</b>：加压至初始压力后静置 5 min，剩余压力 P<sub>5min</sub> &ge; P<sub>min</sub>(V)<br>
 &nbsp;&nbsp;P<sub>min</sub> 按储罐油气空间体积 V 查 GB 20952-2020 附录B 最小允许压力表</div>
     <div class="note" tabindex="-1">程序内置 V = 1893 L ~ 94625 L 的 P<sub>min</sub> 对照表（对应 1~6 支加油枪的常见罐容），按最接近体积取值。若需在表列体积之间线性内插，或采用其他枪数/罐组对应的限值，可在“最小剩余压力限值”栏手动填入标准查得值覆盖。</div>
@@ -1963,47 +1973,51 @@ DO：极差 ≤ 0.3 mg/L 或 相对变化 ≤ 10%；ORP：极差 ≤ 10 mV 或 �
     <div class="flabel">参数关系图（监测井剖面示意 · HJ 164-2020 / DZ/T 0270）</div>
     <div class="fcontent" style="white-space:normal;overflow-x:visible;padding:8px 0;">
       <svg viewBox="0 0 420 260" style="width:100%;max-width:420px;height:auto;display:block;margin:0 auto;background:#fff;border-radius:6px;border:1px solid var(--border);">
-        <!-- 海平面 -->
+        <!-- 海平面（高程基准，虚线） -->
         <line x1="30" y1="230" x2="400" y2="230" stroke="#90a4ae" stroke-width="1.5" stroke-dasharray="4 3"/>
         <text x="35" y="245" font-size="11" fill="#546e7a">海平面（高程基准）</text>
-        <!-- 地面 -->
-        <line x1="70" y1="200" x2="180" y2="200" stroke="#5d4037" stroke-width="2"/>
-        <text x="75" y="195" font-size="11" fill="#5d4037">地面</text>
-        <!-- 井口 -->
-        <rect x="110" y="185" width="30" height="15" rx="2" fill="none" stroke="#37474f" stroke-width="1.5"/>
-        <text x="145" y="178" font-size="10" fill="#37474f">井口</text>
-        <!-- 井筒 -->
-        <line x1="115" y1="200" x2="115" y2="75" stroke="#455a64" stroke-width="2"/>
-        <line x1="135" y1="200" x2="135" y2="75" stroke="#455a64" stroke-width="2"/>
-        <!-- 水面 -->
-        <line x1="115" y1="120" x2="135" y2="120" stroke="#0288d1" stroke-width="3"/>
-        <path d="M117 124 Q122 128 127 124" fill="none" stroke="#0288d1" stroke-width="1"/>
-        <text x="145" y="124" font-size="10" fill="#0288d1">水面</text>
-        <!-- 井底 -->
-        <line x1="115" y1="75" x2="135" y2="75" stroke="#455a64" stroke-width="2"/>
-        <text x="75" y="79" font-size="10" fill="#455a64">井底</text>
-        <!-- 水位高程 H -->
-        <line x1="40" y1="120" x2="105" y2="120" stroke="#1565c0" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"/>
-        <line x1="40" y1="230" x2="40" y2="120" stroke="#1565c0" stroke-width="1" stroke-dasharray="2 2"/>
+        <!-- 地面线（中上，y=140） -->
+        <line x1="70" y1="140" x2="180" y2="140" stroke="#5d4037" stroke-width="2"/>
+        <text x="75" y="135" font-size="11" fill="#5d4037">地面</text>
+        <!-- 井口（高出地面 15px：y=125~140） -->
+        <rect x="110" y="125" width="30" height="15" rx="2" fill="none" stroke="#37474f" stroke-width="1.5"/>
+        <text x="145" y="118" font-size="10" fill="#37474f">井口</text>
+        <!-- 井筒双线（从井口 y=140 向下到井底 y=225） -->
+        <line x1="115" y1="140" x2="115" y2="225" stroke="#455a64" stroke-width="2"/>
+        <line x1="135" y1="140" x2="135" y2="225" stroke="#455a64" stroke-width="2"/>
+        <!-- 水面（地面下 45px：y=185，蓝色波浪 + 主横线） -->
+        <line x1="115" y1="185" x2="135" y2="185" stroke="#0288d1" stroke-width="3"/>
+        <path d="M115 188 Q122 193 127 188 T135 188" fill="none" stroke="#0288d1" stroke-width="1"/>
+        <path d="M115 192 Q122 197 127 192 T135 192" fill="none" stroke="#0288d1" stroke-width="0.8" opacity="0.6"/>
+        <text x="145" y="189" font-size="10" fill="#0288d1">水面</text>
+        <!-- 井底（y=225） -->
+        <line x1="115" y1="225" x2="135" y2="225" stroke="#455a64" stroke-width="2"/>
+        <text x="150" y="233" font-size="10" fill="#455a64">井底</text>
+        <!-- 水位高程 H：水面处水平双箭头 + 竖直虚线引到海平面 -->
+        <line x1="40" y1="185" x2="105" y2="185" stroke="#1565c0" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"/>
+        <line x1="40" y1="230" x2="40" y2="185" stroke="#1565c0" stroke-width="1" stroke-dasharray="2 2"/>
         <text x="25" y="170" font-size="10" fill="#1565c0" text-anchor="middle">水位 H</text>
-        <!-- 井口高程 Wt -->
-        <line x1="215" y1="192" x2="215" y2="230" stroke="#6a1b9a" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"/>
+        <!-- 井口高程 Wt：海平面(230) → 井口(132) -->
+        <line x1="215" y1="132" x2="215" y2="230" stroke="#6a1b9a" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"/>
         <text x="225" y="215" font-size="10" fill="#6a1b9a">井口高程 Wt</text>
-        <!-- 井深 D -->
-        <line x1="95" y1="200" x2="95" y2="75" stroke="#e65100" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"/>
-        <text x="80" y="142" font-size="10" fill="#e65100" text-anchor="middle">井深 D</text>
-        <!-- 埋深 B -->
-        <line x1="170" y1="200" x2="170" y2="120" stroke="#ff8f00" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"/>
-        <text x="180" y="165" font-size="10" fill="#ff8f00">埋深 B</text>
-        <!-- 水深 Hw -->
-        <line x1="155" y1="120" x2="155" y2="75" stroke="#2e7d32" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"/>
-        <text x="162" y="102" font-size="10" fill="#2e7d32">水深 Hw</text>
-        <!-- 井底高程 Wb -->
-        <line x1="250" y1="75" x2="250" y2="230" stroke="#00695c" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"/>
-        <text x="260" y="150" font-size="10" fill="#00695c">井底高程 Wb</text>
-        <!-- 地面高程 G -->
-        <line x1="300" y1="200" x2="300" y2="230" stroke="#5d4037" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"/>
-        <text x="310" y="218" font-size="10" fill="#5d4037">地面高程 G</text>
+        <!-- 井深 D：井口(132) → 井底(225)，沿井筒左侧 -->
+        <line x1="95" y1="132" x2="95" y2="225" stroke="#e65100" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"/>
+        <text x="80" y="182" font-size="10" fill="#e65100" text-anchor="middle">井深 D</text>
+        <!-- 埋深 B：井口(132) → 水面(185) -->
+        <line x1="170" y1="132" x2="170" y2="185" stroke="#ff8f00" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"/>
+        <text x="180" y="163" font-size="10" fill="#ff8f00">埋深 B</text>
+        <!-- 水深 Hw：水面(185) → 井底(225) -->
+        <line x1="155" y1="185" x2="155" y2="225" stroke="#2e7d32" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"/>
+        <text x="162" y="208" font-size="10" fill="#2e7d32">水深 Hw</text>
+        <!-- 井底高程 Wb：海平面(230) → 井底(225) -->
+        <line x1="250" y1="230" x2="250" y2="225" stroke="#00695c" stroke-width="1" marker-end="url(#arrB)"/>
+        <text x="260" y="212" font-size="10" fill="#00695c">井底高程 Wb</text>
+        <!-- 地面高程 G：海平面(230) → 地面(140) -->
+        <line x1="300" y1="140" x2="300" y2="230" stroke="#5d4037" stroke-width="1" marker-end="url(#arrB)" marker-start="url(#arrA)"/>
+        <text x="310" y="188" font-size="10" fill="#5d4037">地面高程 G</text>
+        <!-- 井口高出地面 Hg：地面(140) → 井口(132) -->
+        <line x1="180" y1="140" x2="180" y2="132" stroke="#37474f" stroke-width="1" marker-end="url(#arrB)"/>
+        <text x="190" y="132" font-size="10" fill="#37474f">井口高出地面 Hg</text>
         <!-- 箭头定义 -->
         <defs>
           <marker id="arrA" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,3 L6,1.5 L6,4.5 Z" fill="#78909c"/></marker>
@@ -2532,28 +2546,6 @@ Y = D × 10<sup>X̄</sup></div>
 <div class="subgroup-title" id="p-g1" data-group="p-g1"><span class="tag">1</span>环境空气和废气（含大气降尘）</div>
 <div class="panel-grid">
 
-<!-- P1: 标况采样体积换算 -->
-<div class="calc-card" id="calc-p1">
-  <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2v20"/><path d="M2 12h20"/><circle cx="12" cy="12" r="8"/></svg>
-    <h3>标况采样体积换算</h3>
-  </div>
-  <div class="formula-box">
-    <div class="flabel">计算公式（理想气体状态方程 · GB/T 16157-1996 / HJ/T 397-2007）</div>
-    <div class="fcontent">V<sub>nd</sub> = V × (P / 101.325) × (273.15 / (273.15 + t))<br>
-或 V<sub>nd</sub> = V × P × 273.15 / [101.325 × (273.15 + t)]</div>
-    <div class="note" tabindex="-1">V<sub>nd</sub> 为标准状况（0 ℃、101.325 kPa）下的干气体体积。若采样器已直接给出标况体积，可直接使用；若使用孔口流量计或转子流量计校准时，亦按此式换算。湿式气体流量计读数需扣除饱和水蒸气分压后再换算干气体积。</div>
-  </div>
-  <div class="calc-body">
-    <div class="input-row"><label>工况体积 V(L)</label><input type="number" id="p1_v" step="any" placeholder="采样器读数"></div>
-    <div class="input-row"><label>大气压 P(kPa)</label><input type="number" id="p1_p" step="any" value="101.325" placeholder="现场大气压"></div>
-    <div class="input-row"><label>温度 t(℃)</label><input type="number" id="p1_t" step="any" value="20" placeholder="现场温度"></div>
-    <button class="btn-calc" onclick="calcP1()">换算</button>
-    <div class="result-area" id="p1_result"></div>
-  </div>
-  <div class="std-ref">参考标准：GB/T 16157-1996《固定污染源排气中颗粒物测定与气态污染物采样方法》；HJ/T 397-2007《固定源废气监测技术规范》</div>
-</div>
-
 <!-- P1b: 颗粒物浓度 -->
 <div class="calc-card" id="calc-p1b">
   <div class="calc-header">
@@ -2561,43 +2553,69 @@ Y = D × 10<sup>X̄</sup></div>
     <h3>颗粒物/降尘浓度</h3>
   </div>
   <div class="formula-box">
-    <div class="flabel">计算公式（颗粒物质量浓度 · GB/T 16157 / HJ 1221-2021）</div>
-    <div class="fcontent">C = (m − m₀) / V<sub>nd</sub> × 10<sup>6</sup>&nbsp;&nbsp;(mg/m³)<br>
-降尘：C = (m − m₀) / (S × t)&nbsp;&nbsp;(t/km²·月)</div>
-    <div class="note" tabindex="-1">m₀、m 分别为采样前后滤膜（或降尘缸）质量；V<sub>nd</sub> 为标准状况下干气体采样体积（L）。降尘以集尘缸开口面积 S（m²）和采样天数 t（月）计算月沉降量。</div>
+    <div class="flabel">计算公式（颗粒物质量浓度 · GB/T 16157 / HJ 836-2017 / HJ 1221-2021）</div>
+    <div class="fcontent multiline">C = ( m̄<sub>后</sub> − m̄<sub>前</sub> ) / V<sub>nd</sub> × 10<sup>6</sup>&nbsp;&nbsp;(mg/m³)<br>
+降尘（HJ 1221-2021）：C = (m − m₀) / (A × t) × 30 × 10⁴&nbsp;&nbsp;(t/km²·30d，A 单位 cm²)<br>
+恒重判定：|m<sub>前1</sub>−m<sub>前2</sub>| ≤ 允差 且 |m<sub>后1</sub>−m<sub>后2</sub>| ≤ 允差</div>
+    <div class="note" tabindex="-1">颗粒物分支按恒重法：采样前后滤筒各 2 次称量（质量单位 <b>g</b>），V<sub>nd</sub> 为标况干气采样体积（L）；天平精度 十万分之一 恒重允差 0.0004 g、万分之一 0.0010 g。降尘分支按 HJ 1221-2021：C = (m₁−m₀−m₂)/(A·t)×30×10⁴（A 为集尘缸缸口面积，单位 cm²；t 为采样天数 d；10⁴ 为 g/cm²→t/km² 换算系数）；本卡未单列空白 m₂，按 m₂=0 处理。</div>
   </div>
   <div class="calc-body">
-    <div class="input-row"><label>计算类型</label><select id="p1b_type"><option value="tsp">颗粒物/烟尘浓度</option><option value="dust">降尘量</option></select></div>
-    <div class="input-row"><label>m₀ 采样前质量(g)</label><input type="number" id="p1b_m0" step="any"></div>
-    <div class="input-row"><label>m 采样后质量(g)</label><input type="number" id="p1b_m" step="any"></div>
-    <div class="input-row" id="p1b_vrow"><label>V<sub>nd</sub>(L)</label><input type="number" id="p1b_v" step="any" placeholder="标况采样体积"></div>
-    <div class="input-row" id="p1b_srow" style="display:none"><label>集尘缸面积 S(m²)</label><input type="number" id="p1b_s" step="any" placeholder="πD²/4"></div>
-    <div class="input-row" id="p1b_trow" style="display:none"><label>采样天数 t(d)</label><input type="number" id="p1b_td" step="any"></div>
+    <div class="input-row"><label>计算类型</label><select id="p1b_type"><option value="tsp">颗粒物/烟尘浓度（恒重法）</option><option value="dust">降尘量</option></select></div>
+    <div id="p1b_tsp_rows">
+      <div class="input-grid">
+        <div class="input-row"><label>天平精度</label><select id="p1b_prec">
+          <option value="0.0004">十万分之一（恒重差≤0.4 mg）</option>
+          <option value="0.0010">万分之一（恒重差≤1.0 mg）</option></select></div>
+        <div class="input-row"><label>采样前质量1 m<sub>前1</sub>(g)</label><input type="number" id="p1b_mb1" step="any"></div>
+        <div class="input-row"><label>采样前质量2 m<sub>前2</sub>(g)</label><input type="number" id="p1b_mb2" step="any"></div>
+        <div class="input-row"><label>采样后质量1 m<sub>后1</sub>(g)</label><input type="number" id="p1b_ma1" step="any"></div>
+        <div class="input-row"><label>采样后质量2 m<sub>后2</sub>(g)</label><input type="number" id="p1b_ma2" step="any"></div>
+        <div class="input-row"><label>标况采样体积 V<sub>nd</sub>(L)</label><input type="number" id="p1b_vnd" step="any"></div>
+      </div>
+    </div>
+    <div id="p1b_dust_rows" style="display:none">
+      <div class="input-grid">
+        <div class="input-row"><label>m₀ 采样前质量(g)</label><input type="number" id="p1b_m0" step="any"></div>
+        <div class="input-row"><label>m 采样后质量(g)</label><input type="number" id="p1b_m" step="any"></div>
+        <div class="input-row"><label>集尘缸缸口面积 A(cm²)</label><input type="number" id="p1b_s" step="any" placeholder="πD²/4（D 取内径 cm）"></div>
+        <div class="input-row"><label>采样天数 t(d)</label><input type="number" id="p1b_td" step="any"></div>
+      </div>
+    </div>
     <button class="btn-calc" onclick="calcP1b()">计算</button>
     <div class="result-area" id="p1b_result"></div>
   </div>
-  <div class="std-ref">参考标准：GB/T 16157-1996（颗粒物/烟尘）；HJ 1221-2021《环境空气 降尘的测定 重量法》</div>
+  <div class="std-ref">参考标准：GB/T 16157-1996（颗粒物/烟尘）；HJ 836-2017（恒重）；HJ 1221-2021（降尘）</div>
 </div>
 
 </div>
 
-<!-- g1-nmhc: 非甲烷总烃 -->
+<!-- g1-nmhc: 非甲烷总烃（HJ 38-2017 / HJ 604-2017 双场景双模式） -->
 <div class="calc-card compact" id="calc-g1-nmhc">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg><h3>非甲烷总烃 NMHC</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg><h3>非甲烷总烃 NMHC（HJ 38-2017 / HJ 604-2017）</h3></div>
   <div class="formula-box compact">
-    <div class="flabel">计算公式（HJ 38-2017 / HJ 604-2017）</div>
-    <div class="fcontent">NMHC = 总烃 − 甲烷</div>
-    <div class="note" tabindex="-1">总烃、甲烷为同次采样、同方法测定结果（mg/m³，标况干基）。NMHC 为两者之差。限值按 GB 16297 或行业排放标准判定。</div>
+    <div class="flabel">计算公式</div>
+    <div class="fcontent multiline">NMHC = 总烃 − 甲烷<br>标曲反算：C = (A − a) / b</div>
+    <div class="note" tabindex="-1">有组织废气按 HJ 38-2017；无组织/环境空气按 HJ 604-2017。峰面积反算或直接输入已折算标况干基浓度均可。限值按 GB 16297-1996 判定（行业标准优先，可手动改限值）。</div>
   </div>
   <div class="calc-body">
     <div class="input-grid">
-      <div class="input-row"><label>总烃(mg/m³)</label><input type="number" id="g1_nmhc_th" step="any"></div>
-      <div class="input-row"><label>甲烷(mg/m³)</label><input type="number" id="g1_nmhc_ch4" step="any"></div>
+      <div class="input-row"><label>测定场景</label><select id="g1_nmhc_scene">
+        <option value="org">有组织废气（HJ 38-2017）</option>
+        <option value="fug">无组织/环境空气（HJ 604-2017）</option></select></div>
+      <div class="input-row"><label>输入方式</label><select id="g1_nmhc_mode">
+        <option value="area">峰面积反算</option>
+        <option value="conc">直接输入浓度</option></select></div>
+      <div class="input-row" id="g1_nmhc_row_at"><label>总烃峰面积 A<sub>总</sub></label><input type="number" id="g1_nmhc_at" step="any"></div>
+      <div class="input-row" id="g1_nmhc_row_ac"><label>甲烷峰面积 A<sub>甲</sub></label><input type="number" id="g1_nmhc_ac" step="any"></div>
+      <div class="input-row" id="g1_nmhc_row_a"><label>截距 a</label><input type="number" id="g1_nmhc_a" step="any" value="0"></div>
+      <div class="input-row" id="g1_nmhc_row_b"><label>斜率 b</label><input type="number" id="g1_nmhc_b" step="any"></div>
+      <div class="input-row" id="g1_nmhc_row_cth" style="display:none"><label>总烃浓度(mg/m³)</label><input type="number" id="g1_nmhc_cth" step="any"></div>
+      <div class="input-row" id="g1_nmhc_row_cch4" style="display:none"><label>甲烷浓度(mg/m³)</label><input type="number" id="g1_nmhc_cch4" step="any"></div>
     </div>
     <button class="btn-calc" onclick="calcNmhc()">计算 NMHC</button>
     <div class="result-area compact" id="g1_nmhc_result"></div>
   </div>
-  <div class="std-ref">HJ 38-2017《固定污染源废气 总烃、甲烷和非甲烷总烃的测定 气相色谱法》；HJ 604-2017《环境空气 总烃、甲烷和非甲烷总烃的测定 直接进样-气相色谱法》</div>
+  <div class="std-ref">HJ 38-2017；HJ 604-2017；GB 16297-1996（有组织 120 / 无组织 4.0 mg/m³，行业标准优先）</div>
 </div>
 
 <!-- g1-gces: GC 外标法定量通用 -->
@@ -2672,7 +2690,7 @@ Y = D × 10<sup>X̄</sup></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（HJ 533/482/479/504/14678/503/832/480）</div>
     <div class="fcontent">C(mg/m³) = (A − A₀) × B<sub>s</sub> / V<sub>nd</sub></div>
-    <div class="note" tabindex="-1">B<sub>s</sub> 为计算因子（μg/吸光度），由标准曲线斜率倒数求得；V<sub>nd</sub> 为标准状况采样体积（L），可由本模块 P1 换算。覆盖氨、硫化氢、二氧化硫、氮氧化物、臭氧、氯气、酚类、苯胺类、氟化物等标曲反算型项目。</div>
+    <div class="note" tabindex="-1">B<sub>s</sub> 为计算因子（μg/吸光度），由标准曲线斜率倒数求得；V<sub>nd</sub> 为标准状况采样体积（L），可由空气模块 A10 标况体积换算。覆盖氨、硫化氢、二氧化硫、氮氧化物、臭氧、氯气、酚类、苯胺类、氟化物等标曲反算型项目。</div>
   </div>
   <div class="calc-body">
     <div class="input-grid">
@@ -2688,43 +2706,35 @@ Y = D × 10<sup>X̄</sup></div>
   <div class="std-ref">HJ 533-2009、HJ 482-2009、HJ 479-2009、HJ 504-2009、GB/T 14678-1993、HJ 503-2009、HJ 832-2017、HJ 480-2009 等</div>
 </div>
 
-<!-- g1-oil: 饮食业油烟净化率 -->
+<!-- g1-oil: 饮食业油烟（净化率 / HJ 1077-2019 浓度 / GB 18483 基准风量折算） -->
 <div class="calc-card compact" id="calc-g1-oil">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2s6 8 6 12a6 6 0 11-12 0c0-4 6-12 6-12z"/></svg><h3>饮食业油烟净化率</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2s6 8 6 12a6 6 0 11-12 0c0-4 6-12 6-12z"/></svg><h3>饮食业油烟（净化率 / 浓度 / 基准折算）</h3></div>
   <div class="formula-box compact">
-    <div class="flabel">计算公式（GB 18483-2001）</div>
-    <div class="fcontent">η = (C<sub>前</sub> − C<sub>后</sub>) / C<sub>前</sub> × 100%</div>
-    <div class="note" tabindex="-1">C<sub>前</sub>、C<sub>后</sub> 分别为净化设施前后油烟排放浓度（mg/m³，重量法）。油烟浓度限值：小型/中型/大型均为 2.0 mg/m³（GB 18483 表2）；净化效率由前后浓度差计算。</div>
+    <div class="flabel">计算公式（GB 18483-2001 / HJ 1077-2019）</div>
+    <div class="fcontent multiline">净化率 η = (C<sub>前</sub> − C<sub>后</sub>) / C<sub>前</sub> × 100%<br>HJ 1077-2019：ρ<sub>排</sub>(mg/m³) = ρ₁(mg/L) × V₁(mL) / V<sub>nd</sub>(L)<br>GB 18483 基准风量折算：c<sub>基</sub> = c<sub>排</sub> × Q<sub>排</sub> / (n × q<sub>基</sub>)，q<sub>基</sub>=2000 m³/h</div>
+    <div class="note" tabindex="-1">净化率模式按 GB 18483-2001 计算前后浓度差效率（限值 2.0 mg/m³）；HJ 1077-2019 模式由吸收液浓度反算排放浓度（1 mg/L×1 mL=1 μg，μg/L=mg/m³，单位链成立）；基准折算模式将实测浓度折算为单个灶头基准排风量 2000 m³/h 时的浓度，判据 c<sub>基</sub> ≤ 2.0 mg/m³（GB 18483-2001 表2，大中小统一）。</div>
   </div>
   <div class="calc-body">
     <div class="input-grid">
-      <div class="input-row"><label>C<sub>前</sub>(mg/m³)</label><input type="number" id="g1_oil_c1" step="any"></div>
-      <div class="input-row"><label>C<sub>后</sub>(mg/m³)</label><input type="number" id="g1_oil_c2" step="any"></div>
-      <div class="input-row"><label>限值(mg/m³)</label><input type="number" id="g1_oil_lim" step="any" value="2.0"></div>
+      <div class="input-row"><label>计算类型</label><select id="g1_oil_type">
+        <option value="purify">净化率（GB 18483）</option>
+        <option value="hj1077">油烟浓度（HJ 1077-2019）</option>
+        <option value="gb18483">基准风量折算（GB 18483）</option></select></div>
+      <div class="input-row" id="g1_oil_row_c1"><label>C<sub>前</sub>(mg/m³)</label><input type="number" id="g1_oil_c1" step="any"></div>
+      <div class="input-row" id="g1_oil_row_c2"><label>C<sub>后</sub>(mg/m³)</label><input type="number" id="g1_oil_c2" step="any"></div>
+      <div class="input-row" id="g1_oil_row_lim"><label>限值(mg/m³)</label><input type="number" id="g1_oil_lim" step="any" value="2.0"></div>
+      <div class="input-row" id="g1_oil_row_rho1" style="display:none"><label>ρ₁ 吸收液浓度(mg/L)</label><input type="number" id="g1_oil_rho1" step="any"></div>
+      <div class="input-row" id="g1_oil_row_v1" style="display:none"><label>V₁ 吸收液体积(mL)</label><input type="number" id="g1_oil_v1" step="any"></div>
+      <div class="input-row" id="g1_oil_row_vnd" style="display:none"><label>V<sub>nd</sub> 标况采样体积(L)</label><input type="number" id="g1_oil_vnd" step="any"></div>
+      <div class="input-row" id="g1_oil_row_ce" style="display:none"><label>c<sub>排</sub> 实测浓度(mg/m³)</label><input type="number" id="g1_oil_ce" step="any"></div>
+      <div class="input-row" id="g1_oil_row_qe" style="display:none"><label>Q<sub>排</sub> 实测排风量(m³/h)</label><input type="number" id="g1_oil_qe" step="any"></div>
+      <div class="input-row" id="g1_oil_row_n" style="display:none"><label>n 灶头总数(个)</label><input type="number" id="g1_oil_n" step="any"></div>
+      <div class="input-row" id="g1_oil_row_qb" style="display:none"><label>q<sub>基</sub> 基准排风量(m³/h)</label><input type="number" id="g1_oil_qb" step="any" value="2000" readonly style="background:#f0f0f0;"></div>
     </div>
-    <button class="btn-calc" onclick="calcOilPurifyG1()">计算净化率</button>
+    <button class="btn-calc" onclick="calcOilPurifyG1()">计算</button>
     <div class="result-area compact" id="g1_oil_result"></div>
   </div>
-  <div class="std-ref">GB 18483-2001《饮食业油烟排放标准》（油烟浓度与净化效率）</div>
-</div>
-
-<!-- g1-odor: 臭气浓度（三点比较式臭袋法） -->
-<div class="calc-card compact" id="calc-g1-odor">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M8 12h8"/></svg><h3>臭气浓度（三点比较式臭袋法）</h3></div>
-  <div class="formula-box compact">
-    <div class="flabel">计算公式（HJ 1262-2022 附录B）</div>
-    <div class="fcontent">臭气浓度 = M + 0.33S</div>
-    <div class="note" tabindex="-1">M 为各稀释梯度嗅辨浓度的算术均值，S 为其标准差。各梯度的嗅辨浓度 M<sub>i</sub> 由标准附录B"正解人数-嗅辨浓度"表查得（统计查表，非纯公式）。本卡完成 M+0.33S 的均值/标准差计算（嗅辨员为6人小组）。</div>
-  </div>
-  <div class="calc-body">
-    <div class="input-grid">
-      <div class="input-row"><label>各梯度 M 值(查表,逗号分隔)</label><input type="text" id="g1_odor_m" placeholder="如: 32,46,64"></div>
-      <div class="input-row"><label>嗅辨员人数 n</label><input type="number" id="g1_odor_n" step="any" value="6"></div>
-    </div>
-    <button class="btn-calc" onclick="calcOdor()">计算臭气浓度</button>
-    <div class="result-area compact" id="g1_odor_result"></div>
-  </div>
-  <div class="std-ref">HJ 1262-2022《环境空气和废气 臭气的测定 三点比较式臭袋法》（附录B 统计）</div>
+  <div class="std-ref">GB 18483-2001《饮食业油烟排放标准（试行）》；HJ 1077-2019《固定污染源废气 油烟和油雾的测定 红外分光光度法》</div>
 </div>
 
 </div>
@@ -3005,9 +3015,11 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
     <div class="note" tabindex="-1">m₀ 为蒸发皿恒重质量，m 为蒸发残渣+蒸发皿质量；V 为过滤后水样体积（mL）。工业锅炉水质溶解固形物可用电导率间接估算（GB/T 1576 附录），但仲裁以重量法为准。</div>
   </div>
   <div class="calc-body">
-    <div class="input-row"><label>蒸发皿质量 m₀(g)</label><input type="number" id="p3_m0" step="any"></div>
-    <div class="input-row"><label>蒸发后总质量 m(g)</label><input type="number" id="p3_m" step="any"></div>
-    <div class="input-row"><label>水样体积 V(mL)</label><input type="number" id="p3_v" step="any" value="100"></div>
+    <div class="input-grid">
+      <div class="input-row"><label>蒸发皿质量 m₀(g)</label><input type="number" id="p3_m0" step="any"></div>
+      <div class="input-row"><label>蒸发后总质量 m(g)</label><input type="number" id="p3_m" step="any"></div>
+      <div class="input-row"><label>水样体积 V(mL)</label><input type="number" id="p3_v" step="any" value="100"></div>
+    </div>
     <button class="btn-calc" onclick="calcP3()">计算</button>
     <div class="result-area" id="p3_result"></div>
   </div>
@@ -3022,7 +3034,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
   </div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 1576-2018 / GB/T 15453-2018 等）</div>
-    <div class="fcontent">重量法 ρ=(m−m₀)×10⁶/V；滴定法 ρ=V×c×M×1000/V样；离子色谱 C=峰面积标准曲线</div>
+    <div class="fcontent multiline">重量法 ρ=(m−m₀)×10⁶/V；滴定法 ρ=V×c×M×1000/V样；离子色谱 C=峰面积标准曲线</div>
     <div class="note" tabindex="-1">工业用水指标（溶解固形物、全碱度、总硬度、氯离子、硫酸根、磷酸根、亚硫酸根等）计算公式与水和废水通用，复用 g2 系列逻辑。此处提供通用入口：选择指标类型后按对应公式代入。</div>
   </div>
   <div class="calc-body">
@@ -3058,7 +3070,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（撞击法/沉降法 · GB/T 18204.3-2025）</div>
-    <div class="fcontent">撞击法：N = 菌落数 × 1000 / (采样流量 Q × 时间 t)<br>
+    <div class="fcontent multiline">撞击法：N = 菌落数 × 1000 / (采样流量 Q × 时间 t)<br>
 沉降法：N = 菌落数 × 1000 / (培养皿面积 S × 暴露时间 T) × 换算系数</div>
     <div class="note" tabindex="-1">撞击法结果以 CFU/m³ 报出；沉降法以 CFU/皿·h 或 CFU/m³（按公式换算）报出。采样流量 Q 单位 L/min，时间 t 单位 min。本卡按撞击法通用公式计算。</div>
   </div>
@@ -3221,7 +3233,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
   <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8"/><path d="M12 8v8"/></svg><h3>用品微生物通用计算</h3></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（GB/T 18204.4-2025 / GB 15979-2024）</div>
-    <div class="fcontent">细菌总数 = 平皿菌落数 × 稀释倍数 / 采样面积<br>大肠菌群(MPN) = MPN 表查值 × 稀释倍数 / 采样面积</div>
+    <div class="fcontent multiline">细菌总数 = 平皿菌落数 × 稀释倍数 / 采样面积<br>大肠菌群(MPN) = MPN 表查值 × 稀释倍数 / 采样面积</div>
     <div class="note" tabindex="-1">细菌总数以 CFU/cm² 或 CFU/25cm² 报出；致病菌定性（检出/未检出）不计算浓度。采样面积按实际规格板（通常 25 cm²）代入。一次性卫生用品参照 GB 15979-2024。</div>
   </div>
   <div class="calc-body">
@@ -3248,15 +3260,15 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（称重法 · GB/T 18204.5-2025）</div>
-    <div class="fcontent">积尘量(g/m²) = (m − m₀) / (L × W)<br>
-（m₀ 滤膜/称量瓶质量，m 采样后总质量，L、W 为采样框长宽）</div>
-    <div class="note" tabindex="-1">采样框常用 10 cm × 10 cm（0.01 m²）或 5 cm × 5 cm（0.0025 m²）。结果以风管内表面积尘量 g/m² 报出。</div>
+    <div class="fcontent multiline">积尘量 W(g/m²) = (m − m₀) / S(cm²) × 10⁴<br>（m₀ 滤膜/称量瓶质量，m 采样后总质量，S 为采样面积）</div>
+    <div class="note" tabindex="-1">采样面积常用 10 cm × 10 cm（100 cm²）或 5 cm × 5 cm（25 cm²），直接输入采样面积 S。结果以风管内表面积尘量 g/m² 报出。</div>
   </div>
   <div class="calc-body">
-    <div class="input-row"><label>滤膜/称量瓶质量 m₀(g)</label><input type="number" id="p6_m0" step="any"></div>
-    <div class="input-row"><label>采样后总质量 m(g)</label><input type="number" id="p6_m" step="any"></div>
-    <div class="input-row"><label>采样框长 L(cm)</label><input type="number" id="p6_l" step="any" value="10"></div>
-    <div class="input-row"><label>采样框宽 W(cm)</label><input type="number" id="p6_w" step="any" value="10"></div>
+    <div class="input-grid">
+      <div class="input-row"><label>滤膜/称量瓶质量 m₀(g)</label><input type="number" id="p6_m0" step="any"></div>
+      <div class="input-row"><label>采样后总质量 m(g)</label><input type="number" id="p6_m" step="any"></div>
+      <div class="input-row"><label>采样面积 S(cm²)</label><input type="number" id="p6_s" step="any" value="100"></div>
+    </div>
     <button class="btn-calc" onclick="calcP6()">计算积尘量</button>
     <div class="result-area" id="p6_result"></div>
   </div>
@@ -3283,50 +3295,11 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
   <div class="std-ref">参考标准：GB/T 18204.5-2025《公共场所卫生检验方法 第5部分：集中空调通风系统》</div>
 </div>
 
-<div class="calc-card compact" id="calc-g6-pm">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"/></svg><h3>可吸入颗粒物（PM10）</h3></div>
-  <div class="formula-box compact">
-    <div class="flabel">计算公式（重量法 · GB/T 18204.5-2025 / HJ 618）</div>
-    <div class="fcontent">ρ(mg/m³) = (m − m₀) × 1000 / V<sub>nd</sub></div>
-    <div class="note" tabindex="-1">m₀ 为空白滤膜质量，m 为采样后滤膜质量，Vₙ𝒹 为标况采气体积（L）。结果以 mg/m³ 报出。集中空调送风中 PM10 限值见 WS 10013-2023 / GB 37488。</div>
-  </div>
-  <div class="calc-body">
-    <div class="input-grid">
-      <div class="input-row"><label>空白滤膜质量 m₀(mg)</label><input type="number" id="g6p_m0" step="any"></div>
-      <div class="input-row"><label>采样后质量 m(mg)</label><input type="number" id="g6p_m" step="any"></div>
-      <div class="input-row"><label>标况采气体积 Vₙ𝒹(L)</label><input type="number" id="g6p_v" step="any"></div>
-    </div>
-    <button class="btn-calc" onclick="calcG6Pm()">计算 mg/m³</button>
-    <div class="result-area compact" id="g6-pm_result"></div>
-  </div>
-  <div class="std-ref">参考标准：GB/T 18204.5-2025；HJ 618-2011《环境空气 PM10和PM2.5的测定 重量法》</div>
-</div>
 </div>
 
 <!-- P-G7: 洁净室 -->
 <div class="subgroup-title" id="p-g7" data-group="p-g7"><span class="tag">7</span>洁净室</div>
 <div class="panel-grid">
-<div class="calc-card" id="calc-p7">
-  <div class="calc-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
-    <h3>悬浮粒子浓度换算</h3>
-  </div>
-  <div class="formula-box">
-    <div class="flabel">计算公式（GB 50591-2010 / GB/T 16292-2025）</div>
-    <div class="fcontent">C<sub>n</sub> = 采样点粒子总数 / 采样气体体积<br>
-换算为每立方米：C = 计数 × 1000 / V<sub>采样</sub>(L)</div>
-    <div class="note" tabindex="-1">洁净室悬浮粒子以粒/m³ 报出。采样体积 = 采样流量（L/min）× 采样时间（min）。采样点布置、最小采样量及粒子计数器要求按 GB 50591-2010 附录 E。</div>
-  </div>
-  <div class="calc-body">
-    <div class="input-row"><label>采样流量 Q(L/min)</label><input type="number" id="p7_q" step="any" value="28.3"></div>
-    <div class="input-row"><label>采样时间 t(min)</label><input type="number" id="p7_t" step="any" value="1"></div>
-    <div class="input-row"><label>粒子计数 N(粒)</label><input type="number" id="p7_n" step="any"></div>
-    <button class="btn-calc" onclick="calcP7()">计算粒/m³</button>
-    <div class="result-area" id="p7_result"></div>
-  </div>
-  <div class="std-ref">参考标准：GB 50591-2010《洁净室施工及验收规范》；GB/T 16292-2025《医药工业洁净室（区）悬浮粒子的测试方法》（2026-11-01 起实施新版）</div>
-</div>
-
 <!-- 洁净室 专属计算（GB 50591-2010 / GB/T 16292/25915/16293/16294） -->
 <div class="calc-card compact" id="calc-g7-wind">
   <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h18M3 12l4-4M3 12l4 4"/></svg><h3>风速不均匀度</h3></div>
@@ -3401,24 +3374,6 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
   <div class="std-ref">参考标准：GB 50591-2010《洁净室施工及验收规范》</div>
 </div>
 
-<div class="calc-card compact" id="calc-g7-dp">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h18M3 12l4-4M3 12l4 4"/></svg><h3>静压差（相邻洁净区）</h3></div>
-  <div class="formula-box compact">
-    <div class="flabel">计算公式（GB 50591-2010 / GB 50073-2013）</div>
-    <div class="fcontent">ΔP = P_高 − P_低</div>
-    <div class="note" tabindex="-1">不同级别洁净室之间静压差≥5 Pa，洁净室与非洁净室之间≥5 Pa，与室外≥10 Pa。本卡计算相邻区域实测压差。</div>
-  </div>
-  <div class="calc-body">
-    <div class="input-grid">
-      <div class="input-row"><label>高级别区压力 P高(Pa)</label><input type="number" id="g7dp_ph" step="any"></div>
-      <div class="input-row"><label>低级别区压力 P低(Pa)</label><input type="number" id="g7dp_pl" step="any"></div>
-    </div>
-    <button class="btn-calc" onclick="calcG7Dp()">计算 ΔP(Pa)</button>
-    <div class="result-area compact" id="g7-dp_result"></div>
-  </div>
-  <div class="std-ref">参考标准：GB 50591-2010；GB 50073-2013</div>
-</div>
-
 <div class="calc-card compact" id="calc-g7-fbio">
   <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 12h6"/><path d="M12 9v6"/></svg><h3>浮游菌浓度</h3></div>
   <div class="formula-box compact">
@@ -3486,7 +3441,7 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
   <div class="formula-box">
     <div class="flabel">计算公式（GB/T 18204.2-2025 / GB/T 18883-2022）</div>
     <div class="fcontent">C(mg/m³) = (A − A₀) × B<sub>s</sub> / V<sub>nd</sub><br>
-<span style="font-size:12px;color:var(--text-secondary)">（V<sub>nd</sub> 由本模块“标况采样体积换算 P1”给出：V<sub>nd</sub> = V×(P/101.325)×273.15/(273.15+t)）</span></div>
+<span style="font-size:12px;color:var(--text-secondary)">（V<sub>nd</sub> 由空气模块 A10 标况体积换算给出：V<sub>nd</sub> = V×(P/101.325)×273.15/(273.15+t)）</span></div>
     <div class="note" tabindex="-1">A、A₀ 分别为样品和空白吸光度；B<sub>s</sub> 为计算因子（μg/吸光度），由标准曲线斜率倒数求得；V<sub>nd</sub> 为标准状况下采样体积（L）。GB/T 18883-2022 限量 0.08 mg/m³（1h 均值）。</div>
   </div>
   <div class="calc-body">
@@ -3524,15 +3479,22 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
 <div class="calc-card compact" id="calc-g8-tvoc">
   <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"/></svg><h3>TVOC（总挥发性有机物）</h3></div>
   <div class="formula-box compact">
-    <div class="flabel">计算公式（GC-MS 全扫描 · GB/T 18883-2022 / ISO 16000-6）</div>
-    <div class="fcontent">TVOC = ΣCᵢ（各定性组分浓度之和，甲苯当量）</div>
-    <div class="note" tabindex="-1">以保留时间窗内各色谱峰对应的浓度（以甲苯响应因子换算）求和。结果以 mg/m³ 报出，GB/T 18883-2022 限量 0.60 mg/m³（8h 均值）。</div>
+    <div class="flabel">计算公式（GB/T 18883-2022 附录C / ISO 16000-6）</div>
+    <div class="fcontent multiline">Cᵢ(mg/m³) = mᵢ(ng) / V(L) × 10⁻³<br>TVOC = ΣCᵢ</div>
+    <div class="note" tabindex="-1">mᵢ 为第 i 种定性组分的上机量（ng，由标准曲线反算），V 为标况/参比采样体积（L）。单位链：1 ng/L = 1 μg/m³ = 10⁻³ mg/m³。GB/T 18883-2022 限量 0.60 mg/m³（8h 均值）。</div>
   </div>
   <div class="calc-body">
     <div class="input-grid">
-      <div class="input-row"><label>各组分浓度(逗号分隔, mg/m³)</label><input type="text" id="g8t_vals" placeholder="0.05,0.03,0.02"></div>
+      <div class="input-row"><label>标况/参比体积 V(L)</label><input type="number" id="g8t_v" step="any"></div>
     </div>
-    <button class="btn-calc" onclick="calcG8Tvoc()">计算 TVOC</button>
+    <div id="g8t_rows">
+      <div class="g8t-row" style="display:flex;gap:6px;margin-bottom:5px;">
+        <div class="input-row" style="flex:1;margin-bottom:0;"><label>组分名</label><input type="text" class="g8t-name" placeholder="如: 苯"></div>
+        <div class="input-row" style="flex:1;margin-bottom:0;"><label>上机值(ng)</label><input type="number" class="g8t-m" step="any"></div>
+      </div>
+    </div>
+    <button class="btn-calc outline" onclick="addG8tRow('g8t_rows', '.g8t-row')" style="margin:0 8px 8px 0;min-height:34px;padding:6px 12px;font-size:13px;">＋ 增加组分</button>
+    <button class="btn-calc" onclick="calcG8Tvoc()" style="margin-top:0;">计算 TVOC</button>
     <div class="result-area compact" id="g8-tvoc_result"></div>
   </div>
   <div class="std-ref">参考标准：GB/T 18883-2022《室内空气质量标准》；ISO 16000-6</div>
@@ -3557,40 +3519,28 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
   <div class="std-ref">参考标准：GB/T 16146-2015《室内氡及其子体控制要求》；GB 50325-2020；GB/T 18883-2022</div>
 </div>
 
-<div class="calc-card compact" id="calc-g8-co2">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 12h18M3 12l4-4M3 12l4 4"/></svg><h3>二氧化碳 CO₂（计算/换算）</h3></div>
-  <div class="formula-box compact">
-    <div class="flabel">计算公式（GB/T 18204.2-2025 / GB/T 18883）</div>
-    <div class="fcontent">浓度通常为仪器直读；本卡提供 ppm→mg/m³ 换算</div>
-    <div class="note" tabindex="-1">CO₂ 质量浓度 ρ(mg/m³) = C(ppm) × 1.977。GB/T 18883-2022 限量 0.10%（体积分数，≈1000 ppm，1h 平均）。</div>
-  </div>
-  <div class="calc-body">
-    <div class="input-grid">
-      <div class="input-row"><label>CO₂ 浓度(ppm)</label><input type="number" id="g8c_ppm" step="any"></div>
-    </div>
-    <button class="btn-calc" onclick="calcG8Co2()">计算 mg/m³</button>
-    <div class="result-area compact" id="g8-co2_result"></div>
-  </div>
-  <div class="std-ref">参考标准：GB/T 18204.2-2025；GB/T 18883-2022</div>
-</div>
-
 <div class="calc-card compact" id="calc-g8-pm">
-  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"/></svg><h3>PM2.5 / PM10 质量浓度</h3></div>
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2c-4 6-8 10-8 14a8 8 0 1016 0c0-4-4-8-8-14z"/></svg><h3>PM2.5 / PM10 质量浓度（恒重法）</h3></div>
   <div class="formula-box compact">
-    <div class="flabel">计算公式（重量法 · HJ 618 / GB/T 18883）</div>
-    <div class="fcontent">ρ(mg/m³) = (m − m₀) × 1000 / V<sub>nd</sub></div>
-    <div class="note" tabindex="-1">m₀ 空白滤膜质量(mg)，m 采样后质量(mg)，Vₙ𝒹 标况采气体积(L)。GB/T 18883-2022 限量 PM2.5 24h平均 0.075 mg/m³、PM10 24h平均 0.15 mg/m³。</div>
+    <div class="flabel">计算公式（重量法 · HJ 618-2011 / HJ 656 / GB/T 18883）</div>
+    <div class="fcontent multiline">ρ(mg/m³) = ( m̄<sub>后</sub> − m̄<sub>前</sub> ) × 10<sup>6</sup> / V<sub>nd</sub><br>恒重判定：|m<sub>前1</sub>−m<sub>前2</sub>| ≤ 允差 且 |m<sub>后1</sub>−m<sub>后2</sub>| ≤ 允差</div>
+    <div class="note" tabindex="-1">采样前后滤膜各 2 次恒重称量，质量单位 <b>g</b>；Vₙ𝒹 标况采气体积(L)。天平精度 十万分之一 恒重允差 0.0004 g、万分之一 0.0010 g。恒重不合格不输出浓度。GB/T 18883-2022 限量 PM2.5 24h平均 0.075 mg/m³、PM10 24h平均 0.15 mg/m³。</div>
   </div>
   <div class="calc-body">
     <div class="input-grid">
-      <div class="input-row"><label>空白滤膜 m₀(mg)</label><input type="number" id="g8p_m0" step="any"></div>
-      <div class="input-row"><label>采样后 m(mg)</label><input type="number" id="g8p_m" step="any"></div>
-      <div class="input-row"><label>标况体积 Vₙ𝒹(L)</label><input type="number" id="g8p_v" step="any"></div>
+      <div class="input-row"><label>天平精度</label><select id="g8p_prec">
+        <option value="0.0004">十万分之一（恒重差≤0.4 mg）</option>
+        <option value="0.0010">万分之一（恒重差≤1.0 mg）</option></select></div>
+      <div class="input-row"><label>采样前质量1 m<sub>前1</sub>(g)</label><input type="number" id="g8p_mb1" step="any"></div>
+      <div class="input-row"><label>采样前质量2 m<sub>前2</sub>(g)</label><input type="number" id="g8p_mb2" step="any"></div>
+      <div class="input-row"><label>采样后质量1 m<sub>后1</sub>(g)</label><input type="number" id="g8p_ma1" step="any"></div>
+      <div class="input-row"><label>采样后质量2 m<sub>后2</sub>(g)</label><input type="number" id="g8p_ma2" step="any"></div>
+      <div class="input-row"><label>标况体积 V<sub>nd</sub>(L)</label><input type="number" id="g8p_vnd" step="any"></div>
     </div>
     <button class="btn-calc" onclick="calcG8Pm()">计算 mg/m³</button>
     <div class="result-area compact" id="g8-pm_result"></div>
   </div>
-  <div class="std-ref">参考标准：HJ 618-2011；GB/T 18883-2022</div>
+  <div class="std-ref">参考标准：HJ 618-2011；HJ 656-2013；GB/T 18883-2022</div>
 </div>
 
 <div class="calc-card compact" id="calc-g8-nh3">
@@ -3689,6 +3639,25 @@ E<sub>avg</sub> = ΣE<sub>i</sub> / n</div>
   </div>
   <div class="std-ref">参考标准：GB 7793-2025《中小学校教室采光和照明卫生标准》</div>
 </div>
+
+<!-- 学校 课桌椅分配符合率（GB/T 18205-2012 / GB 3976-2014） -->
+<div class="calc-card compact" id="calc-g9-deskfit">
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8"/><path d="M12 8v8"/></svg><h3>课桌椅分配符合率</h3></div>
+  <div class="formula-box compact">
+    <div class="flabel">计算公式（GB/T 18205-2012 / GB 3976-2014）</div>
+    <div class="fcontent">符合率 = 身高匹配合格数 / 抽查课桌椅数 × 100%</div>
+    <div class="note" tabindex="-1">按 GB/T 18205-2012《学校卫生综合评价》抽查课桌椅并与学生身高逐一核对匹配情况。仅输出百分率，不做达标判定。</div>
+  </div>
+  <div class="calc-body">
+    <div class="input-grid">
+      <div class="input-row"><label>抽查课桌椅数 n(件)</label><input type="number" id="g9df_n" step="any"></div>
+      <div class="input-row"><label>身高匹配合格数 k(件)</label><input type="number" id="g9df_k" step="any"></div>
+    </div>
+    <button class="btn-calc" onclick="calcG9DeskFit()">计算 符合率</button>
+    <div class="result-area compact" id="g9-deskfit_result"></div>
+  </div>
+  <div class="std-ref">参考标准：GB/T 18205-2012《学校卫生综合评价》；GB 3976-2014《学校课桌椅功能尺寸及技术要求》</div>
+</div>
 </div>
 
 <!-- P-G10: 一次性使用卫生用品 -->
@@ -3701,7 +3670,7 @@ E<sub>avg</sub> = ΣE<sub>i</sub> / n</div>
   </div>
   <div class="formula-box">
     <div class="flabel">计算公式（GB 15979-2024）</div>
-    <div class="fcontent">N(CFU/g 或 CFU/mL) = ΣC / (n₁ + 0.1 n₂) × d × k<br>
+    <div class="fcontent multiline">N(CFU/g 或 CFU/mL) = ΣC / (n₁ + 0.1 n₂) × d × k<br>
 （典型：N = 平均菌落数 × 稀释倍数）</div>
     <div class="note" tabindex="-1">样品按标准方法稀释后倾注平板，计数 30~300 CFU 的平板。若两个连续稀释度均有计数，按 GB 15979-2024 第5章检验方法计数。一次性使用卫生用品普通级细菌菌落总数 ≤ 200 CFU/g（或 CFU/mL），消毒级 ≤ 20 CFU/g。</div>
   </div>
@@ -3771,6 +3740,34 @@ E<sub>avg</sub> = ΣE<sub>i</sub> / n</div>
     <div class="result-area compact" id="g10-path_result"></div>
   </div>
   <div class="std-ref">参考标准：GB 15979-2024《一次性使用卫生用品卫生要求》</div>
+</div>
+
+<!-- g10-surface: 生产环境微生物（GB 15979-2024 附录A：空气/手/工作台） -->
+<div class="calc-card compact" id="calc-g10-surface">
+  <div class="calc-header"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 12h6"/><path d="M12 9v6"/></svg><h3>生产环境微生物（GB 15979-2024 附录A）</h3></div>
+  <div class="formula-box compact">
+    <div class="flabel">计算公式（GB 15979-2024 第5.2条 / 附录A）</div>
+    <div class="fcontent multiline">空气(采样器法)：N = CFU×1000/(Q×t) CFU/m³<br>空气(平皿暴露法)：直接报 CFU/(皿·5min)<br>表面：N = 菌落数/采样面积(cm²)；手：CFU/只手</div>
+    <div class="note" tabindex="-1">空气细菌菌落总数：空气采样器法 ≤2500 CFU/m³ 或平皿暴露法 ≤16 CFU/(皿·5min)；工人手表面 ≤300 CFU/只手(套)；工作台表面 ≤20 CFU/cm²（GB 15979-2024 附录A）。</div>
+  </div>
+  <div class="calc-body">
+    <div class="input-grid">
+      <div class="input-row"><label>表面类型</label><select id="g10s_type">
+        <option value="air">空气细菌菌落总数</option>
+        <option value="hand">工人手表面细菌菌落总数</option>
+        <option value="bench">工作台表面细菌菌落总数</option></select></div>
+      <div class="input-row" id="g10s_mrow"><label>采样方法</label><select id="g10s_method">
+        <option value="imp">空气采样器法</option>
+        <option value="plate">平皿暴露法</option></select></div>
+      <div class="input-row"><label>平均菌落数 CFU</label><input type="number" id="g10s_cfu" step="any"></div>
+      <div class="input-row" id="g10s_qrow"><label>采样流量 Q(L/min)</label><input type="number" id="g10s_q" step="any" value="100"></div>
+      <div class="input-row" id="g10s_trow"><label>采样时间 t(min)</label><input type="number" id="g10s_t" step="any" value="1"></div>
+      <div class="input-row" id="g10s_srow" style="display:none"><label>采样面积(cm²)</label><input type="number" id="g10s_s" step="any" value="25"></div>
+    </div>
+    <button class="btn-calc" onclick="calcG10Surface()">计算并判定</button>
+    <div class="result-area compact" id="g10-surface_result"></div>
+  </div>
+  <div class="std-ref">GB 15979-2024《一次性使用卫生用品卫生要求》第5.2条、附录A（空气≤2500 CFU/m³ 或 ≤16 CFU/(皿·5min)；工作台≤20 CFU/cm²；手≤300 CFU/只手）</div>
 </div>
 </div>
 
@@ -3937,6 +3934,44 @@ function parseNumList(s) {
   // 兼容英文逗号/中文逗号/顿号/分号/空格/制表符/换行等多种分隔（现场粘贴数据友好）
   return String(s).split(/[,，、;；\s]+/).map(x => parseFloat(x.trim())).filter(v => !isNaN(v));
 }
+
+// ==================== 共享计算 helper（envcalc v51 新增） ====================
+// 恒重判定 + 颗粒物浓度（质量单位统一用 g，输出 mg/m³）。
+// prec 单位 g：十万分之一 恒重允许偏差 0.0004 g / 万分之一 0.0010 g。
+// 返回 { ok, tol, dmb, dma, mbarB, mbarA, dm, C }：
+//   ok    恒重是否合格（前后各 2 次称量差均 ≤ 允差）
+//   dmb   采样前两次称量差 |m前1−m前2|
+//   dma   采样后两次称量差 |m后1−m后2|
+//   mbarB 采样前平均质量 (m前1+m前2)/2
+//   mbarA 采样后平均质量 (m后1+m后2)/2
+//   dm    平均增重 m̄后−m̄前（g）
+//   C     颗粒物浓度 (m̄后−m̄前)×10⁶/Vnd（mg/m³）
+function weighingCalc(prec, mb1, mb2, ma1, ma2, Vnd) {
+  const tol = prec;
+  const dmb = Math.abs(mb1 - mb2);
+  const dma = Math.abs(ma1 - ma2);
+  const ok = dmb <= tol && dma <= tol;
+  const mbarB = (mb1 + mb2) / 2;
+  const mbarA = (ma1 + ma2) / 2;
+  const dm = mbarA - mbarB;
+  const C = dm * 1e6 / Vnd;
+  return { ok: ok, tol: tol, dmb: dmb, dma: dma, mbarB: mbarB, mbarA: mbarA, dm: dm, C: C };
+}
+
+// TVOC 动态组分行克隆（通用）：以容器内首个 .tvoc-row 为模板克隆新行并清空输入。
+// 容器 id 由调用方传入，默认 'g8t_rows'；行模板类默认 '.tvoc-row'。
+function addG8tRow(containerId, rowClass) {
+  const cid = containerId || 'g8t_rows';
+  const rc = rowClass || '.tvoc-row';
+  const box = document.getElementById(cid);
+  if (!box) return;
+  const tpl = box.querySelector(rc);
+  if (!tpl) return;
+  const clone = tpl.cloneNode(true);
+  clone.querySelectorAll('input, select').forEach(function (el) { el.value = ''; });
+  box.appendChild(clone);
+}
+
 
 // ==================== WATER CALCULATIONS ====================
 function calcWaterStdIndex() {
@@ -4494,14 +4529,28 @@ function calcAirEmissionRate() {
 }
 
 function calcDustConc() {
-  const g2 = parseFloat(document.getElementById('a20_g2').value);
-  const g1 = parseFloat(document.getElementById('a20_g1').value);
+  const prec = parseFloat(document.getElementById('a20_prec').value);
+  const mb1 = parseFloat(document.getElementById('a20_mb1').value);
+  const mb2 = parseFloat(document.getElementById('a20_mb2').value);
+  const ma1 = parseFloat(document.getElementById('a20_ma1').value);
+  const ma2 = parseFloat(document.getElementById('a20_ma2').value);
   const Vnd = parseFloat(document.getElementById('a20_vnd').value);
-  if (isNaN(g2) || isNaN(g1) || isNaN(Vnd)) { alert('请输入有效数值'); return; }
+  if ([mb1,mb2,ma1,ma2].some(isNaN) || isNaN(Vnd)) { alert('请输入采样前后各 2 次称量质量与标况采样体积'); return; }
   if (Vnd <= 0) { alert('标况采样体积必须 > 0'); return; }
-  const C = (g2 - g1) * 1e6 / Vnd;
-  showResult('a20_result', fmtNum(C, 2) + ' mg/m³', 'C = (' + g2 + ' − ' + g1 + ') × 10⁶ / ' + Vnd + ' = ' + fmtNum(C,2) + ' mg/m³', 'neutral');
-  window._a20_data = {g2, g1, Vnd, C};
+  const r = weighingCalc(prec, mb1, mb2, ma1, ma2, Vnd);
+  if (!r.ok) {
+    showResult('a20_result', '恒重不合格',
+      '恒重判定失败：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dmb > r.tol ? ' 超限' : ' 合格')
+      + '；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dma > r.tol ? ' 超限' : ' 合格')
+      + '<br>须继续干燥至恒重后再称量，暂不输出浓度。', 'fail');
+    window._a20_data = {prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, Vnd: Vnd, ok: false, dmb: r.dmb, dma: r.dma};
+    return;
+  }
+  showResult('a20_result', fmtNum(r.C,2) + ' mg/m³',
+    '<span class="r-interpret pass">✓ 恒重合格</span>：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g<br>'
+    + 'm̄前 = (' + fmtNum(mb1,4) + '+' + fmtNum(mb2,4) + ')/2 = ' + fmtNum(r.mbarB,4) + ' g；m̄后 = (' + fmtNum(ma1,4) + '+' + fmtNum(ma2,4) + ')/2 = ' + fmtNum(r.mbarA,4) + ' g<br>'
+    + 'C = (m̄后−m̄前)×10⁶/V<sub>nd</sub> = (' + fmtNum(r.mbarA,4) + '−' + fmtNum(r.mbarB,4) + ')×10⁶/' + fmtNum(Vnd,1) + ' = <b>' + fmtNum(r.C,2) + '</b> mg/m³', 'pass');
+  window._a20_data = {prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, Vnd: Vnd, ok: true, dmb: r.dmb, dma: r.dma, C: r.C};
 }
 
 function calcDustEmission() {
@@ -5152,7 +5201,8 @@ function calcO1(){
   const pmeas=parseFloat(document.getElementById('o1_pmeas').value);
   const pminManual=document.getElementById('o1_pmin_manual').value.trim();
   if (isNaN(V)||isNaN(tch)||isNaN(tb)||isNaN(pmeas)){ alert('请输入油气空间、充压时间、预算时间、5min后压力'); return; }
-  const condOk = !(tch > 3*tb);
+  // 检测条件：GB 20952-2020 附录B B.7.1，t充 ≤ 2×t预算（原 3 倍判定已按标准修正）
+  const condOk = tch <= 2*tb;
   let pmin;
   if (pminManual!==''){ pmin=parseFloat(pminManual); }
   else {
@@ -5160,17 +5210,17 @@ function calcO1(){
     for (const r of O1_PMIN){ const d=Math.abs(r[0]-V); if (d<bd){ bd=d; best=r; } }
     pmin=best[1];
   }
-  let verdict, cls, detail='最小剩余压力限值 P_min='+fmtNum(pmin,0)+' Pa（GB20952-2020 表2，1~6枪）；实测剩余='+fmtNum(pmeas,0)+' Pa<br>';
-  if (!condOk){
-    verdict='不具备气密性检测条件（充压时间 '+fmtNum(tch,1)+'s > 3×预算 '+fmtNum(3*tb,1)+'s，系统泄漏严重）';
-    cls='fail'; detail='充压时间超过预算时间3倍，按 GB20952 判定不具备检测条件。<br>';
-  } else {
-    const pass = pmeas>=pmin;
-    verdict = pass?'密闭性合格（剩余压力≥限值）':'密闭性不合格（剩余压力低于限值）';
-    cls = pass?'pass':'fail';
-  }
-  showResult('o1_result', verdict, detail, cls);
-  window._o1 = {V:V, tch:tch, tb:tb, pmeas:pmeas, pmin:pmin, condOk:condOk};
+  // ② 密闭性合格判定：P5min ≥ Pmin（与检测条件判定并存、互不冲突）
+  const sealPass = pmeas>=pmin;
+  const sealText = sealPass ? '密闭性合格（剩余压力≥限值）' : '密闭性不合格（剩余压力低于限值）';
+  // ① 检测条件判定（主结果徽标）
+  const condText = condOk ? '符合检测条件' : '不符合继续检测条件';
+  const condCls = condOk ? 'pass' : 'fail';
+  const detail = '【密闭性合格判定】' + sealText + '：实测剩余压力 ' + fmtNum(pmeas,0) + ' Pa，最小剩余压力限值 P_min=' + fmtNum(pmin,0) + ' Pa（GB20952-2020 表2，1~6枪）<br>'
+    + '【检测条件判定】t<sub>充</sub>=' + fmtNum(tch,1) + ' s，t<sub>预算</sub>=' + fmtNum(tb,1) + ' s，2×t<sub>预算</sub>=' + fmtNum(2*tb,1) + ' s<br>'
+    + 't<sub>充</sub> ' + (condOk ? '≤' : '＞') + ' 2×t<sub>预算</sub> → ' + (condOk ? '符合检测条件（可继续密闭性检测）' : '不符合继续检测条件（充压时间超过预算时间2倍，系统泄漏严重，按 GB 20952-2020 附录B B.7.1 停止检测）');
+  showResult('o1_result', condText, detail, condCls);
+  window._o1 = {V:V, tch:tch, tb:tb, pmeas:pmeas, pmin:pmin, condOk:condOk, sealPass:sealPass};
 }
 
 // ---- O2 气液比 ----
@@ -5562,28 +5612,28 @@ function _w16Infer(o){
     function set(k,val){ if(val===null||isNaN(val)) return false; if(o[k]===null){ o[k]=val; return true; } return false; }
     function check(k,val,src){ if(val===null||isNaN(val)) return; if(o[k]!==null && Math.abs(o[k]-val)>EPS){ throw new Error(k+' 矛盾：由 '+src+' 计算得 '+fmtNum(val,3)+'，但已输入 '+fmtNum(o[k],3)); } }
     // G / Wt / Hg
-    if(G!==null && Hg!==null){ check('Wt',G+Hg,'G+Hg'); set('Wt',G+Hg); }
-    if(Wt!==null && G!==null){ check('Hg',Wt-G,'Wt-G'); set('Hg',Wt-G); }
-    if(Wt!==null && Hg!==null){ check('G',Wt-Hg,'Wt-Hg'); set('G',Wt-Hg); }
+    if(G!==null && Hg!==null){ check('Wt',G+Hg,'G+Hg'); if(set('Wt',G+Hg)) changed=true; }
+    if(Wt!==null && G!==null){ check('Hg',Wt-G,'Wt-G'); if(set('Hg',Wt-G)) changed=true; }
+    if(Wt!==null && Hg!==null){ check('G',Wt-Hg,'Wt-Hg'); if(set('G',Wt-Hg)) changed=true; }
     // Wt / Wb / D
-    if(Wt!==null && Wb!==null){ check('D',Wt-Wb,'Wt-Wb'); set('D',Wt-Wb); }
-    if(Wt!==null && D!==null){ check('Wb',Wt-D,'Wt-D'); set('Wb',Wt-D); }
-    if(Wb!==null && D!==null){ check('Wt',Wb+D,'Wb+D'); set('Wt',Wb+D); }
+    if(Wt!==null && Wb!==null){ check('D',Wt-Wb,'Wt-Wb'); if(set('D',Wt-Wb)) changed=true; }
+    if(Wt!==null && D!==null){ check('Wb',Wt-D,'Wt-D'); if(set('Wb',Wt-D)) changed=true; }
+    if(Wb!==null && D!==null){ check('Wt',Wb+D,'Wb+D'); if(set('Wt',Wb+D)) changed=true; }
     // Wt / H / B
-    if(Wt!==null && H!==null){ check('B',Wt-H,'Wt-H'); set('B',Wt-H); }
-    if(Wt!==null && B!==null){ check('H',Wt-B,'Wt-B'); set('H',Wt-B); }
-    if(H!==null && B!==null){ check('Wt',H+B,'H+B'); set('Wt',H+B); }
+    if(Wt!==null && H!==null){ check('B',Wt-H,'Wt-H'); if(set('B',Wt-H)) changed=true; }
+    if(Wt!==null && B!==null){ check('H',Wt-B,'Wt-B'); if(set('H',Wt-B)) changed=true; }
+    if(H!==null && B!==null){ check('Wt',H+B,'H+B'); if(set('Wt',H+B)) changed=true; }
     // H / Wb / Hw
-    if(H!==null && Wb!==null){ check('Hw',H-Wb,'H-Wb'); set('Hw',H-Wb); }
-    if(H!==null && Hw!==null){ check('Wb',H-Hw,'H-Hw'); set('Wb',H-Hw); }
-    if(Wb!==null && Hw!==null){ check('H',Wb+Hw,'Wb+Hw'); set('H',Wb+Hw); }
+    if(H!==null && Wb!==null){ check('Hw',H-Wb,'H-Wb'); if(set('Hw',H-Wb)) changed=true; }
+    if(H!==null && Hw!==null){ check('Wb',H-Hw,'H-Hw'); if(set('Wb',H-Hw)) changed=true; }
+    if(Wb!==null && Hw!==null){ check('H',Wb+Hw,'Wb+Hw'); if(set('H',Wb+Hw)) changed=true; }
     // D / B / Hw
-    if(D!==null && B!==null){ check('Hw',D-B,'D-B'); set('Hw',D-B); }
-    if(D!==null && Hw!==null){ check('B',D-Hw,'D-Hw'); set('B',D-Hw); }
-    if(B!==null && Hw!==null){ check('D',B+Hw,'B+Hw'); set('D',B+Hw); }
+    if(D!==null && B!==null){ check('Hw',D-B,'D-B'); if(set('Hw',D-B)) changed=true; }
+    if(D!==null && Hw!==null){ check('B',D-Hw,'D-Hw'); if(set('B',D-Hw)) changed=true; }
+    if(B!==null && Hw!==null){ check('D',B+Hw,'B+Hw'); if(set('D',B+Hw)) changed=true; }
     // 通过 Hg 关联的跨链推导：G=Wb+D-Hg 等
-    if(G!==null && D!==null && Hg!==null){ check('Wb',G+Hg-D,'G+Hg-D'); set('Wb',G+Hg-D); }
-    if(G!==null && B!==null && Hg!==null){ check('H',G+Hg-B,'G+Hg-B'); set('H',G+Hg-B); }
+    if(G!==null && D!==null && Hg!==null){ check('Wb',G+Hg-D,'G+Hg-D'); if(set('Wb',G+Hg-D)) changed=true; }
+    if(G!==null && B!==null && Hg!==null){ check('H',G+Hg-B,'G+Hg-B'); if(set('H',G+Hg-B)) changed=true; }
   }
 }
 function calcW16(){
@@ -5612,49 +5662,50 @@ function clearW16(){
   const r=document.getElementById('w16_result'); if(r){ r.className='result-area'; r.innerHTML=''; }
 }
 
-// ---- P1 标况采样体积换算 ----
-function calcP1(){
-  const V=parseFloat(document.getElementById('p1_v').value);
-  const P=parseFloat(document.getElementById('p1_p').value);
-  const t=parseFloat(document.getElementById('p1_t').value);
-  if([V,P,t].some(isNaN)||V<0||P<=0){ alert('请输入有效的工况体积、大气压和温度'); return; }
-  const Vnd=V*(P/101.325)*(273.15/(273.15+t));
-  showResult('p1_result','V<sub>nd</sub> = '+fmtNum(Vnd,2)+' L',
-    'V<sub>nd</sub> = V×(P/101.325)×[273.15/(273.15+t)]<br>'
-    +'= '+fmtNum(V,2)+'×('+fmtNum(P,3)+'/101.325)×[273.15/'+(273.15+t).toFixed(2)+'] = '+fmtNum(Vnd,2)+' L',
-    'neutral');
-  window._p1={V,P,t,Vnd};
-}
-
 // ---- P1b 颗粒物/降尘浓度 ----
 function calcP1b(){
-  const type=document.getElementById('p1b_type').value;
-  const m0=parseFloat(document.getElementById('p1b_m0').value);
-  const m=parseFloat(document.getElementById('p1b_m').value);
-  if(isNaN(m0)||isNaN(m)){ alert('请输入采样前后质量'); return; }
-  const dm=m-m0;
-  if(type==='tsp'){
-    const V=parseFloat(document.getElementById('p1b_v').value);
-    if(isNaN(V)||V<=0){ alert('请输入标况采样体积'); return; }
-    const C=dm/V*1e6;
-    showResult('p1b_result','C = '+fmtNum(C,2)+' mg/m³',
-      '增重 Δm = '+fmtNum(dm,4)+' g<br>V<sub>nd</sub> = '+fmtNum(V,1)+' L<br>C = Δm/V×10⁶ = '+fmtNum(C,2)+' mg/m³','neutral');
-    window._p1b={type,dm,V,C};
+  const type = document.getElementById('p1b_type').value;
+  if(type === 'tsp'){
+    const prec = parseFloat(document.getElementById('p1b_prec').value);
+    const mb1 = parseFloat(document.getElementById('p1b_mb1').value);
+    const mb2 = parseFloat(document.getElementById('p1b_mb2').value);
+    const ma1 = parseFloat(document.getElementById('p1b_ma1').value);
+    const ma2 = parseFloat(document.getElementById('p1b_ma2').value);
+    const V = parseFloat(document.getElementById('p1b_vnd').value);
+    if([mb1,mb2,ma1,ma2].some(isNaN) || isNaN(V)){ alert('请输入采样前后各 2 次称量质量与标况采样体积'); return; }
+    if(V <= 0){ alert('标况采样体积必须 > 0'); return; }
+    const r = weighingCalc(prec, mb1, mb2, ma1, ma2, V);
+    if(!r.ok){
+      showResult('p1b_result', '恒重不合格',
+        '恒重判定失败：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dmb > r.tol ? ' 超限' : ' 合格')
+        + '；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dma > r.tol ? ' 超限' : ' 合格')
+        + '<br>须继续干燥至恒重后再称量，暂不输出浓度。', 'fail');
+      window._p1b = {type: type, prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, V: V, ok: false, dmb: r.dmb, dma: r.dma};
+      return;
+    }
+    showResult('p1b_result', fmtNum(r.C,2) + ' mg/m³',
+      '<span class="r-interpret pass">✓ 恒重合格</span>：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g<br>'
+      + 'm̄前 = (' + fmtNum(mb1,4) + '+' + fmtNum(mb2,4) + ')/2 = ' + fmtNum(r.mbarB,4) + ' g；m̄后 = (' + fmtNum(ma1,4) + '+' + fmtNum(ma2,4) + ')/2 = ' + fmtNum(r.mbarA,4) + ' g<br>'
+      + 'C = (m̄后−m̄前)×10⁶/V<sub>nd</sub> = (' + fmtNum(r.mbarA,4) + '−' + fmtNum(r.mbarB,4) + ')×10⁶/' + fmtNum(V,1) + ' = <b>' + fmtNum(r.C,2) + '</b> mg/m³', 'pass');
+    window._p1b = {type: type, prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, V: V, ok: true, dmb: r.dmb, dma: r.dma, C: r.C};
   } else {
-    const S=parseFloat(document.getElementById('p1b_s').value);
-    const td=parseFloat(document.getElementById('p1b_td').value);
-    if(isNaN(S)||isNaN(td)||S<=0||td<=0){ alert('请输入集尘缸面积和采样天数'); return; }
-    const C=dm/(S*td)*30*1e6; // g/m²·月
+    const m0 = parseFloat(document.getElementById('p1b_m0').value);
+    const m = parseFloat(document.getElementById('p1b_m').value);
+    const S = parseFloat(document.getElementById('p1b_s').value);
+    const td = parseFloat(document.getElementById('p1b_td').value);
+    if(isNaN(m0) || isNaN(m)){ alert('请输入降尘缸采样前后质量'); return; }
+    if(isNaN(S) || isNaN(td) || S <= 0 || td <= 0){ alert('请输入集尘缸面积和采样天数'); return; }
+    const dm = m - m0;
+    const C = dm/(S*td)*30*1e4; // HJ 1221-2021：A(cm²), ×30×10⁴ → t/km²·30d
     showResult('p1b_result','降尘量 = '+fmtNum(C,2)+' t/km²·月',
       'Δm = '+fmtNum(dm,4)+' g；S='+fmtNum(S,4)+' m²；t='+fmtNum(td,1)+' d<br>月降尘量 = Δm/(S×t)×30×10⁶ = '+fmtNum(C,2)+' t/km²·月','neutral');
-    window._p1b={type,dm,S,td,C};
+    window._p1b = {type: type, m0: m0, m: m, S: S, td: td, C: C};
   }
 }
 document.getElementById('p1b_type').addEventListener('change',function(){
-  const t=this.value;
-  document.getElementById('p1b_vrow').style.display=t==='tsp'?'flex':'none';
-  document.getElementById('p1b_srow').style.display=t==='dust'?'flex':'none';
-  document.getElementById('p1b_trow').style.display=t==='dust'?'flex':'none';
+  const t = this.value;
+  document.getElementById('p1b_tsp_rows').style.display = t === 'tsp' ? 'block' : 'none';
+  document.getElementById('p1b_dust_rows').style.display = t === 'dust' ? 'block' : 'none';
 });
 
 // ---- P2 BOD5 ----
@@ -5730,27 +5781,13 @@ function calcP5(){
 function calcP6(){
   const m0=parseFloat(document.getElementById('p6_m0').value);
   const m=parseFloat(document.getElementById('p6_m').value);
-  const L=parseFloat(document.getElementById('p6_l').value);
-  const W=parseFloat(document.getElementById('p6_w').value);
-  if([m0,m,L,W].some(isNaN)||L<=0||W<=0){ alert('请输入有效质量与采样框尺寸'); return; }
+  const S=parseFloat(document.getElementById('p6_s').value);
+  if([m0,m,S].some(isNaN)||S<=0){ alert('请输入有效质量与采样面积（cm²）'); return; }
   const dm=m-m0;
-  const area=L*W/10000; // cm² → m²
-  const dust=dm/area;
+  const dust=dm/S*1e4; // g/cm² → g/m²
   showResult('p6_result','积尘量 = '+fmtNum(dust,2)+' g/m²',
-    'Δm = '+fmtNum(dm,4)+' g；S = '+fmtNum(L,1)+'×'+fmtNum(W,1)+' cm² = '+fmtNum(area,4)+' m²<br>积尘量 = Δm/S = '+fmtNum(dust,2)+' g/m²','neutral');
-  window._p6={m0,m,L,W,dust};
-}
-
-// ---- P7 悬浮粒子浓度 ----
-function calcP7(){
-  const Q=parseFloat(document.getElementById('p7_q').value);
-  const t=parseFloat(document.getElementById('p7_t').value);
-  const N=parseFloat(document.getElementById('p7_n').value);
-  if([Q,t,N].some(isNaN)||Q<=0||t<=0){ alert('请输入有效流量、时间与计数'); return; }
-  const V=Q*t; const C=N*1000/V;
-  showResult('p7_result','C = '+fmtNum(C,0)+' 粒/m³',
-    '采样体积 V = Q×t = '+fmtNum(Q,1)+'×'+fmtNum(t,1)+' = '+fmtNum(V,1)+' L<br>浓度 = N×1000/V = '+fmtNum(C,0)+' 粒/m³','neutral');
-  window._p7={Q,t,N,V,C};
+    'Δm = '+fmtNum(dm,4)+' g；S = '+fmtNum(S,1)+' cm² = '+fmtNum(S/1e4,4)+' m²<br>积尘量 W = Δm/S = '+fmtNum(dm,4)+'/'+fmtNum(S/1e4,4)+' = '+fmtNum(dust,2)+' g/m²','neutral');
+  window._p6={m0,m,S,dust};
 }
 
 // ---- P8 甲醛浓度 ----
@@ -6210,14 +6247,42 @@ function calcOdIndex(){
 
 // ==================== 污染物模块 p-g1 空气和废气（2026-08-21 新增） ====================
 function calcNmhc(){
-  const th = parseFloat(document.getElementById('g1_nmhc_th').value);
-  const ch4 = parseFloat(document.getElementById('g1_nmhc_ch4').value);
-  if([th,ch4].some(isNaN)){ alert('请输入总烃与甲烷浓度（mg/m³）'); return; }
-  const nmhc = th - ch4;
+  const scene = document.getElementById('g1_nmhc_scene').value;
+  const mode = document.getElementById('g1_nmhc_mode').value;
+  let cth, cch4, detail;
+  if(mode === 'area'){
+    const at = parseFloat(document.getElementById('g1_nmhc_at').value);
+    const ac = parseFloat(document.getElementById('g1_nmhc_ac').value);
+    const a = parseFloat(document.getElementById('g1_nmhc_a').value) || 0;
+    const b = parseFloat(document.getElementById('g1_nmhc_b').value);
+    if(isNaN(at) || isNaN(ac) || isNaN(b) || b === 0){ alert('峰面积模式下请输入 A总/A甲/截距a/斜率b（b≠0）'); return; }
+    cth = (at - a) / b;
+    cch4 = (ac - a) / b;
+    detail = '总烃 C=(A−a)/b=(' + fmtNum(at,3) + '−' + fmtNum(a,3) + ')/' + fmtNum(b,4) + '=' + fmtNum(cth,4) + ' mg/m³<br>'
+      + '甲烷同式 = (' + fmtNum(ac,3) + '−' + fmtNum(a,3) + ')/' + fmtNum(b,4) + '=' + fmtNum(cch4,4) + ' mg/m³<br>';
+  } else {
+    cth = parseFloat(document.getElementById('g1_nmhc_cth').value);
+    cch4 = parseFloat(document.getElementById('g1_nmhc_cch4').value);
+    if(isNaN(cth) || isNaN(cch4)){ alert('请输入总烃/甲烷浓度（mg/m³）'); return; }
+    detail = '直接输入标况干基浓度：总烃 ' + fmtNum(cth,3) + '、甲烷 ' + fmtNum(cch4,3) + ' mg/m³<br>';
+  }
+  const nmhc = cth - cch4;
+  const lim = scene === 'org' ? 120 : 4.0;   // GB 16297-1996 表1 有组织 120 / 表2 无组织 4.0
+  const limText = scene === 'org'
+    ? 'GB 16297-1996 表1 最高允许排放浓度 120 mg/m³（行业标准优先）'
+    : 'GB 16297-1996 表2 无组织监控浓度限值 4.0 mg/m³（周界外浓度最高点）';
   showResult('g1_nmhc_result', fmtNum(nmhc,3) + ' mg/m³',
-    'NMHC = 总烃 − 甲烷 = ' + fmtNum(th,3) + ' − ' + fmtNum(ch4,3) + ' = ' + fmtNum(nmhc,3) + ' mg/m³', 'neutral');
-  window._g1_nmhc_data = {th, ch4, nmhc};
+    detail + 'NMHC = 总烃 − 甲烷 = ' + fmtNum(cth,3) + ' − ' + fmtNum(cch4,3) + ' = <b>' + fmtNum(nmhc,3) + '</b> mg/m³<br>'
+    + limText + ' → ' + (nmhc <= lim ? '达标' : '超标'),
+    nmhc <= lim ? 'pass' : 'fail');
+  window._g1_nmhc_data = {scene: scene, mode: mode, cth: cth, cch4: cch4, nmhc: nmhc};
 }
+// 输入方式切换显隐（area 模式：峰面积组；conc 模式：浓度组）
+document.getElementById('g1_nmhc_mode').addEventListener('change', function(){
+  const area = this.value === 'area';
+  ['at','ac','a','b'].forEach(function(k){ document.getElementById('g1_nmhc_row_' + k).style.display = area ? 'flex' : 'none'; });
+  ['cth','cch4'].forEach(function(k){ document.getElementById('g1_nmhc_row_' + k).style.display = area ? 'none' : 'flex'; });
+});
 
 function calcGcEs(){
   const as = parseFloat(document.getElementById('g1_gces_as').value);
@@ -6269,32 +6334,65 @@ function calcSpecGas(){
 }
 
 function calcOilPurifyG1(){
-  const c1 = parseFloat(document.getElementById('g1_oil_c1').value);
-  const c2 = parseFloat(document.getElementById('g1_oil_c2').value);
-  const lim = parseFloat(document.getElementById('g1_oil_lim').value);
-  if([c1,c2,lim].some(isNaN) || c1===0){ alert('请输入 C前、C后、限值'); return; }
-  const eta = (c1-c2)/c1*100;
-  const fail = c2>lim;
-  const cls = fail ? 'fail' : 'pass';
-  const label = fail ? '超标' : '达标';
-  showResult('g1_oil_result', fmtNum(eta,1) + '%（净化后 ' + fmtNum(c2,3) + ' mg/m³ ' + label + '）',
-    'η = (C前−C后)/C前 = (' + fmtNum(c1,3) + '−' + fmtNum(c2,3) + ')/' + fmtNum(c1,3) + '×100% = ' + fmtNum(eta,1) + '%<br>净化后浓度 ' + fmtNum(c2,3) + ' mg/m³，限值 ' + fmtNum(lim,2) + ' mg/m³ → ' + label, cls);
-  window._g1_oil_data = {c1, c2, lim, eta, fail};
+  const type = document.getElementById('g1_oil_type').value;
+  if(type === 'purify'){
+    const c1 = parseFloat(document.getElementById('g1_oil_c1').value);
+    const c2 = parseFloat(document.getElementById('g1_oil_c2').value);
+    const lim = parseFloat(document.getElementById('g1_oil_lim').value);
+    if([c1,c2,lim].some(isNaN) || c1 === 0){ alert('请输入 C前、C后、限值'); return; }
+    const eta = (c1 - c2) / c1 * 100;
+    const fail = c2 > lim;
+    const cls = fail ? 'fail' : 'pass';
+    const label = fail ? '超标' : '达标';
+    showResult('g1_oil_result', fmtNum(eta,1) + '%（净化后 ' + fmtNum(c2,3) + ' mg/m³ ' + label + '）',
+      'η = (C前−C后)/C前 = (' + fmtNum(c1,3) + '−' + fmtNum(c2,3) + ')/' + fmtNum(c1,3) + '×100% = ' + fmtNum(eta,1) + '%<br>净化后浓度 ' + fmtNum(c2,3) + ' mg/m³，限值 ' + fmtNum(lim,2) + ' mg/m³ → ' + label, cls);
+    window._g1_oil_data = {type: type, c1: c1, c2: c2, lim: lim, eta: eta, fail: fail};
+  } else if(type === 'hj1077'){
+    const rho1 = parseFloat(document.getElementById('g1_oil_rho1').value);
+    const v1 = parseFloat(document.getElementById('g1_oil_v1').value);
+    const vnd = parseFloat(document.getElementById('g1_oil_vnd').value);
+    if([rho1,v1,vnd].some(isNaN) || vnd === 0){ alert('请输入 ρ₁(mg/L)、V₁(mL)、Vnd(L)'); return; }
+    const rhoPai = rho1 * v1 / vnd;   // mg/L × mL / L → μg/L = mg/m³
+    const lim = 2.0;                  // GB 18483-2001 表2 油烟最高允许排放浓度（统一 2.0 mg/m³）
+    const pass = rhoPai <= lim;
+    showResult('g1_oil_result', fmtNum(rhoPai,3) + ' mg/m³',
+      'ρ<sub>排</sub> = ρ₁×V₁/V<sub>nd</sub> = ' + fmtNum(rho1,4) + '×' + fmtNum(v1,2) + '/' + fmtNum(vnd,2) + ' = ' + fmtNum(rhoPai,3) + ' mg/m³<br>'
+      + '（单位链：1 mg/L × 1 mL = 1 μg，μg/L = mg/m³）<br>限值 2.0 mg/m³（GB 18483-2001 表2）→ ' + (pass ? '达标' : '超标'),
+      pass ? 'pass' : 'fail');
+    window._g1_oil_data = {type: type, rho1: rho1, v1: v1, vnd: vnd, rhoPai: rhoPai, pass: pass};
+  } else {
+    const ce = parseFloat(document.getElementById('g1_oil_ce').value);
+    const qe = parseFloat(document.getElementById('g1_oil_qe').value);
+    const n = parseFloat(document.getElementById('g1_oil_n').value);
+    const qb = parseFloat(document.getElementById('g1_oil_qb').value) || 2000;
+    if([ce,qe,n].some(isNaN) || n === 0 || qe === 0){ alert('请输入 c排、Q排、灶头总数 n（均>0）'); return; }
+    const cBase = ce * qe / (n * qb);
+    const lim = 2.0;
+    const pass = cBase <= lim;
+    showResult('g1_oil_result', fmtNum(cBase,3) + ' mg/m³',
+      'c<sub>基</sub> = c<sub>排</sub>×Q<sub>排</sub>/(n×q<sub>基</sub>) = ' + fmtNum(ce,3) + '×' + fmtNum(qe,1) + '/(' + fmtNum(n,0) + '×' + fmtNum(qb,1) + ') = ' + fmtNum(cBase,3) + ' mg/m³<br>'
+      + '限值 2.0 mg/m³（GB 18483-2001 表2）→ ' + (pass ? '达标' : '超标'),
+      pass ? 'pass' : 'fail');
+    window._g1_oil_data = {type: type, ce: ce, qe: qe, n: n, qb: qb, cBase: cBase, pass: pass};
+  }
 }
-
-function calcOdor(){
-  const mStr = document.getElementById('g1_odor_m').value.trim();
-  const n = parseFloat(document.getElementById('g1_odor_n').value);
-  if(!mStr){ alert('请输入各梯度 M 值（逗号分隔，查 HJ 1262-2022 附录B 表）'); return; }
-  const arr = mStr.split(',').map(s=>parseFloat(s.trim())).filter(x=>!isNaN(x));
-  if(arr.length===0){ alert('M 值无效'); return; }
-  const M = arr.reduce((s,x)=>s+x,0)/arr.length;
-  const S = Math.sqrt(arr.reduce((s,x)=>s+(x-M)*(x-M),0)/arr.length);
-  const result = M + 0.33*S;
-  showResult('g1_odor_result', fmtNum(result,1) + ' OU',
-    'M = ' + fmtNum(M,2) + '，S = ' + fmtNum(S,2) + '<br>臭气浓度 = M + 0.33S = ' + fmtNum(M,2) + ' + 0.33×' + fmtNum(S,2) + ' = ' + fmtNum(result,1) + ' OU（嗅辨员 ' + fmtNum(n,0) + ' 人）', 'neutral');
-  window._g1_odor_data = {arr, M, S, result, n};
-}
+// 计算类型切换显隐
+document.getElementById('g1_oil_type').addEventListener('change', function(){
+  const t = this.value;
+  const showPurify = t === 'purify';
+  const show1077 = t === 'hj1077';
+  const show18483 = t === 'gb18483';
+  document.getElementById('g1_oil_row_c1').style.display = showPurify ? 'flex' : 'none';
+  document.getElementById('g1_oil_row_c2').style.display = showPurify ? 'flex' : 'none';
+  document.getElementById('g1_oil_row_lim').style.display = showPurify ? 'flex' : 'none';
+  document.getElementById('g1_oil_row_rho1').style.display = show1077 ? 'flex' : 'none';
+  document.getElementById('g1_oil_row_v1').style.display = show1077 ? 'flex' : 'none';
+  document.getElementById('g1_oil_row_vnd').style.display = show1077 ? 'flex' : 'none';
+  document.getElementById('g1_oil_row_ce').style.display = show18483 ? 'flex' : 'none';
+  document.getElementById('g1_oil_row_qe').style.display = show18483 ? 'flex' : 'none';
+  document.getElementById('g1_oil_row_n').style.display = show18483 ? 'flex' : 'none';
+  document.getElementById('g1_oil_row_qb').style.display = show18483 ? 'flex' : 'none';
+});
 
 // ==================== 污染物模块 p-g2 水和废水（2026-08-21 新增） ====================
 function calcCodMn(){
@@ -6534,17 +6632,6 @@ function calcG6Micro(){
   window._g6_micro_data={cfu,q,t,C};
 }
 
-function calcG6Pm(){
-  const m0=parseFloat(document.getElementById('g6p_m0').value);
-  const m=parseFloat(document.getElementById('g6p_m').value);
-  const v=parseFloat(document.getElementById('g6p_v').value);
-  if([m0,m,v].some(isNaN)||v===0){ alert('请输入空白滤膜质量、采样后质量、标况体积'); return; }
-  const rho=(m-m0)*1000/v;
-  showResult('g6-pm_result', fmtNum(rho,4)+' mg/m³',
-    'ρ=(m−m₀)×1000/Vₙ𝒹=('+fmtNum(m,3)+'−'+fmtNum(m0,3)+')×1000/'+fmtNum(v,1)+'='+fmtNum(rho,4), 'neutral');
-  window._g6_pm_data={m0,m,v,rho};
-}
-
 function calcG7Wind(){
   const valsStr=document.getElementById('g7w_vals').value.trim();
   const arr=valsStr.split(',').map(s=>parseFloat(s.trim())).filter(x=>!isNaN(x));
@@ -6587,17 +6674,6 @@ function calcG7Leak(){
   showResult('g7-leak_result', fmtNum(rate,2)+' %',
     '漏风率=(q₁−q₂)/q₁×100%=('+fmtNum(q1,0)+'−'+fmtNum(q2,0)+')/'+fmtNum(q1,0)+'×100%='+fmtNum(rate,2)+'%', 'neutral');
   window._g7_leak_data={q1,q2,rate};
-}
-
-function calcG7Dp(){
-  const ph=parseFloat(document.getElementById('g7dp_ph').value);
-  const pl=parseFloat(document.getElementById('g7dp_pl').value);
-  if([ph,pl].some(isNaN)){ alert('请输入 P高、P低'); return; }
-  const dp=ph-pl;
-  const pass = dp>=5;
-  showResult('g7-dp_result', fmtNum(dp,1)+' Pa',
-    'ΔP=P高−P低='+fmtNum(ph,1)+'−'+fmtNum(pl,1)+'='+fmtNum(dp,1)+' Pa<br>要求 ≥5 Pa → '+(pass?'达标':'不足'), pass?'ok':'warn');
-  window._g7_dp_data={ph,pl,dp};
 }
 
 function calcG7Fbio(){
@@ -6646,14 +6722,23 @@ function calcG8Benzene(){
 }
 
 function calcG8Tvoc(){
-  const valsStr=document.getElementById('g8t_vals').value.trim();
-  const arr=valsStr.split(',').map(s=>parseFloat(s.trim())).filter(x=>!isNaN(x));
-  if(arr.length===0){ alert('请输入各组分浓度（逗号分隔）'); return; }
-  const tvoc=arr.reduce((s,x)=>s+x,0);
-  const pass = tvoc <= 0.60;
-  showResult('g8-tvoc_result', fmtNum(tvoc,3)+' mg/m³',
-    'TVOC=ΣCᵢ='+arr.join('+')+'='+fmtNum(tvoc,3)+'<br>GB/T 18883 限值 0.60 mg/m³（8h）→ '+(pass?'达标':'超标'), pass?'ok':'warn');
-  window._g8_tvoc_data={arr,tvoc};
+  const V = parseFloat(document.getElementById('g8t_v').value);
+  if(isNaN(V) || V <= 0){ alert('请输入标况/参比体积 V(L)'); return; }
+  let sum = 0, detail = '', n = 0;
+  document.querySelectorAll('#g8t_rows .g8t-row').forEach(function(r, i){
+    const name = (r.querySelector('.g8t-name').value.trim()) || ('组分' + (i + 1));
+    const m = parseFloat(r.querySelector('.g8t-m').value);
+    if(isNaN(m)) return;
+    const C = m / V * 1e-3;   // ng/L → μg/m³ → 10⁻³ mg/m³
+    sum += C; n++;
+    detail += name + ': Cᵢ = ' + fmtNum(m,2) + ' ng / ' + fmtNum(V,2) + ' L × 10⁻³ = ' + fmtNum(C,4) + ' mg/m³<br>';
+  });
+  if(n === 0){ alert('请至少输入一组上机值'); return; }
+  const pass = sum <= 0.60;
+  showResult('g8-tvoc_result', fmtNum(sum,3) + ' mg/m³',
+    detail + 'TVOC = ΣCᵢ = <b>' + fmtNum(sum,3) + '</b> mg/m³<br>GB/T 18883-2022 限值 0.60 mg/m³（8h 均值）→ ' + (pass ? '达标' : '超标'),
+    pass ? 'pass' : 'fail');
+  window._g8_tvoc_data = {V: V, sum: sum, n: n};
 }
 
 function calcG8Radon(){
@@ -6667,25 +6752,29 @@ function calcG8Radon(){
   window._g8_radon_data={N,E,t,C};
 }
 
-function calcG8Co2(){
-  const ppm=parseFloat(document.getElementById('g8c_ppm').value);
-  if(isNaN(ppm)){ alert('请输入 CO₂ 浓度(ppm)'); return; }
-  const mg=ppm*1.977;
-  const pass = ppm <= 1000;
-  showResult('g8-co2_result', fmtNum(mg,2)+' mg/m³',
-    'ρ(mg/m³)=C(ppm)×1.977='+fmtNum(ppm,0)+'×1.977='+fmtNum(mg,2)+'<br>GB/T 18883-2022 二氧化碳 0.10%(体积分数)≈1000 ppm（1h平均）→ '+(pass?'达标':'超标'), pass?'ok':'warn');
-  window._g8_co2_data={ppm,mg};
-}
-
 function calcG8Pm(){
-  const m0=parseFloat(document.getElementById('g8p_m0').value);
-  const m=parseFloat(document.getElementById('g8p_m').value);
-  const v=parseFloat(document.getElementById('g8p_v').value);
-  if([m0,m,v].some(isNaN)||v===0){ alert('请输入空白滤膜质量、采样后质量、标况体积'); return; }
-  const rho=(m-m0)*1000/v;
-  showResult('g8-pm_result', fmtNum(rho,4)+' mg/m³',
-    'ρ=(m−m₀)×1000/Vₙ𝒹=('+fmtNum(m,3)+'−'+fmtNum(m0,3)+')×1000/'+fmtNum(v,1)+'='+fmtNum(rho,4), 'neutral');
-  window._g8_pm_data={m0,m,v,rho};
+  const prec = parseFloat(document.getElementById('g8p_prec').value);
+  const mb1 = parseFloat(document.getElementById('g8p_mb1').value);
+  const mb2 = parseFloat(document.getElementById('g8p_mb2').value);
+  const ma1 = parseFloat(document.getElementById('g8p_ma1').value);
+  const ma2 = parseFloat(document.getElementById('g8p_ma2').value);
+  const Vnd = parseFloat(document.getElementById('g8p_vnd').value);
+  if([mb1,mb2,ma1,ma2].some(isNaN) || isNaN(Vnd)){ alert('请输入采样前后各 2 次称量质量与标况体积'); return; }
+  if(Vnd <= 0){ alert('标况体积必须 > 0'); return; }
+  const r = weighingCalc(prec, mb1, mb2, ma1, ma2, Vnd);
+  if(!r.ok){
+    showResult('g8-pm_result', '恒重不合格',
+      '恒重判定失败：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dmb > r.tol ? ' 超限' : ' 合格')
+      + '；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dma > r.tol ? ' 超限' : ' 合格')
+      + '<br>须继续干燥至恒重后再称量，暂不输出浓度。', 'fail');
+    window._g8_pm_data = {prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, Vnd: Vnd, ok: false, dmb: r.dmb, dma: r.dma};
+    return;
+  }
+  showResult('g8-pm_result', fmtNum(r.C,4) + ' mg/m³',
+    '<span class="r-interpret pass">✓ 恒重合格</span>：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g<br>'
+    + 'm̄前 = (' + fmtNum(mb1,4) + '+' + fmtNum(mb2,4) + ')/2 = ' + fmtNum(r.mbarB,4) + ' g；m̄后 = (' + fmtNum(ma1,4) + '+' + fmtNum(ma2,4) + ')/2 = ' + fmtNum(r.mbarA,4) + ' g<br>'
+    + 'ρ = (m̄后−m̄前)×10⁶/V<sub>nd</sub> = (' + fmtNum(r.mbarA,4) + '−' + fmtNum(r.mbarB,4) + ')×10⁶/' + fmtNum(Vnd,1) + ' = <b>' + fmtNum(r.C,4) + '</b> mg/m³', 'pass');
+  window._g8_pm_data = {prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, Vnd: Vnd, ok: true, dmb: r.dmb, dma: r.dma, C: r.C};
 }
 
 function calcG8Nh3(){
@@ -6735,6 +6824,19 @@ function calcG9Desk(){
   window._g9_desk_data={arr,avg,emin,U};
 }
 
+// 课桌椅分配符合率（GB/T 18205-2012 / GB 3976-2014）：仅输出百分率，不做达标判定
+function calcG9DeskFit(){
+  const n = parseFloat(document.getElementById('g9df_n').value);
+  const k = parseFloat(document.getElementById('g9df_k').value);
+  if(isNaN(n) || isNaN(k) || n <= 0){ alert('请输入抽查课桌椅数 n（>0）与合格数 k'); return; }
+  if(k > n){ alert('合格数不能大于抽查数（k ≤ n）'); return; }
+  const rate = k / n * 100;
+  showResult('g9-deskfit_result', fmtNum(rate,1) + ' %',
+    '符合率 = 身高匹配合格数 / 抽查课桌椅数 × 100% = ' + fmtNum(k,0) + ' / ' + fmtNum(n,0) + ' × 100% = <b>' + fmtNum(rate,1) + '%</b>（仅输出百分率，不做达标判定）',
+    'neutral');
+  window._g9_deskfit_data = {n: n, k: k, rate: rate};
+}
+
 function calcG10Coli(){
   const mpn=parseFloat(document.getElementById('g10c_mpn').value);
   const d=parseFloat(document.getElementById('g10c_d').value)||1;
@@ -6767,6 +6869,55 @@ function calcG10Path(){
     '绿脓杆菌='+(pa>0?'检出':'未检出')+'，金黄色葡萄球菌='+(sa>0?'检出':'未检出')+'，溶血性链球菌='+(gs>0?'检出':'未检出')+'<br>'+(fail?'任一致病菌检出 → 不合格':'全部未检出 → 合格'), fail?'fail':'ok');
   window._g10_path_data={pa,sa,gs,fail};
 }
+
+// 生产环境微生物（GB 15979-2024 第5.2条 / 附录A）：空气 / 手 / 工作台
+function calcG10Surface(){
+  const type = document.getElementById('g10s_type').value;
+  const method = document.getElementById('g10s_method').value;
+  const cfu = parseFloat(document.getElementById('g10s_cfu').value);
+  if(isNaN(cfu)){ alert('请输入平均菌落数 CFU'); return; }
+  let N, unit, lim, detail;
+  if(type === 'air'){
+    if(method === 'imp'){
+      const q = parseFloat(document.getElementById('g10s_q').value);
+      const t = parseFloat(document.getElementById('g10s_t').value);
+      if(isNaN(q) || isNaN(t) || q <= 0 || t <= 0){ alert('请输入采样流量 Q(L/min) 与采样时间 t(min)'); return; }
+      N = cfu * 1000 / (q * t);
+      unit = 'CFU/m³';
+      lim = 2500;
+      detail = 'N = CFU×1000/(Q×t) = ' + fmtNum(cfu,1) + '×1000/(' + fmtNum(q,1) + '×' + fmtNum(t,1) + ') = ' + fmtNum(N,1) + ' CFU/m³<br>限值 ≤2500 CFU/m³（空气采样器法）';
+    } else {
+      N = cfu;
+      unit = 'CFU/(皿·5min)';
+      lim = 16;
+      detail = '平皿暴露法直接报数：N = ' + fmtNum(cfu,1) + ' CFU/(皿·5min)<br>限值 ≤16 CFU/(皿·5min)';
+    }
+  } else if(type === 'hand'){
+    N = cfu;
+    unit = 'CFU/只手(套)';
+    lim = 300;
+    detail = '手表面（棉拭洗脱液全量计数，不折算面积）：N = ' + fmtNum(cfu,1) + ' CFU/只手(套)<br>限值 ≤300 CFU/只手(套)';
+  } else {
+    const s = parseFloat(document.getElementById('g10s_s').value);
+    if(isNaN(s) || s <= 0){ alert('请输入采样面积(cm²)'); return; }
+    N = cfu / s;
+    unit = 'CFU/cm²';
+    lim = 20;
+    detail = 'N = 菌落数/采样面积 = ' + fmtNum(cfu,1) + '/' + fmtNum(s,1) + ' = ' + fmtNum(N,2) + ' CFU/cm²<br>限值 ≤20 CFU/cm²';
+  }
+  const pass = N <= lim;
+  showResult('g10-surface_result', fmtNum(N, type === 'air' && method === 'imp' ? 1 : 2) + ' ' + unit,
+    detail + '<br>GB 15979-2024 附录A → ' + (pass ? '<b>合格</b>' : '<b>不合格</b>'), pass ? 'pass' : 'fail');
+  window._g10_surface_data = {type: type, method: method, cfu: cfu, N: N, unit: unit, lim: lim, pass: pass};
+}
+// 类型切换显隐：air 显示 采样方法/Q/t；bench 显示 采样面积；hand 均隐藏
+document.getElementById('g10s_type').addEventListener('change', function(){
+  const t = this.value;
+  document.getElementById('g10s_mrow').style.display = t === 'air' ? 'flex' : 'none';
+  document.getElementById('g10s_qrow').style.display = t === 'air' ? 'flex' : 'none';
+  document.getElementById('g10s_trow').style.display = t === 'air' ? 'flex' : 'none';
+  document.getElementById('g10s_srow').style.display = t === 'bench' ? 'flex' : 'none';
+});
 
 </script>
 <script>

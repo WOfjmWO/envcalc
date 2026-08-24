@@ -1,6 +1,6 @@
 // 环境监测计算工作台 Service Worker
-// v50 —— g10 一次性卫生用品卡按范工确认口径清理：删除全部 GB 4789.2/4789.3/4789.15 引用（6 处 note/flabel/std-ref），统一以 GB 15979-2024 自带检验方法（第5章）为口径；修复 MPN 错字；QA 回归 0 缺陷
-const CACHE = 'envcalc-v50-20260821';
+// v51 —— 范工深度审计后回归：19+2 项增量全部落地 + w16 互算 P1 修复；修正 P1b 降尘量单位换算因子（原 ×30×1e6 误，按 HJ 1221-2021 改为 ×30×10⁴，面积单位 cm²）；O1 密闭性 t充≤2×t预算 + 绿/红双判定；全量验证 133 函数 0 THROW/0 NaN、功能断言 21/21、w16 3/3 PASS
+const CACHE = 'envcalc-v51-20260824';
 const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', function (e) {
