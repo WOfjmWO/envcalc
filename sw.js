@@ -1,6 +1,6 @@
 // 环境监测计算工作台 Service Worker
-// v57 —— 在 v56（g8-pm 去 HJ836 + p1b 方法/项目联动）基础上，第 7 项整体验证修复：① p1b 降尘分支展示文案（S 单位 m²→cm²、换算系数 ×30×10⁶→×30×10⁴、结果单位统一为 t/(km²·30d)，计算逻辑 ×30×1e4 本就正确）；② 共享函数 weighingCalc 参数名 Vnd→V（位置传参，不影响调用方；g8-pm/p1b 环境空气分支传的是实际采样体积）
-const CACHE = 'envcalc-v57-20260824';
+// v62 —— 在 v61 基础上：限定 HJ 1332-2023 干基折算仅出现在"有组织废气"场景（无组织废气无湿度相关内容，输入方式仅 2 项）；测定场景维持"有组织废气/无组织废气"两项不变。v61：将 HJ 1332-2023 整合进 g1-nmhc（输入方式第三项）并删除独立卡片。v60：拆分 g1-gces 为 HJ 734-2014 与 HJ 644-2013，新增 HJ 657-2013 重金属模块。
+const CACHE = 'envcalc-v62-20260825';
 const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', function (e) {
