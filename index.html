@@ -218,7 +218,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .mode-label{font-weight:600;}
 .radio{display:inline-flex;align-items:center;gap:4px;font-size:13px;cursor:pointer;}
 .hj657-unit{font-size:12px;color:var(--text-secondary);margin:4px 2px 0;}
-.tvoc-item{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.6fr;gap:4px 8px;align-items:center;padding:5px 8px;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:5px;background:var(--bg);}
+.tvoc-item{display:grid;grid-template-columns:1fr 1fr;gap:4px 8px;align-items:center;padding:5px 8px;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:5px;background:var(--bg);}
 .tvoc-item-head{grid-column:1 / -1;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;}
 .tvoc-idx{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;border-radius:50%;background:var(--primary);color:#fff;font-size:11px;}
 .tvoc-item-in{display:flex;flex-direction:column;gap:2px;}
@@ -395,7 +395,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .g8t-row .g8t-fld input{ width:100%; padding:6px 8px; font-size:13.5px; min-width:0; }
 @media (max-width:480px){ .g8t-row{ flex-direction:column; align-items:stretch; gap:5px; } .g8t-row .g8t-name-label{ width:auto; } }
 /* 附录D TVOC 22项密集输入 */
-.tvoc-d-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,120px),1fr)); gap:5px 8px; margin-bottom:8px; }
+.tvoc-d-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr)); gap:8px 10px; margin-bottom:8px; }
 .tvoc-d-grid .input-row{ margin-bottom:0; gap:3px; flex-direction:column; align-items:stretch; }
 .tvoc-d-grid .input-row label{ font-size:10.5px; color:var(--text-secondary); min-width:auto; line-height:1.2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .tvoc-d-grid .input-row input{ width:100%; padding:5px 7px; font-size:13px; min-width:0; }
@@ -2716,24 +2716,22 @@ Y = D × 10<sup>X̄</sup></div>
     <div class="select-help" id="g1_nmhc_scene_help">有组织废气按 HJ 38-2017；无组织/环境空气按 HJ 604-2017。</div>
     <div class="select-row-full"><label>输入方式</label><select id="g1_nmhc_mode">
         <option value="area">峰面积反算</option>
-        <option value="conc">直接输入浓度</option>
-        <option value="hj1332">湿基浓度→干基浓度换算(HJ 1332-2023)</option></select></div>
-    <div class="select-help" id="g1_nmhc_mode_help">峰面积反算：输入总烃/甲烷峰面积、截距 a、斜率 b；直接输入浓度：输入已折算标况干基浓度。</div>
+        <option value="conc">直接输入浓度</option></select></div>
+    <div class="select-help" id="g1_nmhc_mode_help">峰面积反算：输入总烃/甲烷/氧峰峰面积、截距 a、斜率 b（总烃需扣除氧峰）；直接输入浓度：输入总烃与甲烷浓度（mg/m³）。</div>
     <div class="input-grid input-grid-c2">
       <div class="input-row" id="g1_nmhc_row_at"><label>总烃峰面积 A<sub>总</sub></label><input type="number" id="g1_nmhc_at" step="any"></div>
       <div class="input-row" id="g1_nmhc_row_ac"><label>甲烷峰面积 A<sub>甲</sub></label><input type="number" id="g1_nmhc_ac" step="any"></div>
+      <div class="input-row" id="g1_nmhc_row_ao"><label>氧峰峰面积 A<sub>氧</sub></label><input type="number" id="g1_nmhc_ao" step="any" placeholder="除烃空气进样测得"></div>
       <div class="input-row" id="g1_nmhc_row_a"><label>截距 a</label><input type="number" id="g1_nmhc_a" step="any" value="0"></div>
       <div class="input-row" id="g1_nmhc_row_b"><label>斜率 b</label><input type="number" id="g1_nmhc_b" step="any"></div>
       <div class="input-row" id="g1_nmhc_row_cth" style="display:none"><label>总烃浓度(mg/m³)</label><input type="number" id="g1_nmhc_cth" step="any"></div>
       <div class="input-row" id="g1_nmhc_row_cch4" style="display:none"><label>甲烷浓度(mg/m³)</label><input type="number" id="g1_nmhc_cch4" step="any"></div>
-      <div class="input-row" id="g1_nmhc_row_cwet" style="display:none"><label>C<sub>实测</sub>(湿基)</label><input type="number" id="g1_nmhc_cwet" step="any" placeholder="mg/m³"></div>
-      <div class="input-row" id="g1_nmhc_row_xsw" style="display:none"><label>含湿量 X<sub>sw</sub></label><input type="number" id="g1_nmhc_xsw" step="any" placeholder="体积分数小数，如 0.05"></div>
+      <div class="input-row" id="g1_nmhc_row_xsw" style="display:none"><label>实测含湿量 X<sub>sw</sub></label><input type="number" id="g1_nmhc_xsw" step="any" placeholder="体积分数小数，如 0.05"></div>
     </div>
     <button class="btn-calc" id="g1_nmhc_btn" onclick="calcNmhc()">计算 NMHC</button>
     <div class="result-area compact" id="g1_nmhc_result"></div>
   </div>
-  <div class="std-ref" id="g1_nmhc_stdref">HJ 38-2017；HJ 604-2017；GB 16297-1996（有组织 120 / 无组织 4.0 mg/m³，行业标准优先）</div>
-  <div class="std-ref" id="g1_nmhc_hj1332_ref" style="display:none">参考标准：HJ 1332-2023《固定污染源废气 总烃、甲烷和非甲烷总烃的测定 气相色谱法》。X<sub>sw</sub> 为体积分数小数(0~1)；C<sub>干基</sub> = C<sub>湿基</sub> / (1 − X<sub>sw</sub>)。</div>
+  <div class="std-ref" id="g1_nmhc_stdref">HJ 38-2017（有组织废气）；HJ 604-2017（无组织/环境空气）；GB 16297-1996（有组织 120 / 无组织 4.0 mg/m³，行业标准优先）。总烃 FID 响应含氧峰，按标准以除烃空气氧峰扣除后参与计算；有组织废气输入含湿量可折算干基浓度 C<sub>干基</sub>=C<sub>湿基</sub>/(1−X<sub>sw</sub>)。</div>
 </div>
 
 <!-- g1-hj734: 固定污染源废气 VOCs（HJ 734-2014） -->
@@ -2742,12 +2740,12 @@ Y = D × 10<sup>X̄</sup></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（HJ 734-2014 固相吸附-热脱附/GC-MS）</div>
     <div class="fcontent multiline">Cᵢ = mᵢ / (Vnd×1000)（mg/m³，Vnd 单位 L）<br>Eᵢ = Cᵢ × Qsnd × 10⁻⁶（kg/h）</div>
-    <div class="note" tabindex="-1">mᵢ 为第 i 种目标化合物含量（ng），Vnd 为标准状态干采气体积（L；标准原文单位为 ml，此处 ×1000 换算）。Qsnd 为标干废气量（m³/h）。HJ 734-2014 共 24 种目标化合物，已预填在下方；输入每种化合物的 ng 值后点击“计算全部”，批量输出浓度与排放速率。</div>
+    <div class="note" tabindex="-1">mᵢ 为第 i 种目标化合物含量（ng），Vnd 为标准状态干采气体积（L；标准原文单位为 ml，此处 ×1000 换算）。Qsnd 为标干废气量（m³/h）。HJ 734-2014 共 24 种目标化合物，已预填在下方；输入 ng 或标况体积后自动计算该化合物浓度与排放速率，无需点击按钮。</div>
   </div>
   <div class="calc-body">
     <div class="input-grid input-grid-c2">
-      <div class="input-row"><label>标干废气量 Qsnd(m³/h)</label><input type="number" id="hj734_qsnd" step="any"></div>
-      <div class="input-row"><label>标况体积 Vnd(L)</label><input type="number" id="hj734_vnd" step="any"></div>
+      <div class="input-row"><label>标干废气量 Qsnd(m³/h)</label><input type="number" id="hj734_qsnd" step="any" oninput="hj734RefreshAll()"></div>
+      <div class="input-row"><label>标况体积 Vnd(L)</label><input type="number" id="hj734_vnd" step="any" oninput="hj734RefreshAll()"></div>
     </div>
     <div class="vocs-rows" id="hj734_rows"></div>
     <button type="button" class="btn-calc" onclick="hj734RefreshAll()">计算全部</button>
@@ -2762,11 +2760,11 @@ Y = D × 10<sup>X̄</sup></div>
   <div class="formula-box compact">
     <div class="flabel">计算公式（HJ 644-2013 吸附管采样-热脱附/GC-MS）</div>
     <div class="fcontent multiline">ngᵢ = Aᵢ / kᵢ；ρᵢ = ngᵢ / Vnd（μg/m³）</div>
-    <div class="note" tabindex="-1">Aᵢ 为峰面积，kᵢ 为曲线斜率（峰面积/ng），ngᵢ 为化合物质量；Vnd 为标准状态采样体积（L）。HJ 644-2013 共 35 种目标化合物，已预填在下方；输入峰面积与斜率后点击“计算全部”，批量输出 ng 与浓度。环境空气不涉及排放速率。</div>
+    <div class="note" tabindex="-1">Aᵢ 为峰面积，kᵢ 为曲线斜率（峰面积/ng），ngᵢ 为化合物质量；Vnd 为标准状态采样体积（L）。HJ 644-2013 共 35 种目标化合物，已预填在下方；输入峰面积、斜率或标况体积后自动计算 ng 与浓度，无需点击按钮。环境空气不涉及排放速率。</div>
   </div>
   <div class="calc-body">
     <div class="input-grid input-grid-c2">
-      <div class="input-row"><label>标况体积 Vnd(L)</label><input type="number" id="hj644_vnd" step="any"></div>
+      <div class="input-row"><label>标况体积 Vnd(L)</label><input type="number" id="hj644_vnd" step="any" oninput="hj644RefreshAll()"></div>
     </div>
     <div class="vocs-rows" id="hj644_rows"></div>
     <button type="button" class="btn-calc" onclick="hj644RefreshAll()">计算全部</button>
@@ -3618,8 +3616,8 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
   <div class="calc-body">
     <div class="input-row"><label>样品吸光度 A</label><input type="number" id="p8_a" step="any"></div>
     <div class="input-row"><label>空白吸光度 A₀</label><input type="number" id="p8_a0" step="any" value="0.02"></div>
-    <div class="input-row"><label>标准曲线斜率 k（吸光度/μg）</label><input type="number" id="p8_k" step="any" placeholder="由标准曲线求得" oninput="updateBsDisp('p8','μg/吸光度')"></div>
-    <div class="input-row"><span class="calc-factor" id="p8_bs_disp">计算因子 Bₛ = 1/k（μg/吸光度）</span></div>
+    <div class="input-row"><label>标准曲线斜率 k（吸光度/μg）</label><input type="number" id="p8_k" step="any" oninput="updateBsDisp('p8','μg/吸光度')"></div>
+    <div class="input-row"><span class="calc-factor" id="p8_bs_disp">Bₛ = 1/k（μg/吸光度）</span></div>
     <div class="input-row"><label>标况体积 V<sub>nd</sub>(L)</label><input type="number" id="p8_v" step="any" placeholder="或由 V、t、P 换算"></div>
     <button class="btn-calc" onclick="calcP8()">计算甲醛浓度</button>
     <div class="result-area" id="p8_result"></div>
@@ -3657,10 +3655,10 @@ f = 稀释水体积 / 稀释后总体积；P = 水样体积 / 稀释后总体积
   </div>
   <div class="calc-body">
     <div class="input-grid">
-      <div class="input-row"><label>检测方法</label><select id="g8t_method" onchange="onG8tMethodChange()">
-        <option value="c1">C.1 固体吸附-热解析</option>
-        <option value="c2">C.2 活性炭吸附-二硫化碳解析</option>
-        <option value="c3">C.3 便携式气相色谱</option>
+      <div class="input-row select-row" style="grid-column:1 / -1;"><label>检测方法</label><select id="g8t_method" onchange="onG8tMethodChange()">
+        <option value="c1" title="C.1 固体吸附-热解析-气相色谱法（GB/T 18883-2022 附录C）">C.1 固体吸附-热解析-气相色谱法</option>
+        <option value="c2" title="C.2 活性炭吸附-二硫化碳解析-气相色谱法（GB/T 18883-2022 附录C）">C.2 活性炭吸附-二硫化碳解析-气相色谱法</option>
+        <option value="c3" title="C.3 便携式气相色谱法（GB/T 18883-2022 附录C）">C.3 便携式气相色谱法</option>
       </select></div>
       <div class="input-row" id="g8t_v1_row" style="display:none;"><label>二硫化碳体积 V₁(mL)</label><input type="number" id="g8t_v1" step="any"></div>
       <div class="input-row"><label>参比采样体积 Vᵣ(L)</label><input type="number" id="g8t_v" step="any"></div>
@@ -4259,8 +4257,8 @@ function updateBsDisp(prefix, unit){
   var disp=document.getElementById(prefix+'_bs_disp');
   if(!kEl||!disp) return;
   var k=parseFloat(kEl.value);
-  if(isNaN(k)||k===0){ disp.textContent='计算因子 Bₛ = 1/k（'+unit+'）'; return; }
-  disp.textContent='计算因子 Bₛ = 1/k = '+fmtNum(1/k,4)+' '+unit;
+  if(isNaN(k)||k===0){ disp.textContent='Bₛ = 1/k（'+unit+'）'; return; }
+  disp.textContent='Bₛ = 1/k = '+fmtNum(1/k,4)+' '+unit;
 }
 
 // ==================== WATER CALCULATIONS ====================
@@ -4818,19 +4816,16 @@ function calcDustConc() {
   if ([mb1,mb2,ma1,ma2].some(isNaN) || isNaN(Vnd)) { alert('请输入采样前后各 2 次称量质量与标况采样体积'); return; }
   if (Vnd <= 0) { alert('标况采样体积必须 > 0'); return; }
   const r = weighingCalc(prec, mb1, mb2, ma1, ma2, Vnd);
-  if (!r.ok) {
-    showResult('a20_result', '恒重不合格',
-      '恒重判定失败：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dmb > r.tol ? ' 超限' : ' 合格')
-      + '；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dma > r.tol ? ' 超限' : ' 合格')
-      + '<br>须继续干燥至恒重后再称量，暂不输出浓度。', 'fail');
-    window._a20_data = {prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, Vnd: Vnd, ok: false, dmb: r.dmb, dma: r.dma};
-    return;
-  }
-  showResult('a20_result', fmtNum(r.C,2) + ' mg/m³',
-    '<span class="r-interpret pass">✓ 恒重合格</span>：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g<br>'
+  const ok = r.ok;
+  const weighCls = ok ? 'pass' : 'fail';
+  const weighTag = ok ? '✓ 恒重合格' : '✗ 恒重不合格（仍按当前称量值计算浓度，仅供参考）';
+  const preSign = r.dmb <= r.tol ? '≤' : '＞';
+  const postSign = r.dma <= r.tol ? '≤' : '＞';
+  showResult('a20_result', fmtNum(r.C,2) + ' mg/m³' + (ok ? '' : '（恒重不合格）'),
+    '<span class="r-interpret ' + weighCls + '">' + weighTag + '</span>：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g ' + preSign + ' ' + fmtNum(r.tol,4) + ' g；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g ' + postSign + ' ' + fmtNum(r.tol,4) + ' g<br>'
     + 'm̄前 = (' + fmtNum(mb1,4) + '+' + fmtNum(mb2,4) + ')/2 = ' + fmtNum(r.mbarB,4) + ' g；m̄后 = (' + fmtNum(ma1,4) + '+' + fmtNum(ma2,4) + ')/2 = ' + fmtNum(r.mbarA,4) + ' g<br>'
-    + 'C = (m̄后−m̄前)×10⁶/V<sub>nd</sub> = (' + fmtNum(r.mbarA,4) + '−' + fmtNum(r.mbarB,4) + ')×10⁶/' + fmtNum(Vnd,1) + ' = <b>' + fmtNum(r.C,2) + '</b> mg/m³', 'pass');
-  window._a20_data = {prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, Vnd: Vnd, ok: true, dmb: r.dmb, dma: r.dma, C: r.C};
+    + 'C = (m̄后−m̄前)×10⁶/V<sub>nd</sub> = (' + fmtNum(r.mbarA,4) + '−' + fmtNum(r.mbarB,4) + ')×10⁶/' + fmtNum(Vnd,1) + ' = <b>' + fmtNum(r.C,2) + '</b> mg/m³', weighCls);
+  window._a20_data = {prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, Vnd: Vnd, ok: ok, dmb: r.dmb, dma: r.dma, C: r.C};
 }
 
 function calcDustEmission() {
@@ -6068,14 +6063,7 @@ function calcP1b(){
   if([mb1,mb2,ma1,ma2].some(isNaN) || isNaN(V)){ alert('请输入采样前后各 2 次称量质量与' + volLabel); return; }
   if(V <= 0){ alert(volLabel + '必须 > 0'); return; }
   const r = weighingCalc(prec, mb1, mb2, ma1, ma2, V);
-  if(!r.ok){
-    showResult('p1b_result', '恒重不合格',
-      '恒重判定失败：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dmb > r.tol ? ' 超限' : ' 合格')
-      + '；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dma > r.tol ? ' 超限' : ' 合格')
-      + '<br>须继续干燥至恒重后再称量，暂不输出浓度。', 'fail');
-    window._p1b = {type: type, prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, V: V, ok: false, dmb: r.dmb, dma: r.dma};
-    return;
-  }
+  const ok = r.ok;
 
   let label = '颗粒物', lim = null, std = '';
   if(type === 'stack'){ label = '有组织废气颗粒物'; std = 'GB/T 16157 / HJ 836'; }
@@ -6084,17 +6072,21 @@ function calcP1b(){
   else if(type === 'ambient-pm10'){ label = 'PM10'; lim = 0.15; std = 'HJ 618-2011'; }
   else if(type === 'ambient-pm25'){ label = 'PM2.5'; lim = 0.075; std = 'HJ 618-2011'; }
 
-  let detail = '<span class="r-interpret pass">✓ 恒重合格</span>（' + std + '）：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g<br>'
+  const weighCls = ok ? 'pass' : 'fail';
+  const weighTag = ok ? '✓ 恒重合格' : '✗ 恒重不合格（仍按当前称量值计算浓度，仅供参考）';
+  const preSign = r.dmb <= r.tol ? '≤' : '＞';
+  const postSign = r.dma <= r.tol ? '≤' : '＞';
+  let detail = '<span class="r-interpret ' + weighCls + '">' + weighTag + '</span>（' + std + '）：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g ' + preSign + ' ' + fmtNum(r.tol,4) + ' g；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g ' + postSign + ' ' + fmtNum(r.tol,4) + ' g<br>'
     + 'm̄前 = (' + fmtNum(mb1,4) + '+' + fmtNum(mb2,4) + ')/2 = ' + fmtNum(r.mbarB,4) + ' g；m̄后 = (' + fmtNum(ma1,4) + '+' + fmtNum(ma2,4) + ')/2 = ' + fmtNum(r.mbarA,4) + ' g<br>'
     + 'C = (m̄后−m̄前)×10⁶/' + (isAmbient ? 'V' : 'V<sub>nd</sub>') + ' = (' + fmtNum(r.mbarA,4) + '−' + fmtNum(r.mbarB,4) + ')×10⁶/' + fmtNum(V,1) + ' = <b>' + fmtNum(r.C,4) + '</b> mg/m³';
-  let interpretClass = 'pass';
+  let interpretClass = weighCls;
   if(lim !== null){
     const pass = r.C <= lim;
     interpretClass = pass ? 'pass' : 'fail';
     detail += '<br>GB 3095-2012 限值 ' + label + ' 日均 ' + fmtNum(lim,3) + ' mg/m³ → ' + (pass ? '达标' : '超标');
   }
-  showResult('p1b_result', label + ' = ' + fmtNum(r.C,4) + ' mg/m³', detail, interpretClass);
-  window._p1b = {type: type, prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, V: V, ok: true, dmb: r.dmb, dma: r.dma, C: r.C};
+  showResult('p1b_result', label + ' = ' + fmtNum(r.C,4) + ' mg/m³' + (ok ? '' : '（恒重不合格）'), detail, interpretClass);
+  window._p1b = {type: type, prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, V: V, ok: ok, dmb: r.dmb, dma: r.dma, C: r.C};
 }
 document.getElementById('p1b_type').addEventListener('change', updateP1bUI);
 
@@ -6645,92 +6637,71 @@ function calcNmhc(){
   if(mode === 'area'){
     const at = parseFloat(document.getElementById('g1_nmhc_at').value);
     const ac = parseFloat(document.getElementById('g1_nmhc_ac').value);
+    const ao = parseFloat(document.getElementById('g1_nmhc_ao').value) || 0;
     const a = parseFloat(document.getElementById('g1_nmhc_a').value) || 0;
     const b = parseFloat(document.getElementById('g1_nmhc_b').value);
     if(isNaN(at) || isNaN(ac) || isNaN(b) || b === 0){ alert('峰面积模式下请输入 A总/A甲/截距a/斜率b（b≠0）'); return; }
-    cth = (at - a) / b;
+    cth = (at - ao - a) / b;   // 总烃扣除氧峰
     cch4 = (ac - a) / b;
-    detail = '总烃 C=(A−a)/b=(' + fmtNum(at,3) + '−' + fmtNum(a,3) + ')/' + fmtNum(b,4) + '=' + fmtNum(cth,4) + ' mg/m³<br>'
-      + '甲烷同式 = (' + fmtNum(ac,3) + '−' + fmtNum(a,3) + ')/' + fmtNum(b,4) + '=' + fmtNum(cch4,4) + ' mg/m³<br>';
+    detail = '总烃 C=(A总−A氧−a)/b=(' + fmtNum(at,3) + '−' + fmtNum(ao,3) + '−' + fmtNum(a,3) + ')/' + fmtNum(b,4) + '=' + fmtNum(cth,4) + ' mg/m³<br>'
+      + '甲烷 C=(A甲−a)/b=(' + fmtNum(ac,3) + '−' + fmtNum(a,3) + ')/' + fmtNum(b,4) + '=' + fmtNum(cch4,4) + ' mg/m³<br>';
   } else if(mode === 'conc'){
     cth = parseFloat(document.getElementById('g1_nmhc_cth').value);
     cch4 = parseFloat(document.getElementById('g1_nmhc_cch4').value);
     if(isNaN(cth) || isNaN(cch4)){ alert('请输入总烃/甲烷浓度（mg/m³）'); return; }
     detail = '直接输入标况干基浓度：总烃 ' + fmtNum(cth,3) + '、甲烷 ' + fmtNum(cch4,3) + ' mg/m³<br>';
-  } else if(mode === 'hj1332'){
-    // 湿基 → 干基浓度换算（HJ 1332-2023）
-    const cwet = parseFloat(document.getElementById('g1_nmhc_cwet').value);
-    const xsw = parseFloat(document.getElementById('g1_nmhc_xsw').value);
-    if(isNaN(cwet) || isNaN(xsw)){ alert('请输入 C实测(湿基) 与含湿量 Xsw（体积分数小数，0~1）'); return; }
-    if(xsw >= 1){ alert('含湿量 Xsw 为体积分数小数(0~1)，必须小于1'); return; }
-    const cdry = cwet / (1 - xsw);
-    showResult('g1_nmhc_result', fmtNum(cdry, 2) + ' mg/m³',
-      '参考标准：HJ 1332-2023《固定污染源废气 总烃、甲烷和非甲烷总烃的测定 气相色谱法》<br>'
-      + 'X<sub>sw</sub> 为体积分数小数(0~1)<br>'
-      + 'C<sub>干基</sub> = C<sub>湿基</sub> / (1 − X<sub>sw</sub>) = ' + fmtNum(cwet,3) + ' / (1 − ' + fmtNum(xsw,4) + ') = <b>' + fmtNum(cdry,2) + '</b> mg/m³',
-      'neutral');
-    window._g1_nmhc_data = {scene: scene, mode: mode, cwet: cwet, xsw: xsw, cdry: cdry};
-    return;
   }
   const nmhc = cth - cch4;
   const lim = scene === 'org' ? 120 : 4.0;   // GB 16297-1996 表1 有组织 120 / 表2 无组织 4.0
   const limText = scene === 'org'
     ? 'GB 16297-1996 表1 最高允许排放浓度 120 mg/m³（行业标准优先）'
     : 'GB 16297-1996 表2 无组织监控浓度限值 4.0 mg/m³（周界外浓度最高点）';
-  showResult('g1_nmhc_result', fmtNum(nmhc,3) + ' mg/m³',
-    detail + 'NMHC = 总烃 − 甲烷 = ' + fmtNum(cth,3) + ' − ' + fmtNum(cch4,3) + ' = <b>' + fmtNum(nmhc,3) + '</b> mg/m³<br>'
-    + limText + ' → ' + (nmhc <= lim ? '达标' : '超标'),
-    nmhc <= lim ? 'pass' : 'fail');
+  let outTitle = fmtNum(nmhc,3) + ' mg/m³';
+  let outDetail = detail + 'NMHC = 总烃 − 甲烷 = ' + fmtNum(cth,3) + ' − ' + fmtNum(cch4,3) + ' = <b>' + fmtNum(nmhc,3) + '</b> mg/m³（湿基）<br>'
+    + limText + ' → ' + (nmhc <= lim ? '达标' : '超标');
+  if(scene === 'org'){
+    const xsw = parseFloat(document.getElementById('g1_nmhc_xsw').value);
+    if(!isNaN(xsw) && xsw >= 0 && xsw < 1){
+      const cthDry = cth / (1 - xsw);
+      const cch4Dry = cch4 / (1 - xsw);
+      const nmhcDry = nmhc / (1 - xsw);
+      outTitle = fmtNum(nmhcDry,3) + ' mg/m³（干基）';
+      outDetail += '<br><br><b>干基折算</b>（C干基 = C湿基/(1−Xsw)，Xsw=' + fmtNum(xsw,4) + '）：<br>'
+        + '总烃干基 = ' + fmtNum(cth,3) + '/(1−' + fmtNum(xsw,4) + ') = ' + fmtNum(cthDry,3) + ' mg/m³<br>'
+        + '甲烷干基 = ' + fmtNum(cch4,3) + '/(1−' + fmtNum(xsw,4) + ') = ' + fmtNum(cch4Dry,3) + ' mg/m³<br>'
+        + 'NMHC 干基 = ' + fmtNum(nmhc,3) + '/(1−' + fmtNum(xsw,4) + ') = <b>' + fmtNum(nmhcDry,3) + '</b> mg/m³';
+    }
+  }
+  showResult('g1_nmhc_result', outTitle, outDetail, nmhc <= lim ? 'pass' : 'fail');
   window._g1_nmhc_data = {scene: scene, mode: mode, cth: cth, cch4: cch4, nmhc: nmhc};
 }
-// 场景切换更新 help + 同步输入方式可选项（干基折算仅限有组织废气）
+// 场景切换更新 help + 同步含湿量输入框显隐（干基折算仅限有组织废气）
 document.getElementById('g1_nmhc_scene').addEventListener('change', function(){
   const help = document.getElementById('g1_nmhc_scene_help');
-  if(help) help.textContent = this.value === 'org' ? '有组织废气按 HJ 38-2017 测定。' : '无组织/环境空气按 HJ 604-2017 测定。';
-  syncNmhcModeOptions();
+  if(help) help.textContent = this.value === 'org' ? '有组织废气按 HJ 38-2017 测定；可输入实测含湿量折算干基浓度。' : '无组织/环境空气按 HJ 604-2017 测定。';
+  syncNmhcXsw();
 });
 // 输入方式切换显隐（area 模式：峰面积组；conc 模式：浓度组）
 document.getElementById('g1_nmhc_mode').addEventListener('change', function(){
   const v = this.value;
   const area = v === 'area';
   const conc = v === 'conc';
-  const hj = v === 'hj1332';
-  ['at','ac','a','b'].forEach(function(k){ document.getElementById('g1_nmhc_row_' + k).style.display = area ? 'flex' : 'none'; });
+  ['at','ac','ao','a','b'].forEach(function(k){ document.getElementById('g1_nmhc_row_' + k).style.display = area ? 'flex' : 'none'; });
   ['cth','cch4'].forEach(function(k){ document.getElementById('g1_nmhc_row_' + k).style.display = conc ? 'flex' : 'none'; });
-  ['cwet','xsw'].forEach(function(k){ document.getElementById('g1_nmhc_row_' + k).style.display = hj ? 'flex' : 'none'; });
-  const btn = document.getElementById('g1_nmhc_btn');
-  if(btn) btn.textContent = hj ? '计算干基浓度' : '计算 NMHC';
   const help = document.getElementById('g1_nmhc_mode_help');
-  if(help) help.textContent = hj
-    ? '湿基 → 干基换算（HJ 1332-2023）：输入 C实测(湿基) 与含湿量 Xsw（体积分数小数，0~1），按 C干基 = C湿基 / (1 − Xsw) 计算。'
-    : (area ? '峰面积反算：输入总烃/甲烷峰面积、截距 a、斜率 b；直接输入浓度：输入已折算标况干基浓度。' : '直接输入浓度：输入已折算标况干基浓度。');
+  if(help) help.textContent = area
+    ? '峰面积反算：输入总烃/甲烷/氧峰峰面积、截距 a、斜率 b（总烃需扣除氧峰）；直接输入浓度：输入总烃与甲烷浓度（mg/m³）。'
+    : '直接输入浓度：输入总烃与甲烷浓度（mg/m³）。';
   const ref = document.getElementById('g1_nmhc_stdref');
-  const hjref = document.getElementById('g1_nmhc_hj1332_ref');
-  if(ref) ref.style.display = hj ? 'none' : 'block';
-  if(hjref) hjref.style.display = hj ? 'block' : 'none';
+  if(ref) ref.style.display = 'block';
 });
-// 干基折算(HJ 1332-2023)仅在有组织废气场景提供；无组织废气无湿度相关内容，移除该选项
-function syncNmhcModeOptions(){
+// 仅在有组织废气场景显示实测含湿量输入框（用于折算干基浓度）
+function syncNmhcXsw(){
   var scene = document.getElementById('g1_nmhc_scene').value;
-  var sel = document.getElementById('g1_nmhc_mode');
-  if(!sel) return;
-  var hj = null;
-  for(var i=0;i<sel.options.length;i++){ if(sel.options[i].value==='hj1332'){ hj=sel.options[i]; break; } }
-  if(scene === 'org'){
-    if(!hj){
-      hj = document.createElement('option');
-      hj.value='hj1332';
-      hj.textContent='湿基浓度→干基浓度换算(HJ 1332-2023)';
-      sel.appendChild(hj);
-    }
-  } else {
-    if(hj){
-      if(sel.value==='hj1332'){ sel.value='area'; sel.dispatchEvent(new Event('change')); }
-      sel.removeChild(hj);
-    }
-  }
+  var xswRow = document.getElementById('g1_nmhc_row_xsw');
+  if(xswRow) xswRow.style.display = scene === 'org' ? 'flex' : 'none';
 }
-syncNmhcModeOptions();
+syncNmhcXsw();
 
 var _hj734_seq=0,_hj644_seq=0;
 var HJ734_NAMES=['丙酮','异丙醇','正己烷','乙酸乙酯','苯','六甲基二硅氧烷','3-戊酮','正庚烷','甲苯','环戊酮','乳酸乙酯','乙酸丁酯','丙二醇单甲醚乙酸酯','乙苯','对二甲苯','间二甲苯','2-庚酮','苯乙烯','邻二甲苯','苯甲醚','苯甲醛','1-癸烯','2-壬酮','1-十二烯'];
@@ -6739,7 +6710,7 @@ function addHj734Row(name){
   var wrap=document.getElementById('hj734_rows'); if(!wrap) return;
   var i=++_hj734_seq;
   var div=document.createElement('div'); div.className='vocs-row'; div.id='hj734_row_'+i;
-  div.innerHTML='<span class="vocs-name" id="hj734_n_'+i+'" title="'+name+'">'+name+'</span>'+'<input type="number" class="vocs-m" id="hj734_m_'+i+'" step="any" placeholder="ng">'+'<span class="vocs-out" id="hj734_o_'+i+'">—</span>';
+  div.innerHTML='<span class="vocs-name" id="hj734_n_'+i+'" title="'+name+'">'+name+'</span>'+'<input type="number" class="vocs-m" id="hj734_m_'+i+'" step="any" placeholder="ng" oninput="calcHj734Row('+i+')">'+'<span class="vocs-out" id="hj734_o_'+i+'">—</span>';
   wrap.appendChild(div);
 }
 function calcHj734Row(i){
@@ -6773,7 +6744,7 @@ function addHj644Row(name){
   var wrap=document.getElementById('hj644_rows'); if(!wrap) return;
   var i=++_hj644_seq;
   var div=document.createElement('div'); div.className='vocs-row vocs-row-644'; div.id='hj644_row_'+i;
-  div.innerHTML='<span class="vocs-name" id="hj644_n_'+i+'" title="'+name+'">'+name+'</span>'+'<input type="number" class="vocs-a" id="hj644_a_'+i+'" step="any" placeholder="峰面积">'+'<input type="number" class="vocs-k" id="hj644_k_'+i+'" step="any" placeholder="斜率(峰面积/ng)">'+'<span class="vocs-out" id="hj644_o_'+i+'">—</span>';
+  div.innerHTML='<span class="vocs-name" id="hj644_n_'+i+'" title="'+name+'">'+name+'</span>'+'<input type="number" class="vocs-a" id="hj644_a_'+i+'" step="any" placeholder="峰面积" oninput="calcHj644Row('+i+')">'+'<input type="number" class="vocs-k" id="hj644_k_'+i+'" step="any" placeholder="斜率(峰面积/ng)" oninput="calcHj644Row('+i+')">'+'<span class="vocs-out" id="hj644_o_'+i+'">—</span>';
   wrap.appendChild(div);
 }
 function calcHj644Row(i){
@@ -7482,19 +7453,16 @@ function calcG8Pm(){
   if([mb1,mb2,ma1,ma2].some(isNaN) || isNaN(V)){ alert('请输入采样前后各 2 次称量质量与实际采样体积'); return; }
   if(V <= 0){ alert('实际采样体积必须 > 0'); return; }
   const r = weighingCalc(prec, mb1, mb2, ma1, ma2, V);
-  if(!r.ok){
-    showResult('g8-pm_result', '恒重不合格',
-      '恒重判定失败：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dmb > r.tol ? ' 超限' : ' 合格')
-      + '；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g（允差 ' + fmtNum(r.tol,4) + ' g）' + (r.dma > r.tol ? ' 超限' : ' 合格')
-      + '<br>须继续干燥至恒重后再称量，暂不输出浓度。', 'fail');
-    window._g8_pm_data = {prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, V: V, ok: false, dmb: r.dmb, dma: r.dma};
-    return;
-  }
-  showResult('g8-pm_result', fmtNum(r.C,4) + ' mg/m³',
-    '<span class="r-interpret pass">✓ 恒重合格</span>：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g ≤ ' + fmtNum(r.tol,4) + ' g<br>'
+  const ok = r.ok;
+  const weighCls = ok ? 'pass' : 'fail';
+  const weighTag = ok ? '✓ 恒重合格' : '✗ 恒重不合格（仍按当前称量值计算浓度，仅供参考）';
+  const preSign = r.dmb <= r.tol ? '≤' : '＞';
+  const postSign = r.dma <= r.tol ? '≤' : '＞';
+  showResult('g8-pm_result', fmtNum(r.C,4) + ' mg/m³' + (ok ? '' : '（恒重不合格）'),
+    '<span class="r-interpret ' + weighCls + '">' + weighTag + '</span>：|m前1−m前2|=' + fmtNum(r.dmb,4) + ' g ' + preSign + ' ' + fmtNum(r.tol,4) + ' g；|m后1−m后2|=' + fmtNum(r.dma,4) + ' g ' + postSign + ' ' + fmtNum(r.tol,4) + ' g<br>'
     + 'm̄前 = (' + fmtNum(mb1,4) + '+' + fmtNum(mb2,4) + ')/2 = ' + fmtNum(r.mbarB,4) + ' g；m̄后 = (' + fmtNum(ma1,4) + '+' + fmtNum(ma2,4) + ')/2 = ' + fmtNum(r.mbarA,4) + ' g<br>'
-    + 'ρ = (m̄后−m̄前)×10⁶/V = (' + fmtNum(r.mbarA,4) + '−' + fmtNum(r.mbarB,4) + ')×10⁶/' + fmtNum(V,1) + ' = <b>' + fmtNum(r.C,4) + '</b> mg/m³', 'pass');
-  window._g8_pm_data = {prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, V: V, ok: true, dmb: r.dmb, dma: r.dma, C: r.C};
+    + 'ρ = (m̄后−m̄前)×10⁶/V = (' + fmtNum(r.mbarA,4) + '−' + fmtNum(r.mbarB,4) + ')×10⁶/' + fmtNum(V,1) + ' = <b>' + fmtNum(r.C,4) + '</b> mg/m³', weighCls);
+  window._g8_pm_data = {prec: prec, mb1: mb1, mb2: mb2, ma1: ma1, ma2: ma2, V: V, ok: ok, dmb: r.dmb, dma: r.dma, C: r.C};
 }
 
 var TVOC_NAMES=['正己烷','乙酸乙酯','三氯甲烷','苯','四氯化碳','环己烷','正庚烷','三氯乙烯','甲基环己烷','甲苯','正辛烷','四氯乙烯','乙酸丁酯','氯苯','乙苯','间二甲苯','对二甲苯','苯乙烯','邻二甲苯','正壬烷','1,4-二氯苯','正十六烷'];
@@ -7504,8 +7472,8 @@ function buildTvocDGrid(){
   TVOC_NAMES.forEach(function(name,i){
     var n=i+1;
     html+='<div class="tvoc-item"><div class="tvoc-item-head"><span class="tvoc-idx">'+(n<10?('0'+n):n)+'</span><span class="tvoc-name">'+name+'</span></div>'
-      +'<div class="tvoc-item-in"><label>Aᵢ</label><input type="number" id="g8td_a_'+n+'" step="any" placeholder="峰面积" oninput="tvocDItem('+n+')"></div>'
-      +'<div class="tvoc-item-in"><label>kᵢ</label><input type="number" id="g8td_k_'+n+'" step="any" placeholder="斜率" oninput="tvocDItem('+n+')"></div>'
+      +'<div class="tvoc-item-in"><label>峰面积 Aᵢ</label><input type="number" id="g8td_a_'+n+'" step="any" placeholder="峰面积" oninput="tvocDItem('+n+')"></div>'
+      +'<div class="tvoc-item-in"><label>斜率 kᵢ</label><input type="number" id="g8td_k_'+n+'" step="any" placeholder="斜率" oninput="tvocDItem('+n+')"></div>'
       +'<div class="tvoc-item-out" id="g8td_r_'+n+'">—</div></div>';
   });
   grid.innerHTML=html;
